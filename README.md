@@ -1,6 +1,8 @@
 # MyRC
 my archlinux setting resouce files
 
+![screenshot](./screenshot/screenshot.png)
+
 tmux config from [gpakosz/.tmux](https://github.com/gpakosz/.tmux)
 
 i3wm config from [CanftIn/i3wm-themer](https://github.com/CanftIn/i3wm-themer)
