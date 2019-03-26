@@ -1,5 +1,5 @@
 # MyRC
-my archlinux setting resouce files
+my archlinux setting resouce files, the `wsl` fold is about windows subsystem linux environment setting.
 
 ![screenshot](./screenshot/screenshot.png)
 
@@ -21,4 +21,11 @@ enable the touchpad:
 $ xinput list
 $ xinput list-props "SynPS/2 Synaptics TouchPad" 
 $ xinput set-prop "SynPS/2 Synaptics TouchPad"  "libinput Tapping Enabled" 1
+```
+
+**how to use:**
+```bash
+git clone https://github.com/CanftIn/MyRC.git
+cd MyRC
+cp -r . ~
 ```
