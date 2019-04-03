@@ -318,6 +318,36 @@ layers configuration.
 This is the place where most of your configurations should be done. Unless it is
 explicitly specified that a variable should be set before a package is loaded,
 you should place your code here."
+  ;;https://github.com/syl20bnr/spacemacs/issues/2222
+   (defun copy-to-clipboard ()
+      "Copies selection to x-clipboard."
+      (interactive)
+      (if (display-graphic-p)
+          (progn
+            (message "Yanked region to x-clipboard!")
+            (call-interactively 'clipboard-kill-ring-save)
+            )
+        (if (region-active-p)
+            (progn
+              (shell-command-on-region (region-beginning) (region-end) "xsel -i -b")
+              (message "Yanked region to clipboard!")
+              (deactivate-mark))
+          (message "No region active; can't yank to clipboard!")))
+      )
+
+    (defun paste-from-clipboard ()
+      "Pastes from x-clipboard."
+      (interactive)
+      (if (display-graphic-p)
+          (progn
+            (clipboard-yank)
+            (message "graphics active")
+            )
+        (insert (shell-command-to-string "xsel -o -b"))
+        )
+      )
+  (evil-leader/set-key "o y" 'copy-to-clipboard)
+  (evil-leader/set-key "o p" 'paste-from-clipboard)
   )
 
 ;; Do not write anything past this comment. This is where Emacs will
