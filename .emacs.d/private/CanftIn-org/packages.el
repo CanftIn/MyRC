@@ -37,4 +37,25 @@
     sound-wav
     org-tree-slide))
 
-;;; packages.el ends here
+(defun CanftIn-org/post-init-org-pomodoro ()
+  )
+
+(defun CanftIn-org/post-init-org ()
+  )
+
+(defun CanftIn-org/post-init-deft ()
+  (progn
+    (setq deft-use-filter-string-for-filename t)
+    (setq deft-recursive t)
+    (setq deft-extension "org")
+    (setq deft-directory deft-dir)))
+
+(defun zilongshanren-org/init-sound-wav ()
+  (use-package sound-wav
+    :defer t
+    :init))
+
+(defun zilongshanren-org/init-org-tree-slide ()
+  (use-package org-tree-slide
+    :init
+    (spacemacs/set-leader-keys "oto" 'org-tree-slide-mode)))
