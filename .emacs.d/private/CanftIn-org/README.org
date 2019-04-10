@@ -6,18 +6,15 @@
 # TOC links should be GitHub style anchors.
 * Table of Contents                                        :TOC_4_gh:noexport:
 - [[#description][Description]]
-  - [[#features][Features:]]
+  - [[#参考链接][参考链接：]]
 - [[#install][Install]]
 - [[#key-bindings][Key bindings]]
 
 * Description
-This layer adds support for something.
+** 参考链接：
+[[https://github.com/lujun9972/.spacemacs.d/tree/master/layers/my-GTD]]
+[[https://github.com/zilongshanren/spacemacs-private/blob/develop/layers/zilongshanren-org]]
 
-** Features:
-  - Autocomplete
-  - Lint
-  - Refactor
-  - ...
 
 * Install
 To use this configuration layer, add it to your =~/.spacemacs=. You will need to
@@ -30,8 +27,3 @@ file.
 |-------------+----------------|
 | ~SPC x x x~ | Does thing01   |
 
-# Use GitHub URLs if you wish to link a Spacemacs documentation file or its heading.
-# Examples:
-# [[https://github.com/syl20bnr/spacemacs/blob/master/doc/VIMUSERS.org#sessions]]
-# [[https://github.com/syl20bnr/spacemacs/blob/master/layers/%2Bfun/emoji/README.org][Link to Emoji layer README.org]]
-# If space-doc-mode is enabled, Spacemacs will open a local copy of the linked file.
