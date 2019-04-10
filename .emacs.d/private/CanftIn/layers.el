@@ -1,2 +1,3 @@
 (configuration-layer/declare-layers '(
-                                      CanftIn-org))
+                                      CanftIn-org
+                                      CanftIn-person))
