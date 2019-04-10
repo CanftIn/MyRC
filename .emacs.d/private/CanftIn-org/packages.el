@@ -41,9 +41,9 @@
     ))
 
 
-(defun CanftIn-sorg/post-init-org-pomodoro ()
+(defun CanftIn-org/post-init-org-pomodoro ()
   (CanftIn/pomodoro-notification)
-  )
+ )
 
 (defun CanftIn-org/post-init-org ()
   )
