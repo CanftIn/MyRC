@@ -39,17 +39,28 @@ This function should only modify configuration layer settings."
      ;; Uncomment some layer names and press `SPC f e R' (Vim style) or
      ;; `M-m f e R' (Emacs style) to install them.
      ;; ----------------------------------------------------------------
-     ocaml
+     ;;ocaml
      clojure
-     sml
+     ;;sml
      haskell
      c-c++
      helm
-     colors
+     (colors :variables
+             colors-colorize-identifiers 'variables ;; set to 'all or 'variables
+             colors-enable-nyan-cat-progress-bar t
+             )
      prodigy
+     emoji
      search-engine
      graphviz
-     auto-completion
+     (auto-completion :variables
+                      auto-completion-return-key-behavior nil
+                      auto-completion-tab-key-behavior 'cycle
+                      auto-completion-complete-with-key-sequence "jk"
+                      auto-completion-complete-with-key-sequence-delay 0.1
+                      auto-completion-enable-snippets-in-popup t
+                      auto-completion-enable-help-tooltip nil
+                      auto-completion-enable-sort-by-usage t)
      better-defaults
      emacs-lisp
      git
@@ -57,7 +68,9 @@ This function should only modify configuration layer settings."
      multiple-cursors
      ;; treemacs
      neotree
-     org
+     (org :variables
+          org-enable-github-support t
+          org-enable-bootstrap-support t)
      ;; (shell :variables
      ;;        shell-default-height 30
      ;;        shell-default-position 'bottom)
@@ -74,7 +87,8 @@ This function should only modify configuration layer settings."
    ;; To use a local version of a package, use the `:location' property:
    ;; '(your-package :location "~/path/to/your-package/")
    ;; Also include the dependencies as they will not be resolved automatically.
-   dotspacemacs-additional-packages '()
+   dotspacemacs-additional-packages '(all-the-icons
+                                      all-the-icons-dired)
 
    ;; A list of packages that cannot be updated.
    dotspacemacs-frozen-packages '()
@@ -197,7 +211,16 @@ It should only modify the values of Spacemacs settings."
    ;; List of themes, the first of the list is loaded when spacemacs starts.
    ;; Press `SPC T n' to cycle to the next theme in the list (works great
    ;; with 2 themes variants, one dark and one light)
-   dotspacemacs-themes '(spacemacs-dark
+   dotspacemacs-themes '(
+                         material
+                         material-light
+                         ;; majapahit-dark
+                         ;; majapahit-light
+                         ;; moe-dark
+                         ;; moe-light
+                         ;; solarized-dark
+                         ;; solarized-light
+                         spacemacs-dark
                          spacemacs-light)
 
    ;; Set the theme for the Spaceline. Supported themes are `spacemacs',
@@ -504,7 +527,62 @@ before packages are loaded."
       )
   (evil-leader/set-key "o y" 'copy-to-clipboard)
   (evil-leader/set-key "o p" 'paste-from-clipboard)
+
+  ;;Org Agenda
+  (setq org-agenda-files '("~/CanftIn-GTD"))
+  (setq org-agenda-file-regexp "\\`[^.].*\\.org\\(_archive\\)?\\'") ;;archive事项也纳入agenda显示
+  (setq org-agenda-include-diary t)       ;;将diary的事项也纳入agenda中显示
+
+
+  (linum-relative-mode t)
+
+  ;; Main Settings
+  (setq-default evil-escape-key-sequence "fd")
+  (setq-default evil-escape-unordered-key-sequence t)
+  (setq-default scroll-margin 5
+                ;; scroll-conservatively 9999
+                ;; scroll-step 1
+                )
+  (setq-default google-translate-default-source-language "en"
+                google-translate-default-target-language "th")
+  (setq powerline-default-separator 'slant)
+
+  ;; Keybindings
+  ;; mapping j to gj or k to gk will prohibit you from using dj or dk to delete 2 lines
+  ;; (define-key evil-normal-state-map (kbd "j") 'evil-next-visual-line)
+  ;; (define-key evil-normal-state-map (kbd "k") 'evil-previous-visual-line)
+  (defun swoop-find-todos () (interactive) (helm-swoop :$query "\\(fixme\\|todo\\|xxx\\)"))
+  (defun swoop-find-todos-all () (interactive) (helm-multi-swoop-all "\\(fixme\\|todo\\|xxx\\)"))
+  (evil-leader/set-key "o s t" 'swoop-find-todos)
+  (evil-leader/set-key "o s T" 'swoop-find-todos-all)
+  (define-key global-map (kbd "C-+") 'text-scale-increase)
+  (define-key global-map (kbd "C-=") 'text-scale-increase)
+  (define-key global-map (kbd "C--") 'text-scale-decrease)
+  (global-set-key [f1] 'shell)
+  (with-eval-after-load 'helm
+    (define-key helm-map (kbd "C-u") 'evil-delete-whole-line))
+  ;; if you want to activate transient state, try `SPC n =' instead
+  (define-key evil-normal-state-map (kbd "C-a") 'evil-numbers/inc-at-pt)
+  (define-key evil-insert-state-map (kbd "C-f") 'comint-dynamic-complete-filename)
+  (evil-define-key 'insert global-map (kbd "C-v") 'evil-paste-after)
+
+
+  ;; Settings
+  ;; Add personal script path, so that "require" works for personal scripts.
+  (push "~/.spacemacs.d/config/" load-path)
+  (spacemacs/toggle-highlight-current-line-globally-off)
+  ;; Modify imenu-list so that the window position is centered after each jump.
+  ;; (add-hook 'imenu-after-jump-hook (lambda () (recenter 10)))
+  (colors/add-theme-sat&light 'material '(70 75))
+  (colors/refresh-theme-look)
+  ;; (remove-hook `python-mode-hook `turn-on-evil-matchit-mode)
+  (setq evilmi-always-simple-jump t)
+  ;; all-the-icons fonts are needed for neotree to display file icons properly
+  ;; Download and install all fonts inside this repository: https://github.com/domtronn/all-the-icons.el/tree/master/fonts
+  ;; (use-package all-the-icons)
+  (setq neo-theme (if (display-graphic-p) 'icons 'ascii))
+  (add-hook 'dired-mode-hook 'all-the-icons-dired-mode)
+  (add-hook 'magit-mode-hook 'emoji-cheat-sheet-plus-display-mode)
   )
 
-;; Do not write anything past this comment. This is where Emacs will
-;; auto-generate custom variable definitions.
+;; Do not write anything past this comment. This is where Emacs will ;; auto-generate custom variable definitions.
