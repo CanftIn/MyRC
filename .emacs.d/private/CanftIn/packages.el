@@ -31,10 +31,7 @@
 
 (defconst CanftIn-packages
   '(
-    2048-game
     ))
   "The list of Lisp packages required by the CanftIn layer."
 
-(defun CanftIn/init-2048-game ()
-  (use-package 2048-game))
 ;;; packages.el ends here
