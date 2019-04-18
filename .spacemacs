@@ -548,7 +548,11 @@ before packages are loaded."
   ;;              (set (make-local-variable ‘system-time-locale) “C”)))
   (setq system-time-locale "C")
 
-
+  ;;scheme setting
+  ;;https://zhuanlan.zhihu.com/p/32772065 
+  (setq scheme-program-name "racket")
+  (setq geiser-chez-binary "racket")
+  (setq geiser-active-implementations '(racket))
 
   ;;https://github.com/off99555/.spacemacs.d
   ;; Main Settings
