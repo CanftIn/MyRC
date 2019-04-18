@@ -79,7 +79,9 @@ This function should only modify configuration layer settings."
      ;spell-checking
      syntax-checking
      version-control
+     ;;my own layers
      CanftIn
+     (display :location local)
      )
 
    ;; List of additional packages that will be installed without being
