@@ -484,6 +484,8 @@ If you are unsure, try setting them in `dotspacemacs/user-config' first."
         '(("melpa-cn" . "http://elpa.zilongshanren.com/melpa/")
           ("org-cn"   . "http://elpa.zilongshanren.com/org/")
           ("gnu-cn"   . "http://elpa.zilongshanren.com/gnu/")))
+
+
   )
 
 (defun dotspacemacs/user-load ()
@@ -536,7 +538,7 @@ before packages are loaded."
   (setq org-agenda-include-diary t)       ;;将diary的事项也纳入agenda中显示
 
 
-  (linum-relative-mode t)
+  (linum-relative-global-mode t)
   ;;fix date garbled
   ;;https://www.cqmaple.com/201709/win10-emacs-org-mode-agenda-time.html
   ;;https://emacs-china.org/t/org-mode-agenda-learn-emacs-in-21-days-day-6/2780 
