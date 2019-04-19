@@ -65,7 +65,7 @@ This function should only modify configuration layer settings."
                       auto-completion-enable-sort-by-usage t)
      better-defaults
      emacs-lisp
-     git
+     ;;git
      markdown
      multiple-cursors
      ;; treemacs
@@ -544,6 +544,7 @@ before packages are loaded."
   (setq org-agenda-file-regexp "\\`[^.].*\\.org\\(_archive\\)?\\'") ;;archive事项也纳入agenda显示
   (setq org-agenda-include-diary t)       ;;将diary的事项也纳入agenda中显示
 
+  (add-to-list 'exec-path "/usr/bin")
   ;;emacs25 supported emacs26 unsupported https://github.com/syl20bnr/spacemacs/issues/10853 
   ;;(linum-relative-global-mode t)
   (spacemacs/toggle-relative-line-numbers-on)
@@ -556,11 +557,18 @@ before packages are loaded."
   ;;              (set (make-local-variable ‘system-time-locale) “C”)))
   (setq system-time-locale "C")
 
+  ;;https://github.com/magit/magit/issues/2492 
+  (setq-default with-editor-emacsclient-executable "emacsclient")
+
+
   ;;scheme setting
   ;;https://zhuanlan.zhihu.com/p/32772065 
-  (setq scheme-program-name "racket")
-  (setq geiser-chez-binary "racket")
-  (setq geiser-active-implementations '(racket))
+  ;;(setq scheme-program-name "racket")
+  ;;(setq geiser-chez-binary "racket")
+  ;;(setq geiser-active-implementations '(racket))
+  (setq scheme-program-name "chicken-csi")
+  (setq geiser-chez-binary "chicken-csi")
+  (setq geiser-active-implementations '(chicken-csi))
 
   ;;https://github.com/off99555/.spacemacs.d
   ;; Main Settings
