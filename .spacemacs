@@ -365,12 +365,12 @@ It should only modify the values of Spacemacs settings."
    ;; If non-nil unicode symbols are displayed in the mode line.
    ;; If you use Emacs as a daemon and wants unicode characters only in GUI set
    ;; the value to quoted `display-graphic-p'. (default t)
-   dotspacemacs-mode-line-unicode-symbols t
+   dotspacemacs-mode-line-unicode-symbols nil ;;t
 
    ;; If non-nil smooth scrolling (native-scrolling) is enabled. Smooth
    ;; scrolling overrides the default behavior of Emacs which recenters point
    ;; when it reaches the top or bottom of the screen. (default t)
-   dotspacemacs-smooth-scrolling t
+   dotspacemacs-smooth-scrolling nil;;t
 
    ;; Control line numbers activation.
    ;; If set to `t' or `relative' line numbers are turned on in all `prog-mode' and
@@ -487,6 +487,11 @@ If you are unsure, try setting them in `dotspacemacs/user-config' first."
           ("org-cn"   . "http://elpa.zilongshanren.com/org/")
           ("gnu-cn"   . "http://elpa.zilongshanren.com/gnu/")))
 
+  (defun on-after-init ()
+    (unless (display-graphic-p (selected-frame))
+      (set-face-background 'default "unspecified-bg" (selected-frame))))
+  (add-hook 'window-setup-hook 'on-after-init)
+
 
   )
 
@@ -539,8 +544,9 @@ before packages are loaded."
   (setq org-agenda-file-regexp "\\`[^.].*\\.org\\(_archive\\)?\\'") ;;archive事项也纳入agenda显示
   (setq org-agenda-include-diary t)       ;;将diary的事项也纳入agenda中显示
 
-
-  (linum-relative-global-mode t)
+  ;;emacs25 supported emacs26 unsupported https://github.com/syl20bnr/spacemacs/issues/10853 
+  ;;(linum-relative-global-mode t)
+  (spacemacs/toggle-relative-line-numbers-on)
   ;;fix date garbled
   ;;https://www.cqmaple.com/201709/win10-emacs-org-mode-agenda-time.html
   ;;https://emacs-china.org/t/org-mode-agenda-learn-emacs-in-21-days-day-6/2780 
