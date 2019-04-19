@@ -14,7 +14,10 @@
   (use-package pretty-code
     :config
     (progn
-      (pretty-code-add-hook 'emacs-lisp-mode-hook '((:def "defun")))
+      (pretty-code-add-hook 'scheme-mode-hook '((:def "defun")
+                                                (:lambda "lambda")))
+      (pretty-code-add-hook 'emacs-lisp-mode-hook '((:def "defun")
+                                                    (:lambda "lambda")))
       (pretty-code-add-hook 'hy-mode-hook         '((:def "defn")
                                                     (:lambda "fn")))
       (pretty-code-add-hook 'python-mode-hook     '((:def "def")
