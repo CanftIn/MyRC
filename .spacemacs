@@ -560,6 +560,9 @@ before packages are loaded."
   ;;https://github.com/magit/magit/issues/2492 
   (setq-default with-editor-emacsclient-executable "emacsclient")
 
+  (global-hungry-delete-mode 1)
+  (delete-selection-mode 1)
+
 
   ;;scheme setting
   ;;https://zhuanlan.zhihu.com/p/32772065 
