@@ -17,23 +17,48 @@
 
 ;;;; Configuration
 
+;;(defvar pretty-code-options-alist
+;;  ;; Functions
+;;  '((:lambda "λ") (:def "ƒ")
+;;
+;;    ;; Types
+;;    (:true "𝕋") (:false "𝔽") (:int "ℤ") (:float "ℝ") (:str "𝕊") (:bool "𝔹")
+;;
+;;    ;; Seqs
+;;    (:for "∀") (:in "∈") (:not-in "∉")
+;;
+;;    ;; Flow
+;;    (:not "￢") (:and "∧") (:or "∨")
+;;
+;;    ;; Misc
+;;    (:return "⟼") (:yield "⟻") (:some "∃") (:composition "∘") (:tuple "⨂"))
+;;  "kwd and composition-str alist.")
+
 (defvar pretty-code-options-alist
   ;; Functions
   '((:lambda "λ") (:def "ƒ")
 
     ;; Types
-    (:true "𝕋") (:false "𝔽") (:int "ℤ") (:float "ℝ") (:str "𝕊") (:bool "𝔹")
+    (:null "∅") (:true "𝕋") (:false "𝔽") (:int "ℤ") (:float "ℝ") (:str "𝕊") (:bool "𝔹")
 
     ;; Seqs
     (:for "∀") (:in "∈") (:not-in "∉")
 
     ;; Flow
-    (:not "￢") (:and "∧") (:or "∨")
+    (:in          "∈") (:not-in      "∉")
+    (:return     "⟼") (:yield      "⟻")
+    (:and         "∧") (:or          "∨")
+    (:not         "￢")
+    (:for         "∀")
+    (:some        "∃")
+
+    ;; Other
+    (:tuple       "⨂")
+    (:pipe        "")
 
     ;; Misc
     (:return "⟼") (:yield "⟻") (:some "∃") (:composition "∘") (:tuple "⨂"))
   "kwd and composition-str alist.")
-
 ;;;; Core
 
 ;;;###autoload
