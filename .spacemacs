@@ -560,8 +560,14 @@ before packages are loaded."
   ;;https://github.com/magit/magit/issues/2492 
   (setq-default with-editor-emacsclient-executable "emacsclient")
 
-  (global-hungry-delete-mode 1)
   (delete-selection-mode 1)
+  (global-hungry-delete-mode 1)
+  ;;(require 'smart-hungry-delete)
+  ;;(smart-hungry-delete-add-default-hooks)
+  ;;(global-set-key (kbd "<backspace>") 'smart-hungry-delete-backward-char)
+  ;;(global-set-key (kbd "C-d") 'smart-hungry-delete-forward-char)
+  ;;https://github.com/syl20bnr/spacemacs/issues/6584 
+  (defadvice hungry-delete-backward (before sp-delete-pair-advice activate) (save-match-data (sp-delete-pair (ad-get-arg 0))))
 
 
   ;;scheme setting
