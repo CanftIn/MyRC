@@ -1,7 +1,7 @@
 # MyRC
 my archlinux setting resouce files, the `wsl` fold is about windows subsystem linux environment setting.
 
-![screenshot](./screenshot/screenshot.png)
+![screenshot](./screenshots/screenshot.png)
 
 tmux config from [gpakosz/.tmux](https://github.com/gpakosz/.tmux)
 
