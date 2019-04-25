@@ -65,7 +65,7 @@ This function should only modify configuration layer settings."
                       auto-completion-enable-sort-by-usage t)
      better-defaults
      emacs-lisp
-     ;;git
+     git
      markdown
      multiple-cursors
      ;; treemacs
@@ -243,7 +243,7 @@ It should only modify the values of Spacemacs settings."
    ;; Default font, or prioritized list of fonts. `powerline-scale' allows to
    ;; quickly tweak the mode-line size to make separators look not too crappy.
    dotspacemacs-default-font '("Source Code Pro"
-                               :size 13
+                               :size 15 ;;13
                                :weight normal
                                :width normal)
 
@@ -365,12 +365,12 @@ It should only modify the values of Spacemacs settings."
    ;; If non-nil unicode symbols are displayed in the mode line.
    ;; If you use Emacs as a daemon and wants unicode characters only in GUI set
    ;; the value to quoted `display-graphic-p'. (default t)
-   dotspacemacs-mode-line-unicode-symbols nil ;;t
+   dotspacemacs-mode-line-unicode-symbols t
 
    ;; If non-nil smooth scrolling (native-scrolling) is enabled. Smooth
    ;; scrolling overrides the default behavior of Emacs which recenters point
    ;; when it reaches the top or bottom of the screen. (default t)
-   dotspacemacs-smooth-scrolling nil;;t
+   dotspacemacs-smooth-scrolling t
 
    ;; Control line numbers activation.
    ;; If set to `t' or `relative' line numbers are turned on in all `prog-mode' and
@@ -492,6 +492,92 @@ If you are unsure, try setting them in `dotspacemacs/user-config' first."
       (set-face-background 'default "unspecified-bg" (selected-frame))))
   (add-hook 'window-setup-hook 'on-after-init)
 
+  ;;------------------------------------------------------------------------------
+  ;;https://maartenv.be/gitar/rc/master/.spacemacs 
+  (add-hook 'text-mode-hook #'auto-fill-mode)
+;;; Fira code
+  ;; This works when using emacs --daemon + emacsclient
+  (add-hook 'after-make-frame-functions (lambda (frame) (set-fontset-font t '(#Xe100 . #Xe16f) "Fira Code Symbol")))
+  ;; This works when using emacs without server/client
+  (set-fontset-font t '(#Xe100 . #Xe16f) "Fira Code Symbol")
+  ;; I haven't found one statement that makes both of the above situations work, so I use both for now
+  ;; All possible Fira code symbols. I've commented some for historical purposes,
+  ;; and only left the ones I do want to see. They may be removed one day, but for
+  ;; now, they'll stay here.
+  ;; I generally only use the ones that actually give new symbols based on their
+  ;; ligature. ";;" is just the same symbol mashed together, so I don't use that.
+  (defconst fira-code-font-lock-keywords-alist
+    (mapcar (lambda (regex-char-pair)
+              `(,(car regex-char-pair)
+                (0 (prog1 ()
+                     (compose-region (match-beginning 1)
+                                     (match-end 1)
+                                     ;; The first argument to concat is a string containing a literal tab
+                                     ,(concat "	" (list (decode-char 'ucs (cadr regex-char-pair)))))))))
+            '(;("[^/]\\(\\*\\*\\)[^/]"        #Xe101)
+              ;;("[^*]\\(\\*/\\)"              #Xe105)
+              ;;("\\(\\\\\\\\\\)"              #Xe106)
+              ("\\({-\\)"                    #Xe108)
+              ;;("\\(\\[\\]\\)"                #Xe109)
+              ;;("[^=]\\(:=\\)"                #Xe10c)
+              ("\\(!=\\)"                    #Xe10e)
+              ("\\(!==\\)"                   #Xe10f)
+              ("\\(-}\\)"                    #Xe110)
+              ("\\(-->\\)"                   #Xe113)
+              ("[^-]\\(->\\)"                #Xe114)
+              ("\\(->>\\)"                   #Xe115)
+              ("\\(-<\\)"                    #Xe116)
+              ("\\(-<<\\)"                   #Xe117)
+              ("\\(-~\\)"                    #Xe118)
+              ("\\(\\.-\\)"                  #Xe122)
+              ("\\(\\.=\\)"                  #Xe123)
+              ("\\(/=\\)"                    #Xe12c)
+              ("\\(/==\\)"                   #Xe12d)
+              ("\\(|>\\)"                    #Xe135)
+              ("[^!/]\\(==\\)[^>]"           #Xe13c)
+              ("\\(===\\)"                   #Xe13d)
+              ("\\(==>\\)"                   #Xe13e)
+              ("[^=]\\(=>\\)"                #Xe13f)
+              ("\\(=>>\\)"                   #Xe140)
+              ("\\(<=\\)"                    #Xe141)
+              ("\\(=<<\\)"                   #Xe142)
+              ("\\(=/=\\)"                   #Xe143)
+              ("\\(>-\\)"                    #Xe144)
+              ("\\(>=\\)"                    #Xe145)
+              ("\\(>=>\\)"                   #Xe146)
+              ;;("[^-=]\\(>>\\)"               #Xe147)
+              ("\\(>>-\\)"                   #Xe148)
+              ("\\(>>=\\)"                   #Xe149)
+              ("\\(<|\\)"                    #Xe14d)
+              ("\\(<|>\\)"                   #Xe14e)
+              ("\\(<-\\)"                    #Xe152)
+              ("\\(<--\\)"                   #Xe153)
+              ("\\(<->\\)"                   #Xe154)
+              ("\\(<=\\)"                    #Xe157)
+              ("\\(<==\\)"                   #Xe158)
+              ("\\(<=>\\)"                   #Xe159)
+              ("\\(<=<\\)"                   #Xe15a)
+              ("\\(<>\\)"                    #Xe15b)
+              ;;("[^-=]\\(<<\\)"               #Xe15c)
+              ("\\(<<-\\)"                   #Xe15d)
+              ("\\(<<=\\)"                   #Xe15e)
+              ("\\(<<<\\)"                   #Xe15f)
+              ("\\(<~\\)"                    #Xe160)
+              ("\\(<~~\\)"                   #Xe161)
+              ("\\(~@\\)"                    #Xe164)
+              ("\\(~-\\)"                    #Xe165)
+              ("\\(~=\\)"                    #Xe166)
+              ("\\(~>\\)"                    #Xe167)
+              ("[^<]\\(~~\\)"                #Xe168)
+              ("\\(~~>\\)"                   #Xe169)
+              ("[^:=]\\(:\\)[^:=]"           #Xe16c)
+              ("[^\\+<>]\\(\\+\\)[^\\+<>]"   #Xe16d)
+              ("[^\\*/<>]\\(\\*\\)[^\\*/<>]" #Xe16f))))
+  (defun add-fira-code-symbol-keywords ()
+    (font-lock-add-keywords nil fira-code-font-lock-keywords-alist))
+  (add-hook 'prog-mode-hook
+            #'add-fira-code-symbol-keywords)
+
 
   )
 
@@ -508,34 +594,35 @@ This function is called at the very end of Spacemacs startup, after layer
 configuration.
 Put your configuration code here, except for variables that should be set
 before packages are loaded."
+  ;;copy and paste key binding
   ;;https://github.com/syl20bnr/spacemacs/issues/2222
-   (defun copy-to-clipboard ()
-      "Copies selection to x-clipboard."
-      (interactive)
-      (if (display-graphic-p)
+  (defun copy-to-clipboard ()
+    "Copies selection to x-clipboard."
+    (interactive)
+    (if (display-graphic-p)
+        (progn
+          (message "Yanked region to x-clipboard!")
+          (call-interactively 'clipboard-kill-ring-save)
+          )
+      (if (region-active-p)
           (progn
-            (message "Yanked region to x-clipboard!")
-            (call-interactively 'clipboard-kill-ring-save)
-            )
-        (if (region-active-p)
-            (progn
-              (shell-command-on-region (region-beginning) (region-end) "xsel -i -b")
-              (message "Yanked region to clipboard!")
-              (deactivate-mark))
-          (message "No region active; can't yank to clipboard!")))
-      )
+            (shell-command-on-region (region-beginning) (region-end) "xsel -i -b")
+            (message "Yanked region to clipboard!")
+            (deactivate-mark))
+        (message "No region active; can't yank to clipboard!")))
+    )
 
-    (defun paste-from-clipboard ()
-      "Pastes from x-clipboard."
-      (interactive)
-      (if (display-graphic-p)
-          (progn
-            (clipboard-yank)
-            (message "graphics active")
-            )
-        (insert (shell-command-to-string "xsel -o -b"))
-        )
+  (defun paste-from-clipboard ()
+    "Pastes from x-clipboard."
+    (interactive)
+    (if (display-graphic-p)
+        (progn
+          (clipboard-yank)
+          (message "graphics active")
+          )
+      (insert (shell-command-to-string "xsel -o -b"))
       )
+    )
   (evil-leader/set-key "o y" 'copy-to-clipboard)
   (evil-leader/set-key "o p" 'paste-from-clipboard)
 
@@ -543,6 +630,88 @@ before packages are loaded."
   (setq org-agenda-files '("~/CanftIn-GTD"))
   (setq org-agenda-file-regexp "\\`[^.].*\\.org\\(_archive\\)?\\'") ;;archive事项也纳入agenda显示
   (setq org-agenda-include-diary t)       ;;将diary的事项也纳入agenda中显示
+
+  ;;------------------------------------------------------------
+  ;; Settings for prettify-symbols-mode
+;;  (global-prettify-symbols-mode 1)
+;;
+;;  (add-hook 'clojure-mode-hook
+;;            (lambda ()
+;;              (mapc (lambda (pair) (push pair prettify-symbols-alist))
+;;                    '(
+;;                      ("infinity" .      ?∞)))))
+;;
+;;  (add-hook 'python-mode-hook
+;;            (lambda ()
+;;              (mapc (lambda (pair) (push pair prettify-symbols-alist))
+;;                    '(;; Syntax
+;;                      ;;("def" .      #x2131) ;; Enable when you figure out how to make it in a pretty font...
+;;                      ("not" .      #x2757)
+;;                      ("in" .       #x2208)
+;;                      ("not in" .   #x2209)
+;;                      ("return" .   #x27fc)
+;;                      ("yield" .    #x27fb)
+;;                      ("for" .      #x2200)
+;;                      ;; Base Types
+;;                      ("int" .      #x2124)
+;;                      ("float" .    #x211d)
+;;                      ("str" .      #x1d54a)
+;;                      ("True" .     #x1d54b)
+;;                      ("False" .    #x1d53d)
+;;                      ;; Mypy
+;;                      ;;("Dict" .     #x1d507)
+;;                      ("List" .     #x2112)
+;;                      ("Tuple" .    #x2a02)
+;;                      ("Set" .      #x2126)
+;;                      ("Iterable" . #x1d50a)
+;;                      ("Any" .      #x2754)
+;;                      ("Union" .    #x22c3)))))
+;;  (add-hook 'haskell-mode-hook
+;;            (lambda ()
+;;              (mapc (lambda (pair) (push pair prettify-symbols-alist))
+;;                    '(
+;;                      ;;Number sets & other types
+;;                      ("Float"      . ?ℝ)
+;;                      ("Complex"    . ?ℂ)
+;;                      ("Int"        . ?ℤ)
+;;                      ("Fractional" . ?ℚ)
+;;                      ("String"     . ?𝕊)
+;;                      ("Bool"       . ?𝔹)
+;;                      ;; Predefined ranges
+;;                      ("[0..]"      . ? )
+;;                      ("[1..]"      . ? )
+;;                      ("[(-0),(-1)..]" . ? )
+;;                      ("[(-1),(-2)..]" . ? )
+;;                      ;; Operators
+;;                      ;;("*" .        ?✕)
+;;                      ("*"          . ?·) ;; Because someone asked nicely <3
+;;                      ;;Logic
+;;                      ("True"       . ?𝕋)
+;;                      ("False"      . ?𝔽)))))
+;;  ;; A lot of Haskell's signs are provided through pretty-mode already
+;;
+;;  (add-hook 'haskell-mode-hook 'turn-on-pretty-mode)
+;;
+;;  (require 'pretty-mode) ;; Settings for pretty-mode
+;;
+;;  (global-pretty-mode t)
+;;
+;;  ;; These groups will be deactivated, and pretty-mode will not use these.
+;;  ;; However, they're more useful than using Fira Code ligatures, and
+;;  ;; pretty-mode has support for Haskell-mode, and uses the normal font (i.e. Hack)
+;;  ;; To display the logic and symbol. So in the future, try to activate as much
+;;  ;; groups as possible, and deactivate manually where it's appropriate, so I can
+;;  ;; take full advantage of GNU Emacs' offerings.
+;;
+;;  (pretty-deactivate-groups
+;;   '(:equality :arrows :arrows-twoheaded))
+;;  ;;'(:equality :ordering :ordering-double :ordering-triple
+;;  ;;:arrows :arrows-twoheaded :punctuation
+;;  ;;:logic :sets))
+;;
+;;  (pretty-activate-groups
+;;   '(:sub-and-superscripts :greek :arithmetic-nary))
+  ;;------------------------------------------------------------------
 
   (add-to-list 'exec-path "/usr/bin")
   ;;emacs25 supported emacs26 unsupported https://github.com/syl20bnr/spacemacs/issues/10853 
@@ -560,6 +729,7 @@ before packages are loaded."
   ;;https://github.com/magit/magit/issues/2492 
   (setq-default with-editor-emacsclient-executable "emacsclient")
 
+  ;;delete-mode
   (delete-selection-mode 1)
   (global-hungry-delete-mode 1)
   ;;(require 'smart-hungry-delete)
@@ -569,15 +739,14 @@ before packages are loaded."
   ;;https://github.com/syl20bnr/spacemacs/issues/6584 
   (defadvice hungry-delete-backward (before sp-delete-pair-advice activate) (save-match-data (sp-delete-pair (ad-get-arg 0))))
 
-
   ;;scheme setting
   ;;https://zhuanlan.zhihu.com/p/32772065 
-  ;;(setq scheme-program-name "racket")
-  ;;(setq geiser-chez-binary "racket")
-  ;;(setq geiser-active-implementations '(racket))
-  (setq scheme-program-name "chicken-csi")
-  (setq geiser-chez-binary "chicken-csi")
-  (setq geiser-active-implementations '(chicken-csi))
+  (setq scheme-program-name "racket")
+  (setq geiser-chez-binary "racket")
+  (setq geiser-active-implementations '(racket))
+  ;;(setq scheme-program-name "chicken-csi")
+  ;;(setq geiser-chez-binary "chicken-csi")
+  ;;(setq geiser-active-implementations '(chicken-csi))
 
   ;;https://github.com/off99555/.spacemacs.d
   ;; Main Settings
@@ -661,7 +830,7 @@ This function is called at the very end of Spacemacs initialization."
      ("???" . "#dc752f"))))
  '(package-selected-packages
    (quote
-    (yapfify stickyfunc-enhance pytest pyenv-mode py-isort pippel pipenv pyvenv pip-requirements live-py-mode importmagic epc ctable concurrent helm-pydoc helm-gtags helm-cscope xcscope ggtags cython-mode counsel-gtags company-anaconda anaconda-mode pythonic ox-twbs ox-gfm material-theme emojify ht emoji-cheat-sheet-plus company-emoji all-the-icons-dired yasnippet-snippets ws-butler writeroom-mode winum which-key volatile-highlights vi-tilde-fringe uuidgen use-package unfill toc-org symon string-inflection spaceline-all-the-icons sound-wav smeargle restart-emacs rainbow-mode rainbow-identifiers rainbow-delimiters prodigy popwin persp-mode pcre2el password-generator paradox overseer orgit org-tree-slide org-projectile org-present org-pomodoro org-mime org-download org-bullets org-brain open-junk-file neotree nameless mwim move-text mmm-mode markdown-toc magit-svn magit-gitflow macrostep lorem-ipsum linum-relative link-hint indent-guide hungry-delete htmlize hlint-refactor hl-todo hindent highlight-parentheses highlight-numbers highlight-indentation helm-xref helm-themes helm-swoop helm-rtags helm-purpose helm-projectile helm-org-rifle helm-mode-manager helm-make helm-hoogle helm-gitignore helm-git-grep helm-flx helm-descbinds helm-company helm-c-yasnippet helm-ag haskell-snippets graphviz-dot-mode google-translate google-c-style golden-ratio gnuplot gitignore-templates gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link git-gutter-fringe git-gutter-fringe+ gh-md fuzzy font-lock+ flycheck-rtags flycheck-pos-tip flycheck-haskell flx-ido fill-column-indicator fancy-battery eyebrowse expand-region evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-org evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-magit evil-lisp-state evil-lion evil-indent-plus evil-iedit-state evil-goggles evil-exchange evil-escape evil-ediff evil-cleverparens evil-args evil-anzu engine-mode elisp-slime-nav editorconfig dumb-jump dotenv-mode doom-modeline disaster diminish diff-hl define-word counsel-projectile company-statistics company-rtags company-ghci company-cabal company-c-headers column-enforce-mode color-identifiers-mode cmm-mode clojure-snippets clean-aindent-mode clang-format cider-eval-sexp-fu cider centered-cursor-mode browse-at-remote auto-yasnippet auto-highlight-symbol auto-compile aggressive-indent ace-window ace-link ace-jump-helm-line ac-ispell 2048-game)))
+    (dash-functional yapfify stickyfunc-enhance pytest pyenv-mode py-isort pippel pipenv pyvenv pip-requirements live-py-mode importmagic epc ctable concurrent helm-pydoc helm-gtags helm-cscope xcscope ggtags cython-mode counsel-gtags company-anaconda anaconda-mode pythonic ox-twbs ox-gfm material-theme emojify ht emoji-cheat-sheet-plus company-emoji all-the-icons-dired yasnippet-snippets ws-butler writeroom-mode winum which-key volatile-highlights vi-tilde-fringe uuidgen use-package unfill toc-org symon string-inflection spaceline-all-the-icons sound-wav smeargle restart-emacs rainbow-mode rainbow-identifiers rainbow-delimiters prodigy popwin persp-mode pcre2el password-generator paradox overseer orgit org-tree-slide org-projectile org-present org-pomodoro org-mime org-download org-bullets org-brain open-junk-file neotree nameless mwim move-text mmm-mode markdown-toc magit-svn magit-gitflow macrostep lorem-ipsum linum-relative link-hint indent-guide hungry-delete htmlize hlint-refactor hl-todo hindent highlight-parentheses highlight-numbers highlight-indentation helm-xref helm-themes helm-swoop helm-rtags helm-purpose helm-projectile helm-org-rifle helm-mode-manager helm-make helm-hoogle helm-gitignore helm-git-grep helm-flx helm-descbinds helm-company helm-c-yasnippet helm-ag haskell-snippets graphviz-dot-mode google-translate google-c-style golden-ratio gnuplot gitignore-templates gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link git-gutter-fringe git-gutter-fringe+ gh-md fuzzy font-lock+ flycheck-rtags flycheck-pos-tip flycheck-haskell flx-ido fill-column-indicator fancy-battery eyebrowse expand-region evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-org evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-magit evil-lisp-state evil-lion evil-indent-plus evil-iedit-state evil-goggles evil-exchange evil-escape evil-ediff evil-cleverparens evil-args evil-anzu engine-mode elisp-slime-nav editorconfig dumb-jump dotenv-mode doom-modeline disaster diminish diff-hl define-word counsel-projectile company-statistics company-rtags company-ghci company-cabal company-c-headers column-enforce-mode color-identifiers-mode cmm-mode clojure-snippets clean-aindent-mode clang-format cider-eval-sexp-fu cider centered-cursor-mode browse-at-remote auto-yasnippet auto-highlight-symbol auto-compile aggressive-indent ace-window ace-link ace-jump-helm-line ac-ispell 2048-game)))
  '(pdf-view-midnight-colors (quote ("#b2b2b2" . "#292b2e"))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
