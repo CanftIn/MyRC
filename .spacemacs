@@ -82,7 +82,7 @@ This function should only modify configuration layer settings."
      ;;my own layers
      CanftIn
      (display :location local)
-     cc-c++
+     ;;cc-c++
      )
 
    ;; List of additional packages that will be installed without being
@@ -386,7 +386,7 @@ It should only modify the values of Spacemacs settings."
    ;;                       text-mode
    ;;   :size-limit-kb 1000)
    ;; (default nil)
-   dotspacemacs-line-numbers nil
+   dotspacemacs-line-numbers 'relative ;;nil
 
    ;; Code folding method. Possible values are `evil' and `origami'.
    ;; (default 'evil)
@@ -548,7 +548,7 @@ before packages are loaded."
   (add-to-list 'exec-path "/usr/bin")
   ;;emacs25 supported emacs26 unsupported https://github.com/syl20bnr/spacemacs/issues/10853 
   ;;(linum-relative-global-mode t)
-  (spacemacs/toggle-relative-line-numbers-on)
+  ;;(spacemacs/toggle-relative-line-numbers-on)
   ;;fix date garbled
   ;;https://www.cqmaple.com/201709/win10-emacs-org-mode-agenda-time.html
   ;;https://emacs-china.org/t/org-mode-agenda-learn-emacs-in-21-days-day-6/2780 

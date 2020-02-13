@@ -98,6 +98,11 @@ source $ZSH/oh-my-zsh.sh
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
+export GOPATH=~/workspace/go_workspace
+
+export JAVA_HOME=/usr/lib/jvm/java-13-openjdk
+export HADOOP_HOME=~/canftin_lib/hadoop-3.2.1
+export PATH=$PATH:$HADOOP_HOME/bin:$HADOOP_HOME/sbin
 
 export GTK_IM_MODULE=ibus
 export XMODIFIERS=@im=ibus

@@ -3,6 +3,14 @@ set $mod Mod4
 
 #autostart
 exec --no-startup-id xcompmgr &
+exec --no-startup-id volumeicon
+exec --no-startup-id ss-qt5
+exec --no-startup-id ibus-daemon -d
+exec --no-startup-id nm-applet
+
+#two screen setting 
+exec --no-startup-id xrandr --output HDMI1 --primary --mode 1280x1024 --pos 0x0 --rotate normal --output VIRTUAL1 --off --output eDP1 --mode 1920x1080 --pos 1280x0 --rotate normal
+
 
 #dmenu for find program
 bindsym $mod+Shift+d exec dmenu_run
@@ -93,6 +101,18 @@ bindsym $mod+Ctrl+Left workspace prev
 
 # workspaces
 #set $ws0 10
+#set $ws1 " 1:  "
+#set $ws2 " 2:  "
+#set $ws3 " 3:  "
+#set $ws4 " 4:  "
+#set $ws5 " 5:  "
+#set $ws6 " 6:  "
+#set $ws7 " 7:  "
+#set $ws8 " 8: ♫ "
+#set $ws9 " 9:  "
+#set $ws10 " 10:  "
+#set $ws11 " 11:  "
+
 set $ws1 1
 set $ws2 2
 set $ws3 3
@@ -102,6 +122,14 @@ set $ws6 6
 set $ws7 7
 set $ws8 8
 set $ws9 9
+set $ws10 10
+set $ws11 11
+
+#workspace 1 output $mainoutput
+#workspace 2 output $secondoutput
+
+#set $mainoutput xinerama-1
+#set $secondoutput xinerama-0
 
 # switch to workspace
 #bindsym $mod+0 workspace $ws0
@@ -114,6 +142,8 @@ bindsym $mod+6 workspace $ws6
 bindsym $mod+7 workspace $ws7
 bindsym $mod+8 workspace $ws8
 bindsym $mod+9 workspace $ws9
+bindsym $mod+backslash workspace $ws10 # \
+bindsym $mod+grave workspace $ws11 # `
 
 # Move focused container to workspace
 #bindsym $mod+Ctrl+0 move container to workspace $ws0
@@ -126,6 +156,8 @@ bindsym $mod+Ctrl+6 move container to workspace $ws6
 bindsym $mod+Ctrl+7 move container to workspace $ws7
 bindsym $mod+Ctrl+8 move container to workspace $ws8
 bindsym $mod+Ctrl+9 move container to workspace $ws9
+bindsym $mod+Ctrl+backslash move container to workspace $ws10
+bindsym $mod+Ctrl+grave move container to workspace $ws11
 
 # Move to workspace with focused container
 #bindsym $mod+Shift+0 move container to workspace $ws0; workspace $ws0
@@ -138,6 +170,8 @@ bindsym $mod+Shift+6 move container to workspace $ws6; workspace $ws6
 bindsym $mod+Shift+7 move container to workspace $ws7; workspace $ws7
 bindsym $mod+Shift+8 move container to workspace $ws8; workspace $ws8
 bindsym $mod+Shift+9 move container to workspace $ws9; workspace $ws9
+bindsym $mod+Shift+backslash move container to workspace $ws10; workspace $ws10
+bindsym $mod+Shift+grave move container to workspace $ws11; workspace $ws11
 
 # Open specific applications in floating mode
 for_window [title="alsamixer"] floating enable border pixel 1
@@ -167,6 +201,8 @@ for_window [class="Thus"] floating enable border normal
 for_window [class="Timeset-gui"] floating enable border normal
 for_window [class="(?i)virtualbox"] floating enable border normal
 for_window [class="Xfburn"] floating enable
+for_window [class="code"] floating enable sticky enable border normal
+for_window [class="chromium"] floating enable sticky enable border normal
 
 # switch to workspace with urgent window automatically
 for_window [urgent=latest] focus
