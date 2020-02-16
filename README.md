@@ -23,6 +23,10 @@ $ xinput list-props "SynPS/2 Synaptics TouchPad"
 $ xinput set-prop "SynPS/2 Synaptics TouchPad"  "libinput Tapping Enabled" 1
 ```
 
+vimrc mainly refers to [humiaozuzu/dot-vimrc](https://github.com/humiaozuzu/dot-vimrc) &&[yangyangwithgnu/use_vim_as_ide](https://github.com/yangyangwithgnu/use_vim_as_ide/blob/master/.vimrc)
+
+ 
+
 **how to use:**
 ```bash
 git clone https://github.com/CanftIn/MyRC.git
