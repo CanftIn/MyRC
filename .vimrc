@@ -99,7 +99,6 @@ Plugin 'tomtom/tlib_vim'
 "-----------------
 " Fast navigation
 "-----------------
-Plugin 'edsono/vim-matchit'
 Plugin 'Lokaltog/vim-easymotion'
 
 "--------------
