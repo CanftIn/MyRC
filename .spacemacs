@@ -545,16 +545,26 @@ before packages are loaded."
   (evil-leader/set-key "o y" 'copy-to-clipboard)
   (evil-leader/set-key "o p" 'paste-from-clipboard)
 
+  (add-hook 'prog-mode-hook (lambda ()
+     (setq prettify-symbols-alist
+           (prettify-utils-generate
+            (">=" "≥")
+            ("->" "→")
+            ("<-" "←")
+            ("<=" "≤")
+            ("!=" "≠")
+            ("<<" "«")
+            (">>" "»")
+            ("=>" "⇒")))
+     (prettify-symbols-mode)))
 
-
-(add-hook 'org-mode-hook (lambda ()
-   "Beautify Org Checkbox Symbol"
-   (setq prettify-symbols-alist
-         (prettify-utils-generate
-          ("[ ]" "☐")
-          ("[X]" "☑")
-          ("[-]" "❍")))
-   (prettify-symbols-mode)))
+  (add-hook 'org-mode-hook (lambda ()
+     (setq prettify-symbols-alist
+           (prettify-utils-generate
+            ("[ ]" "☐")
+            ("[X]" "☑")
+            ("[-]" "❍")))
+     (prettify-symbols-mode))
 
 
 
