@@ -3,8 +3,13 @@ set fileencodings=utf-8,ucs-bom,gb18030,gbk,gb2312,cp936,latin1
 set termencoding=utf-8
 set encoding=utf-8
 
+" powerline setting
+let g:powerline_pycmd="py3"
+set laststatus=2
+set rtp+=/usr/lib/python3.8/site-packages/powerline/bindings/vim
+
 " <Leader>
-let mapleader=";"
+let mapleader="\""
 
 " set line number
 set nu
@@ -54,6 +59,8 @@ set hlsearch
 set ignorecase
 set smartcase
 
+
+
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " vundle setting
@@ -81,11 +88,33 @@ Plugin 'gcmt/wildfire.vim'
 Plugin 'suan/vim-instant-markdown'
 " Plugin 'vim-airline/vim-airline'
 " Plugin 'lilydjwg/fcitx.vim'
+Plugin 'Xuyuanp/nerdtree-git-plugin'
+Plugin 'jiangmiao/auto-pairs'
+
+""""""""""""""""""""""""""""""
+" language
+""""""""""""""""""""""""""""""
+Plugin 'rust-lang/rust.vim'
+Plugin 'reasonml-editor/vim-reason-plus'
+Plugin 'derekwyatt/vim-scala'
+Plugin 'udalov/kotlin-vim'
+Plugin 'leafgarland/typescript-vim'
+Plugin 'jez/vim-better-sml'
+Plugin 'javier-lopez/sml.vim'
+"Plugin 'Shougo/vimproc.vim'
+"Plugin 'eagletmt/ghcmod-vim'
+"Plugin 'neovimhaskell/haskell-vim'
+"Plugin 'itchyny/vim-haskell-indent'
+"Plugin 'alx741/vim-stylihask'
+"Plugin 'alx741/vim-hindent'
+"Plugin 'parsonsmatt/intero-neovim'
+Plugin 'tpope/vim-fireplace'
+
 
 "------------------
 " Code Completions
 "------------------
-Plugin 'Shougo/neocomplcache'
+"Plugin 'Shougo/neocomplcache'
 Plugin 'mattn/emmet-vim'
 Plugin 'Raimondi/delimitMate'
 Plugin 'ervandew/supertab'
@@ -119,7 +148,6 @@ Plugin 'majutsushi/tagbar'
 Plugin 'mileszs/ack.vim'
 Plugin 'kien/ctrlp.vim'
 Plugin 'tpope/vim-fugitive'
-Plugin 'Lokaltog/vim-powerline'
 Plugin 'scrooloose/syntastic'
 Plugin 'bronson/vim-trailing-whitespace'
 
@@ -167,13 +195,13 @@ Plugin 'kien/rainbow_parentheses.vim'
 "--------------
 " Color Schemes
 "--------------
-Plugin 'rickharris/vim-blackboard'
-Plugin 'altercation/vim-colors-solarized'
-Plugin 'rickharris/vim-monokai'
-Plugin 'tpope/vim-vividchalk'
-Plugin 'Lokaltog/vim-distinguished'
-Plugin 'chriskempson/vim-tomorrow-theme'
-Plugin 'fisadev/fisa-vim-colorscheme'
+"Plugin 'rickharris/vim-blackboard'
+"Plugin 'altercation/vim-colors-solarized'
+"Plugin 'rickharris/vim-monokai'
+"Plugin 'tpope/vim-vividchalk'
+"Plugin 'Lokaltog/vim-distinguished'
+"Plugin 'chriskempson/vim-tomorrow-theme'
+"Plugin 'fisadev/fisa-vim-colorscheme'
 
 
 call vundle#end()
@@ -210,7 +238,7 @@ set tabstop=4       " tab width
 set softtabstop=4   " backspace
 set shiftwidth=4    " indent width
 " set textwidth=79
-" set smarttab
+set smarttab
 set expandtab       " expand tab to space
 
 autocmd FileType php setlocal tabstop=2 shiftwidth=2 softtabstop=2 textwidth=120
@@ -405,11 +433,24 @@ nnoremap ; :
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let g:NERDTreeIndicatorMapCustom = {
+    \ "Modified"  : "✹",
+    \ "Staged"    : "✚",
+    \ "Untracked" : "✭",
+    \ "Renamed"   : "➜",
+    \ "Unmerged"  : "═",
+    \ "Deleted"   : "✖",
+    \ "Dirty"     : "✗",
+    \ "Clean"     : "✔︎",
+    \ 'Ignored'   : '☒',
+    \ "Unknown"   : "?"
+    \ }
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " powerline setting
-let g:powerline_pycmd="py3"
-set laststatus=2
-set rtp+=/usr/lib/python3.8/site-packages/powerline/bindings/vim
+"let g:powerline_pycmd="py3"
+"set laststatus=2
+"set rtp+=/usr/lib/python3.8/site-packages/powerline/bindings/vim
 
 set incsearch
 set nocompatible
@@ -463,7 +504,7 @@ set foldmethod=syntax
 set nofoldenable
 
 " YCM
-highlight Pmenu ctermfg=2 ctermbg=3 guifg=#005f87 guibg=#EEE8D5
+highlight Pmenu ctermfg=2 ctermbg=3 guifg=#005f87 guibg=#3E4DF0
 highlight PmenuSel ctermfg=2 ctermbg=3 guifg=#AFD700 guibg=#106900
 
 let g:ycm_complete_in_comments=1
