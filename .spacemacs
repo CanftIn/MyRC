@@ -545,6 +545,8 @@ before packages are loaded."
   (evil-leader/set-key "o y" 'copy-to-clipboard)
   (evil-leader/set-key "o p" 'paste-from-clipboard)
 
+
+;;https://www.reddit.com/r/emacs/comments/brt0sk/prettifysymbolsmode_is_so_cool/
   (add-hook 'prog-mode-hook (lambda ()
      (setq prettify-symbols-alist
            (prettify-utils-generate
