@@ -217,8 +217,8 @@ It should only modify the values of Spacemacs settings."
    ;; Press `SPC T n' to cycle to the next theme in the list (works great
    ;; with 2 themes variants, one dark and one light)
    dotspacemacs-themes '(
-                         material
-                         material-light
+                         ;;material
+                         ;;material-light
                          ;; majapahit-dark
                          ;; majapahit-light
                          ;; moe-dark
@@ -244,13 +244,13 @@ It should only modify the values of Spacemacs settings."
    ;; Default font, or prioritized list of fonts. `powerline-scale' allows to
    ;; quickly tweak the mode-line size to make separators look not too crappy.
    dotspacemacs-default-font '(("Source Code Pro"
-                               :size 13
+                               :size 16
                                :weight normal
-                               :width normal)
-                               ("Fira Code Symbol"
-                                :size 13
-                                :weight normal
-                                :width normal))
+                               :width normal))
+                               ;;("Fira Code"
+                               ;; :size 16
+                               ;; :weight normal
+                               ;; :width normal))
 
    ;; The leader key (default "SPC")
    dotspacemacs-leader-key "SPC"
@@ -370,7 +370,7 @@ It should only modify the values of Spacemacs settings."
    ;; If non-nil unicode symbols are displayed in the mode line.
    ;; If you use Emacs as a daemon and wants unicode characters only in GUI set
    ;; the value to quoted `display-graphic-p'. (default t)
-   dotspacemacs-mode-line-unicode-symbols t ;;nil
+   dotspacemacs-mode-line-unicode-symbols t  ;;nil
 
    ;; If non-nil smooth scrolling (native-scrolling) is enabled. Smooth
    ;; scrolling overrides the default behavior of Emacs which recenters point
@@ -491,8 +491,8 @@ If you are unsure, try setting them in `dotspacemacs/user-config' first."
     '(("melpa-cn" . "http://mirrors.tuna.tsinghua.edu.cn/elpa/melpa/")
       ("org-cn"   . "http://mirrors.tuna.tsinghua.edu.cn/elpa/org/")
       ("gnu-cn"   . "http://mirrors.tuna.tsinghua.edu.cn/elpa/gnu/")))
-  
-  
+
+
   (defun on-after-init ()
     (unless (display-graphic-p (selected-frame))
       (set-face-background 'default "unspecified-bg" (selected-frame))))
@@ -545,8 +545,6 @@ before packages are loaded."
   (evil-leader/set-key "o y" 'copy-to-clipboard)
   (evil-leader/set-key "o p" 'paste-from-clipboard)
 
-;; not working well on wsl
-;;https://www.reddit.com/r/emacs/comments/brt0sk/prettifysymbolsmode_is_so_cool/
   (add-hook 'prog-mode-hook (lambda ()
      (setq prettify-symbols-alist
            (prettify-utils-generate
@@ -557,6 +555,23 @@ before packages are loaded."
             ("!=" "≠")
             ("<<" "«")
             (">>" "»")
+            ("<<-" "↞")
+            ("<~" "⇜")
+            ("~>" "⇝")
+            ("!==" "≢")
+            ("<|" "◁")
+            ("|>" "▷")
+            ("|-" "┣")
+            ("-|" "┫")
+            ("1." "①")
+            ("2." "②")
+            ("3." "③")
+            ("4." "④")
+            ("5." "⑤")
+            ("6." "⑥")
+            ("7." "⑦")
+            ("8." "⑧")
+            ("9." "⑨")
             ("=>" "⇒")))
      (prettify-symbols-mode)))
 
@@ -566,56 +581,9 @@ before packages are loaded."
             ("[ ]" "☐")
             ("[X]" "☑")
             ("[-]" "❍")))
-     (prettify-symbols-mode))
+     (prettify-symbols-mode)))
 
-
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; https://www.rockyourcode.com/fira-code-font-ligatures-in-emacs/spacemacs-on-arch-linux/
-
-;; Font Ligatures
-  (defun my-correct-symbol-bounds (pretty-alist)
-      "Prepend a TAB character to each symbol in this alist,
-  this way compose-region called by prettify-symbols-mode
-  will use the correct width of the symbols
-  instead of the width measured by char-width."
-      (mapcar (lambda (el)
-                (setcdr el (string ?\t (cdr el)))
-                el)
-              pretty-alist))
-
-  (defun my-ligature-list (ligatures codepoint-start)
-      "Create an alist of strings to replace with
-  codepoints starting from codepoint-start."
-      (let ((codepoints (-iterate '1+ codepoint-start (length ligatures))))
-        (-zip-pair ligatures codepoints)))
-
-  (setq my-fira-code-ligatures
-      (let* ((ligs '("www" "**" "***" "**/" "*>" "*/" "\\\\" "\\\\\\"
-                    "{-" "[]" "::" ":::" ":=" "!!" "!=" "!==" "-}"
-                    "--" "---" "-->" "->" "->>" "-<" "-<<" "-~"
-                    "#{" "#[" "##" "###" "####" "#(" "#?" "#_" "#_("
-                    ".-" ".=" ".." "..<" "..." "?=" "??" ";;" "/*"
-                    "/**" "/=" "/==" "/>" "//" "///" "&&" "||" "||="
-                    "|=" "|>" "^=" "$>" "++" "+++" "+>" "=:=" "=="
-                    "===" "==>" "=>" "=>>" "<=" "=<<" "=/=" ">-" ">="
-                    ">=>" ">>" ">>-" ">>=" ">>>" "<*" "<*>" "<|" "<|>"
-                    "<$" "<$>" "<!--" "<-" "<--" "<->" "<+" "<+>" "<="
-                    "<==" "<=>" "<=<" "<>" "<<" "<<-" "<<=" "<<<" "<~"
-                    "<~~" "</" "</>" "~@" "~-" "~=" "~>" "~~" "~~>" "%%"
-                    "x" ":" "+" "+" "*")))
-        (my-correct-symbol-bounds (my-ligature-list ligs #Xe100))))
-
-  (defun my-set-fira-code-ligatures ()
-      "Add fira code ligatures for use with prettify-symbols-mode."
-      (setq prettify-symbols-alist
-            (append my-fira-code-ligatures prettify-symbols-alist))
-      (prettify-symbols-mode))
-
-  (add-hook 'prog-mode-hook 'my-set-fira-code-ligatures)
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
+  (setq org-folder "~/org")
 
   ;;Org Agenda
   (setq org-agenda-files '("~/CanftIn-GTD"))
