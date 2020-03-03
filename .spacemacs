@@ -56,7 +56,7 @@ This function should only modify configuration layer settings."
      search-engine
      graphviz
      (auto-completion :variables
-                      auto-completion-return-key-behavior nil
+                      auto-completion-return-key-behavior 'complete
                       auto-completion-tab-key-behavior 'cycle
                       auto-completion-complete-with-key-sequence "jk"
                       auto-completion-complete-with-key-sequence-delay 0.1
