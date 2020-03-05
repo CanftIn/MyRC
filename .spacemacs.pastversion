@@ -39,38 +39,22 @@ This function should only modify configuration layer settings."
      ;; Uncomment some layer names and press `SPC f e R' (Vim style) or
      ;; `M-m f e R' (Emacs style) to install them.
      ;; ----------------------------------------------------------------
-
-     ;; ---- languages ----
-     ;; ocaml
+     ;;ocaml
      clojure
-     ;; sml
-     emacs-lisp
-     javascript
-     typescript
-     json
-     yaml
+     ;;sml
      haskell
      scheme
      racket
      c-c++
-     java
-     html
-     sql
-     python
-     (markdown :variables markdown-live-preview-engine 'vmd)
-     asciidoc
-     graphviz
-     lsp
-
-     ;; ---- tools ----
      helm
      (colors :variables
              colors-colorize-identifiers 'variables ;; set to 'all or 'variables
              colors-enable-nyan-cat-progress-bar t
              )
-     ;; prodigy
+     prodigy
      emoji
      search-engine
+     graphviz
      (auto-completion :variables
                       auto-completion-return-key-behavior 'complete
                       auto-completion-tab-key-behavior 'cycle
@@ -80,8 +64,9 @@ This function should only modify configuration layer settings."
                       auto-completion-enable-help-tooltip nil
                       auto-completion-enable-sort-by-usage t)
      better-defaults
+     emacs-lisp
      git
-     pdf
+     markdown
      multiple-cursors
      ;; treemacs
      neotree
@@ -91,11 +76,10 @@ This function should only modify configuration layer settings."
      ;; (shell :variables
      ;;        shell-default-height 30
      ;;        shell-default-position 'bottom)
-     spell-checking
+     ;spell-checking
      syntax-checking
      version-control
-
-     ;; ---- my own layers ----
+     ;;my own layers
      CanftIn
      (display :location local)
      ;;cc-c++
@@ -108,20 +92,8 @@ This function should only modify configuration layer settings."
    ;; To use a local version of a package, use the `:location' property:
    ;; '(your-package :location "~/path/to/your-package/")
    ;; Also include the dependencies as they will not be resolved automatically.
-   dotspacemacs-additional-packages
-   '(
-     aggressive-indent
-     all-the-icons
-     all-the-icons-dired
-     all-the-icons-ivy
-     beacon
-     dumb-jump
-     git-messenger
-     highlight-indent-guides
-     mode-icons
-     prettier-js
-     projectile
-    )
+   dotspacemacs-additional-packages '(all-the-icons
+                                      all-the-icons-dired)
 
    ;; A list of packages that cannot be updated.
    dotspacemacs-frozen-packages '()
@@ -245,7 +217,6 @@ It should only modify the values of Spacemacs settings."
    ;; Press `SPC T n' to cycle to the next theme in the list (works great
    ;; with 2 themes variants, one dark and one light)
    dotspacemacs-themes '(
-                         farmhouse-dark
                          ;;material
                          ;;material-light
                          ;; majapahit-dark
@@ -254,9 +225,8 @@ It should only modify the values of Spacemacs settings."
                          ;; moe-light
                          ;; solarized-dark
                          ;; solarized-light
-                         ;;spacemacs-dark
-                         ;;spacemacs-light
-                         )
+                         spacemacs-dark
+                         spacemacs-light)
 
    ;; Set the theme for the Spaceline. Supported themes are `spacemacs',
    ;; `all-the-icons', `custom', `doom', `vim-powerline' and `vanilla'. The
@@ -273,28 +243,14 @@ It should only modify the values of Spacemacs settings."
 
    ;; Default font, or prioritized list of fonts. `powerline-scale' allows to
    ;; quickly tweak the mode-line size to make separators look not too crappy.
-   dotspacemacs-default-font '(
-                               ("FiraCode Nerd Font Mono"
-                                :size 16
-                                :weight medium
-                                :width normal
-                                :powerline-scale 1)
-                               ("Fira Code Symbol"
-                                :size 16
-                                :weight normal
-                                :width normal
-                                :powerline-scale 1)
-
-                               ;;("iosevka" ;;"Source Code Pro"
-                               ;; :size 16
-                               ;; :weight normal
-                               ;; :width normal)
-
+   dotspacemacs-default-font '(("Source Code Pro"
+                               :size 16
+                               :weight normal
+                               :width normal))
                                ;;("Fira Code"
                                ;; :size 16
                                ;; :weight normal
-                               ;; :width normal) 
-                               )
+                               ;; :width normal))
 
    ;; The leader key (default "SPC")
    dotspacemacs-leader-key "SPC"
@@ -434,14 +390,11 @@ It should only modify the values of Spacemacs settings."
    ;;                       text-mode
    ;;   :size-limit-kb 1000)
    ;; (default nil)
-   dotspacemacs-line-numbers '(:relative nil
-                                          :disabled-for-modes dired-mode
-                                          pdf-view-mode
-                                          :size-limit-kb 2000)
+   dotspacemacs-line-numbers 'relative ;;nil
 
    ;; Code folding method. Possible values are `evil' and `origami'.
    ;; (default 'evil)
-   dotspacemacs-folding-method 'origami
+   dotspacemacs-folding-method 'evil
 
    ;; If non-nil `smartparens-strict-mode' will be enabled in programming modes.
    ;; (default nil)
@@ -532,15 +485,12 @@ It is mostly for variables that should be set before packages are loaded.
 If you are unsure, try setting them in `dotspacemacs/user-config' first."
   ;; spacemacs terminal background transparency setting
   (setq spacemacs-theme-comment-bg nil)
-  (setq-default configuration-layer-elpa-archives
-                '(("melpa-cn" . "http://elpa.emacs-china.org/melpa/")
-                  ("org-cn"   . "http://elpa.emacs-china.org/org/")
-                  ("gnu-cn"   . "http://elpa.emacs-china.org/gnu/")))
+
   ;; change elpa source
- ;; (setq configuration-layer-elpa-archives
- ;;       '(("melpa-cn" . "http://mirrors.tuna.tsinghua.edu.cn/elpa/melpa/")
- ;;         ("org-cn"   . "http://mirrors.tuna.tsinghua.edu.cn/elpa/org/")
- ;;         ("gnu-cn"   . "http://mirrors.tuna.tsinghua.edu.cn/elpa/gnu/")))
+  (setq configuration-layer-elpa-archives
+    '(("melpa-cn" . "http://mirrors.tuna.tsinghua.edu.cn/elpa/melpa/")
+      ("org-cn"   . "http://mirrors.tuna.tsinghua.edu.cn/elpa/org/")
+      ("gnu-cn"   . "http://mirrors.tuna.tsinghua.edu.cn/elpa/gnu/")))
 
 
   (defun on-after-init ()
@@ -564,7 +514,6 @@ This function is called at the very end of Spacemacs startup, after layer
 configuration.
 Put your configuration code here, except for variables that should be set
 before packages are loaded."
-  ;; ---- copy && paste ----
   ;;https://github.com/syl20bnr/spacemacs/issues/2222
    (defun copy-to-clipboard ()
       "Copies selection to x-clipboard."
@@ -596,8 +545,6 @@ before packages are loaded."
   (evil-leader/set-key "o y" 'copy-to-clipboard)
   (evil-leader/set-key "o p" 'paste-from-clipboard)
 
-
-  ;; ---- ligature font ----
   (add-hook 'prog-mode-hook (lambda ()
      (setq prettify-symbols-alist
            (prettify-utils-generate
@@ -636,13 +583,6 @@ before packages are loaded."
             ("[-]" "❍")))
      (prettify-symbols-mode)))
 
-
-  ;; clojure ',-g-g' command for java source code
-  (setq cider-jdk-src-paths '("C:/Program Files/Java/jdk1.8.0_171/src"))
-
-
-
-  ;; ---- Org mode ----
   (setq org-folder "~/org")
 
   ;;Org Agenda
@@ -650,20 +590,6 @@ before packages are loaded."
   (setq org-agenda-file-regexp "\\`[^.].*\\.org\\(_archive\\)?\\'") ;;archive事项也纳入agenda显示
   (setq org-agenda-include-diary t)       ;;将diary的事项也纳入agenda中显示
 
-
-  ;; ---- Language settings ----
-  ;; == scheme setting ==
-  ;;https://zhuanlan.zhihu.com/p/32772065 
-  ;;(setq scheme-program-name "racket")
-  ;;(setq geiser-chez-binary "racket")
-  ;;(setq geiser-active-implementations '(racket))
-  (setq scheme-program-name "chicken-csi")
-  (setq geiser-chez-binary "chicken-csi")
-  (setq geiser-active-implementations '(chicken-csi))
-
-
-
-  ;; ---- Others ----
   (add-to-list 'exec-path "/usr/bin")
   ;;emacs25 supported emacs26 unsupported https://github.com/syl20bnr/spacemacs/issues/10853 
   ;;(linum-relative-global-mode t)
@@ -672,113 +598,26 @@ before packages are loaded."
   ;;https://www.cqmaple.com/201709/win10-emacs-org-mode-agenda-time.html
   ;;https://emacs-china.org/t/org-mode-agenda-learn-emacs-in-21-days-day-6/2780 
   (setq language-environment 'utf-8)
-  ;;(add-hook 'org-mode-hook
+  ;;(add-hook ‘org-mode-hook
   ;;            (lambda ()
-  ;;              (set (make-local-variable 'system-time-locale) "C")))
+  ;;              (set (make-local-variable ‘system-time-locale) “C”)))
   (setq system-time-locale "C")
 
   ;;https://github.com/magit/magit/issues/2492 
   (setq-default with-editor-emacsclient-executable "emacsclient")
 
 
-  ;; ---- New config ----
-
-  ;; Activate column indicator in prog-mode and text-mode
-  (add-hook 'prog-mode-hook 'turn-on-fci-mode)
-  (add-hook 'text-mode-hook 'turn-on-fci-mode)
-  (setq fci-rule-color "#23cbfe")
-
-  ;; Auto start rainbow delimeters in most programming modes
-  (add-hook 'prog-mode-hook #'rainbow-delimiters-mode)
-
-  ;; Auto start aggressive indent in most programming modes
-  (add-hook 'prog-mode-hook #'aggressive-indent-mode)
-
-
-  ;; Add some nice additions like italicized comments, etc.
-  (set-face-attribute 'font-lock-comment-delimiter-face nil :slant 'italic)
-  (set-face-attribute 'font-lock-comment-face nil :slant 'italic)
-  (set-face-attribute 'font-lock-doc-face nil :slant 'italic)
-  (set-face-attribute 'font-lock-keyword-face nil :weight 'bold)
-  (set-face-attribute 'font-lock-builtin-face nil :weight 'bold)
-  (set-face-attribute 'font-lock-preprocessor-face nil :weight 'bold)
-
-  ;; Start beacon mode to show a light when the cursor moves
-  (beacon-mode t)
-  (setq beacon-color "#23cbfe")
-  (setq beacon-blink-when-point-moves-vertically 1)
-  (setq beacon-blink-when-point-moves-horizontally 1)
-  (setq beacon-blink-when-focused t)
-  (setq beacon-blink-when-window-scrolls t)
-
-  ;; Enable indent guide at startup
-  (spacemacs/toggle-indent-guide-globally-on)
-  (setq highlight-indent-guides-method 'character)
-
-  ;; Visual line navigation for textual modes
-  (spacemacs/toggle-visual-line-navigation-on)
-  (setq truncate-lines t)
-  (spacemacs/toggle-truncate-lines-on)
-  (add-hook 'text-mode-hook 'spacemacs/toggle-visual-line-navigation-on)
-  (add-hook 'prog-mode-hook 'spacemacs/toggle-visual-line-navigation-on)
-
-  ;; JavaScript indent levels
-  (setq javascript-indent-level 2)
-  (setq js-indent-level 2)
-  (setq js2-basic-offset 2)
-
-  ;; Neo tree configuration
-  (setq neo-theme 'icons)
-  (setq mode-icons-change-mode-name t)
-  (mode-icons-mode)
-
-  ;; Add a new line to all visited and saved files
-  (setq require-final-newline 'visit-save)
-
-
-  ;; Fira Code Font Ligatures in Emacs/Spacemacs on (Arch) Linux thanks to:
-  ;; https://www.rockyourcode.com/fira-code-font-ligatures-in-emacs-spacemacs-on-arch-linux
-  (defun my-correct-symbol-bounds (pretty-alist)
-    "Prepend a TAB character to each symbol in this alist,
-  this way compose-region called by prettify-symbols-mode
-  will use the correct width of the symbols
-  instead of the width measured by char-width."
-    (mapcar (lambda (el)
-              (setcdr el (string ?\t (cdr el)))
-              el)
-            pretty-alist))
-  (defun my-ligature-list (ligatures codepoint-start)
-    "Create an alist of strings to replace with
-  codepoints starting from codepoint-start."
-    (let ((codepoints (-iterate '1+ codepoint-start (length ligatures))))
-      (-zip-pair ligatures codepoints)))
-  (setq my-fira-code-ligatures
-        (let* ((ligs '("www" "**" "***" "**/" "*>" "*/" "\\\\" "\\\\\\"
-                       "{-" "[]" "::" ":::" ":=" "!!" "!=" "!==" "-}"
-                       "--" "---" "-->" "->" "->>" "-<" "-<<" "-~"
-                       "#{" "#[" "##" "###" "####" "#(" "#?" "#_" "#_("
-                       ".-" ".=" ".." "..<" "..." "?=" "??" ";;" "/*"
-                       "/**" "/=" "/==" "/>" "//" "///" "&&" "||" "||="
-                       "|=" "|>" "^=" "$>" "++" "+++" "+>" "=:=" "=="
-                       "===" "==>" "=>" "=>>" "<=" "=<<" "=/=" ">-" ">="
-                       ">=>" ">>" ">>-" ">>=" ">>>" "<*" "<*>" "<|" "<|>"
-                       "<$" "<$>" "<!--" "<-" "<--" "<->" "<+" "<+>" "<="
-                       "<==" "<=>" "<=<" "<>" "<<" "<<-" "<<=" "<<<" "<~"
-                       "<~~" "</" "</>" "~@" "~-" "~=" "~>" "~~" "~~>" "%%"
-                       "x" ":" "+" "+" "*")))
-          (my-correct-symbol-bounds (my-ligature-list ligs #Xe100))))
-  (defun my-set-fira-code-ligatures ()
-    "Add fira code ligatures for use with prettify-symbols-mode."
-    (setq prettify-symbols-alist
-          (append my-fira-code-ligatures prettify-symbols-alist))
-    (prettify-symbols-mode))
-  (add-hook 'prog-mode-hook 'my-set-fira-code-ligatures)
-
-
-
+  ;;scheme setting
+  ;;https://zhuanlan.zhihu.com/p/32772065 
+  ;;(setq scheme-program-name "racket")
+  ;;(setq geiser-chez-binary "racket")
+  ;;(setq geiser-active-implementations '(racket))
+  (setq scheme-program-name "chicken-csi")
+  (setq geiser-chez-binary "chicken-csi")
+  (setq geiser-active-implementations '(chicken-csi))
 
   ;;https://github.com/off99555/.spacemacs.d
-  ;; Other Settings
+  ;; Main Settings
   (setq-default evil-escape-key-sequence "fd")
   (setq-default evil-escape-unordered-key-sequence t)
   (setq-default scroll-margin 5
@@ -789,8 +628,7 @@ before packages are loaded."
                 google-translate-default-target-language "th")
   (setq powerline-default-separator 'arrow)
 
-
-  ;; ---- Keybindings ----
+  ;; Keybindings
   ;; mapping j to gj or k to gk will prohibit you from using dj or dk to delete 2 lines
   ;; (define-key evil-normal-state-map (kbd "j") 'evil-next-visual-line)
   ;; (define-key evil-normal-state-map (kbd "k") 'evil-previous-visual-line)
@@ -810,7 +648,7 @@ before packages are loaded."
   (evil-define-key 'insert global-map (kbd "C-v") 'evil-paste-after)
 
 
-  ;; ---- Some theme Settings ----
+  ;; Settings
   ;; Add personal script path, so that "require" works for personal scripts.
   (push "~/.spacemacs.d/config/" load-path)
   (spacemacs/toggle-highlight-current-line-globally-off)
@@ -826,8 +664,7 @@ before packages are loaded."
   (setq neo-theme (if (display-graphic-p) 'icons 'ascii))
   (add-hook 'dired-mode-hook 'all-the-icons-dired-mode)
   (add-hook 'magit-mode-hook 'emoji-cheat-sheet-plus-display-mode)
-
-)
+  )
 
 ;; Do not write anything past this comment. This is where Emacs will ;; auto-generate custom variable definitions.
 (defun dotspacemacs/emacs-custom-settings ()
@@ -857,10 +694,11 @@ This function is called at the very end of Spacemacs initialization."
      ("TEMP" . "#b1951d")
      ("FIXME" . "#dc752f")
      ("XXX" . "#dc752f")
-     ("XXXX" . "#dc752f"))))
+     ("XXXX" . "#dc752f")
+     ("???" . "#dc752f"))))
  '(package-selected-packages
    (quote
-    (mvn meghanada maven-test-mode groovy-mode groovy-imports pcache gradle-mode yapfify stickyfunc-enhance pytest pyenv-mode py-isort pippel pipenv pyvenv pip-requirements live-py-mode importmagic epc ctable concurrent helm-pydoc helm-gtags helm-cscope xcscope ggtags cython-mode counsel-gtags company-anaconda anaconda-mode pythonic ox-twbs ox-gfm material-theme emojify ht emoji-cheat-sheet-plus company-emoji all-the-icons-dired yasnippet-snippets ws-butler writeroom-mode winum which-key volatile-highlights vi-tilde-fringe uuidgen use-package unfill toc-org symon string-inflection spaceline-all-the-icons sound-wav smeargle restart-emacs rainbow-mode rainbow-identifiers rainbow-delimiters prodigy popwin persp-mode pcre2el password-generator paradox overseer orgit org-tree-slide org-projectile org-present org-pomodoro org-mime org-download org-bullets org-brain open-junk-file neotree nameless mwim move-text mmm-mode markdown-toc magit-svn magit-gitflow macrostep lorem-ipsum linum-relative link-hint indent-guide hungry-delete htmlize hlint-refactor hl-todo hindent highlight-parentheses highlight-numbers highlight-indentation helm-xref helm-themes helm-swoop helm-rtags helm-purpose helm-projectile helm-org-rifle helm-mode-manager helm-make helm-hoogle helm-gitignore helm-git-grep helm-flx helm-descbinds helm-company helm-c-yasnippet helm-ag haskell-snippets graphviz-dot-mode google-translate google-c-style golden-ratio gnuplot gitignore-templates gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link git-gutter-fringe git-gutter-fringe+ gh-md fuzzy font-lock+ flycheck-rtags flycheck-pos-tip flycheck-haskell flx-ido fill-column-indicator fancy-battery eyebrowse expand-region evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-org evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-magit evil-lisp-state evil-lion evil-indent-plus evil-iedit-state evil-goggles evil-exchange evil-escape evil-ediff evil-cleverparens evil-args evil-anzu engine-mode elisp-slime-nav editorconfig dumb-jump dotenv-mode doom-modeline disaster diminish diff-hl define-word counsel-projectile company-statistics company-rtags company-ghci company-cabal company-c-headers column-enforce-mode color-identifiers-mode cmm-mode clojure-snippets clean-aindent-mode clang-format cider-eval-sexp-fu cider centered-cursor-mode browse-at-remote auto-yasnippet auto-highlight-symbol auto-compile aggressive-indent ace-window ace-link ace-jump-helm-line ac-ispell 2048-game)))
+    (yapfify stickyfunc-enhance pytest pyenv-mode py-isort pippel pipenv pyvenv pip-requirements live-py-mode importmagic epc ctable concurrent helm-pydoc helm-gtags helm-cscope xcscope ggtags cython-mode counsel-gtags company-anaconda anaconda-mode pythonic ox-twbs ox-gfm material-theme emojify ht emoji-cheat-sheet-plus company-emoji all-the-icons-dired yasnippet-snippets ws-butler writeroom-mode winum which-key volatile-highlights vi-tilde-fringe uuidgen use-package unfill toc-org symon string-inflection spaceline-all-the-icons sound-wav smeargle restart-emacs rainbow-mode rainbow-identifiers rainbow-delimiters prodigy popwin persp-mode pcre2el password-generator paradox overseer orgit org-tree-slide org-projectile org-present org-pomodoro org-mime org-download org-bullets org-brain open-junk-file neotree nameless mwim move-text mmm-mode markdown-toc magit-svn magit-gitflow macrostep lorem-ipsum linum-relative link-hint indent-guide hungry-delete htmlize hlint-refactor hl-todo hindent highlight-parentheses highlight-numbers highlight-indentation helm-xref helm-themes helm-swoop helm-rtags helm-purpose helm-projectile helm-org-rifle helm-mode-manager helm-make helm-hoogle helm-gitignore helm-git-grep helm-flx helm-descbinds helm-company helm-c-yasnippet helm-ag haskell-snippets graphviz-dot-mode google-translate google-c-style golden-ratio gnuplot gitignore-templates gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link git-gutter-fringe git-gutter-fringe+ gh-md fuzzy font-lock+ flycheck-rtags flycheck-pos-tip flycheck-haskell flx-ido fill-column-indicator fancy-battery eyebrowse expand-region evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-org evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-magit evil-lisp-state evil-lion evil-indent-plus evil-iedit-state evil-goggles evil-exchange evil-escape evil-ediff evil-cleverparens evil-args evil-anzu engine-mode elisp-slime-nav editorconfig dumb-jump dotenv-mode doom-modeline disaster diminish diff-hl define-word counsel-projectile company-statistics company-rtags company-ghci company-cabal company-c-headers column-enforce-mode color-identifiers-mode cmm-mode clojure-snippets clean-aindent-mode clang-format cider-eval-sexp-fu cider centered-cursor-mode browse-at-remote auto-yasnippet auto-highlight-symbol auto-compile aggressive-indent ace-window ace-link ace-jump-helm-line ac-ispell 2048-game)))
  '(pdf-view-midnight-colors (quote ("#b2b2b2" . "#292b2e"))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
