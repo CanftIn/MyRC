@@ -265,7 +265,10 @@ It should only modify the values of Spacemacs settings."
    ;; refer to the DOCUMENTATION.org for more info on how to create your own
    ;; spaceline theme. Value can be a symbol or list with additional properties.
    ;; (default '(spacemacs :separator wave :separator-scale 1.5))
-   dotspacemacs-mode-line-theme '(spacemacs :separator wave :separator-scale 1.5)
+   dotspacemacs-mode-line-theme '(spacemacs
+                                  :separator arrow ;;wave
+                                  :separator-scale 1.5
+                                  )
 
    ;; If non-nil the cursor color matches the state color in GUI Emacs.
    ;; (default t)
@@ -434,10 +437,7 @@ It should only modify the values of Spacemacs settings."
    ;;                       text-mode
    ;;   :size-limit-kb 1000)
    ;; (default nil)
-   dotspacemacs-line-numbers '(:relative nil
-                                          :disabled-for-modes dired-mode
-                                          pdf-view-mode
-                                          :size-limit-kb 2000)
+   dotspacemacs-line-numbers 'relative
 
    ;; Code folding method. Possible values are `evil' and `origami'.
    ;; (default 'evil)
@@ -566,75 +566,75 @@ Put your configuration code here, except for variables that should be set
 before packages are loaded."
   ;; ---- copy && paste ----
   ;;https://github.com/syl20bnr/spacemacs/issues/2222
-   (defun copy-to-clipboard ()
-      "Copies selection to x-clipboard."
-      (interactive)
-      (if (display-graphic-p)
+  (defun copy-to-clipboard ()
+    "Copies selection to x-clipboard."
+    (interactive)
+    (if (display-graphic-p)
+        (progn
+          (message "Yanked region to x-clipboard!")
+          (call-interactively 'clipboard-kill-ring-save)
+          )
+      (if (region-active-p)
           (progn
-            (message "Yanked region to x-clipboard!")
-            (call-interactively 'clipboard-kill-ring-save)
-            )
-        (if (region-active-p)
-            (progn
-              (shell-command-on-region (region-beginning) (region-end) "xsel -i -b")
-              (message "Yanked region to clipboard!")
-              (deactivate-mark))
-          (message "No region active; can't yank to clipboard!")))
-      )
+            (shell-command-on-region (region-beginning) (region-end) "xsel -i -b")
+            (message "Yanked region to clipboard!")
+            (deactivate-mark))
+        (message "No region active; can't yank to clipboard!")))
+    )
 
-    (defun paste-from-clipboard ()
-      "Pastes from x-clipboard."
-      (interactive)
-      (if (display-graphic-p)
-          (progn
-            (clipboard-yank)
-            (message "graphics active")
-            )
-        (insert (shell-command-to-string "xsel -o -b"))
-        )
+  (defun paste-from-clipboard ()
+    "Pastes from x-clipboard."
+    (interactive)
+    (if (display-graphic-p)
+        (progn
+          (clipboard-yank)
+          (message "graphics active")
+          )
+      (insert (shell-command-to-string "xsel -o -b"))
       )
+    )
   (evil-leader/set-key "o y" 'copy-to-clipboard)
   (evil-leader/set-key "o p" 'paste-from-clipboard)
 
 
   ;; ---- ligature font ----
   (add-hook 'prog-mode-hook (lambda ()
-     (setq prettify-symbols-alist
-           (prettify-utils-generate
-            (">=" "≥")
-            ("->" "→")
-            ("<-" "←")
-            ("<=" "≤")
-            ("!=" "≠")
-            ("<<" "«")
-            (">>" "»")
-            ("<<-" "↞")
-            ("<~" "⇜")
-            ("~>" "⇝")
-            ("!==" "≢")
-            ("<|" "◁")
-            ("|>" "▷")
-            ("|-" "┣")
-            ("-|" "┫")
-            ("1." "①")
-            ("2." "②")
-            ("3." "③")
-            ("4." "④")
-            ("5." "⑤")
-            ("6." "⑥")
-            ("7." "⑦")
-            ("8." "⑧")
-            ("9." "⑨")
-            ("=>" "⇒")))
-     (prettify-symbols-mode)))
+                              (setq prettify-symbols-alist
+                                    (prettify-utils-generate
+                                     (">=" "≥")
+                                     ("->" "→")
+                                     ("<-" "←")
+                                     ("<=" "≤")
+                                     ("!=" "≠")
+                                     ("<<" "«")
+                                     (">>" "»")
+                                     ("<<-" "↞")
+                                     ("<~" "⇜")
+                                     ("~>" "⇝")
+                                     ("!==" "≢")
+                                     ("<|" "◁")
+                                     ("|>" "▷")
+                                     ("|-" "┣")
+                                     ("-|" "┫")
+                                     ("1." "①")
+                                     ("2." "②")
+                                     ("3." "③")
+                                     ("4." "④")
+                                     ("5." "⑤")
+                                     ("6." "⑥")
+                                     ("7." "⑦")
+                                     ("8." "⑧")
+                                     ("9." "⑨")
+                                     ("=>" "⇒")))
+                              (prettify-symbols-mode)))
 
   (add-hook 'org-mode-hook (lambda ()
-     (setq prettify-symbols-alist
-           (prettify-utils-generate
-            ("[ ]" "☐")
-            ("[X]" "☑")
-            ("[-]" "❍")))
-     (prettify-symbols-mode)))
+                             (setq prettify-symbols-alist
+                                   (prettify-utils-generate
+                                    ("[ ]" "☐")
+                                    ("[X]" "☑")
+                                    ("[-]" "❍")))
+                             (prettify-symbols-mode)))
 
 
   ;; clojure ',-g-g' command for java source code
@@ -684,9 +684,9 @@ before packages are loaded."
   ;; ---- New config ----
 
   ;; Activate column indicator in prog-mode and text-mode
-  (add-hook 'prog-mode-hook 'turn-on-fci-mode)
-  (add-hook 'text-mode-hook 'turn-on-fci-mode)
-  (setq fci-rule-color "#23cbfe")
+  ;;(add-hook 'prog-mode-hook 'turn-on-fci-mode)
+  ;;(add-hook 'text-mode-hook 'turn-on-fci-mode)
+  ;;(setq fci-rule-color "#23cbfe")
 
   ;; Auto start rainbow delimeters in most programming modes
   (add-hook 'prog-mode-hook #'rainbow-delimiters-mode)
@@ -721,7 +721,7 @@ before packages are loaded."
   (spacemacs/toggle-truncate-lines-on)
   (add-hook 'text-mode-hook 'spacemacs/toggle-visual-line-navigation-on)
   (add-hook 'prog-mode-hook 'spacemacs/toggle-visual-line-navigation-on)
-
+  
   ;; JavaScript indent levels
   (setq javascript-indent-level 2)
   (setq js-indent-level 2)
@@ -787,7 +787,8 @@ before packages are loaded."
                 )
   (setq-default google-translate-default-source-language "en"
                 google-translate-default-target-language "th")
-  (setq powerline-default-separator 'arrow)
+  ;; useless, go spacemacs/init() for setting
+  ;;(setq powerline-default-separator 'arrow)
 
 
   ;; ---- Keybindings ----
@@ -827,7 +828,7 @@ before packages are loaded."
   (add-hook 'dired-mode-hook 'all-the-icons-dired-mode)
   (add-hook 'magit-mode-hook 'emoji-cheat-sheet-plus-display-mode)
 
-)
+  )
 
 ;; Do not write anything past this comment. This is where Emacs will ;; auto-generate custom variable definitions.
 (defun dotspacemacs/emacs-custom-settings ()
