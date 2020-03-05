@@ -121,7 +121,7 @@ This function should only modify configuration layer settings."
      mode-icons
      prettier-js
      projectile
-    )
+     )
 
    ;; A list of packages that cannot be updated.
    dotspacemacs-frozen-packages '()
@@ -598,43 +598,43 @@ before packages are loaded."
 
 
   ;; ---- ligature font ----
-  (add-hook 'prog-mode-hook (lambda ()
-                              (setq prettify-symbols-alist
-                                    (prettify-utils-generate
-                                     (">=" "≥")
-                                     ("->" "→")
-                                     ("<-" "←")
-                                     ("<=" "≤")
-                                     ("!=" "≠")
-                                     ("<<" "«")
-                                     (">>" "»")
-                                     ("<<-" "↞")
-                                     ("<~" "⇜")
-                                     ("~>" "⇝")
-                                     ("!==" "≢")
-                                     ("<|" "◁")
-                                     ("|>" "▷")
-                                     ("|-" "┣")
-                                     ("-|" "┫")
-                                     ("1." "①")
-                                     ("2." "②")
-                                     ("3." "③")
-                                     ("4." "④")
-                                     ("5." "⑤")
-                                     ("6." "⑥")
-                                     ("7." "⑦")
-                                     ("8." "⑧")
-                                     ("9." "⑨")
-                                     ("=>" "⇒")))
-                              (prettify-symbols-mode)))
-
-  (add-hook 'org-mode-hook (lambda ()
-                             (setq prettify-symbols-alist
-                                   (prettify-utils-generate
-                                    ("[ ]" "☐")
-                                    ("[X]" "☑")
-                                    ("[-]" "❍")))
-                             (prettify-symbols-mode)))
+  ;;  (add-hook 'prog-mode-hook (lambda ()
+  ;;                              (setq prettify-symbols-alist
+  ;;                                    (prettify-utils-generate
+  ;;                                     (">=" "≥")
+  ;;                                     ("->" "→")
+  ;;                                     ("<-" "←")
+  ;;                                     ("<=" "≤")
+  ;;                                     ("!=" "≠")
+  ;;                                     ("<<" "«")
+  ;;                                     (">>" "»")
+  ;;                                     ("<<-" "↞")
+  ;;                                     ("<~" "⇜")
+  ;;                                     ("~>" "⇝")
+  ;;                                     ("!==" "≢")
+  ;;                                     ("<|" "◁")
+  ;;                                     ("|>" "▷")
+  ;;                                     ("|-" "┣")
+  ;;                                     ("-|" "┫")
+  ;;                                     ("1." "①")
+  ;;                                     ("2." "②")
+  ;;                                     ("3." "③")
+  ;;                                     ("4." "④")
+  ;;                                     ("5." "⑤")
+  ;;                                     ("6." "⑥")
+  ;;                                     ("7." "⑦")
+  ;;                                     ("8." "⑧")
+  ;;                                     ("9." "⑨")
+  ;;                                     ("=>" "⇒")))
+  ;;                              (prettify-symbols-mode)))
+  ;;
+  ;;  (add-hook 'org-mode-hook (lambda ()
+  ;;                             (setq prettify-symbols-alist
+  ;;                                   (prettify-utils-generate
+  ;;                                    ("[ ]" "☐")
+  ;;                                    ("[X]" "☑")
+  ;;                                    ("[-]" "❍")))
+  ;;                             (prettify-symbols-mode)))
 
 
   ;; clojure ',-g-g' command for java source code
@@ -649,6 +649,18 @@ before packages are loaded."
   (setq org-agenda-files '("~/CanftIn-GTD"))
   (setq org-agenda-file-regexp "\\`[^.].*\\.org\\(_archive\\)?\\'") ;;archive事项也纳入agenda显示
   (setq org-agenda-include-diary t)       ;;将diary的事项也纳入agenda中显示
+  (setq org-todo-keywords
+        '(
+          (sequence "TODO" "STARTED" "|" "DELEGATED" "POSTPONED" "DONE" "CANCELED")
+          ))
+
+  (setq org-todo-keyword-faces
+        '(("TODO" . (:foreground "#ff39a3" :weight bold))
+          ("STARTED" . "#E35DBF")
+          ("CANCELED" . (:foreground "white" :background "#4d4d4d" :weight bold))
+          ("DELEGATED" . "pink")
+          ("POSTPONED" . "#008080")))
+
 
 
   ;; ---- Language settings ----
@@ -836,37 +848,40 @@ before packages are loaded."
 This is an auto-generated function, do not modify its content directly, use
 Emacs customize menu instead.
 This function is called at the very end of Spacemacs initialization."
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(evil-want-Y-yank-to-eol nil)
- '(hl-todo-keyword-faces
-   (quote
-    (("TODO" . "#dc752f")
-     ("NEXT" . "#dc752f")
-     ("THEM" . "#2d9574")
-     ("PROG" . "#4f97d7")
-     ("OKAY" . "#4f97d7")
-     ("DONT" . "#f2241f")
-     ("FAIL" . "#f2241f")
-     ("DONE" . "#86dc2f")
-     ("NOTE" . "#b1951d")
-     ("KLUDGE" . "#b1951d")
-     ("HACK" . "#b1951d")
-     ("TEMP" . "#b1951d")
-     ("FIXME" . "#dc752f")
-     ("XXX" . "#dc752f")
-     ("XXXX" . "#dc752f"))))
- '(package-selected-packages
-   (quote
-    (mvn meghanada maven-test-mode groovy-mode groovy-imports pcache gradle-mode yapfify stickyfunc-enhance pytest pyenv-mode py-isort pippel pipenv pyvenv pip-requirements live-py-mode importmagic epc ctable concurrent helm-pydoc helm-gtags helm-cscope xcscope ggtags cython-mode counsel-gtags company-anaconda anaconda-mode pythonic ox-twbs ox-gfm material-theme emojify ht emoji-cheat-sheet-plus company-emoji all-the-icons-dired yasnippet-snippets ws-butler writeroom-mode winum which-key volatile-highlights vi-tilde-fringe uuidgen use-package unfill toc-org symon string-inflection spaceline-all-the-icons sound-wav smeargle restart-emacs rainbow-mode rainbow-identifiers rainbow-delimiters prodigy popwin persp-mode pcre2el password-generator paradox overseer orgit org-tree-slide org-projectile org-present org-pomodoro org-mime org-download org-bullets org-brain open-junk-file neotree nameless mwim move-text mmm-mode markdown-toc magit-svn magit-gitflow macrostep lorem-ipsum linum-relative link-hint indent-guide hungry-delete htmlize hlint-refactor hl-todo hindent highlight-parentheses highlight-numbers highlight-indentation helm-xref helm-themes helm-swoop helm-rtags helm-purpose helm-projectile helm-org-rifle helm-mode-manager helm-make helm-hoogle helm-gitignore helm-git-grep helm-flx helm-descbinds helm-company helm-c-yasnippet helm-ag haskell-snippets graphviz-dot-mode google-translate google-c-style golden-ratio gnuplot gitignore-templates gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link git-gutter-fringe git-gutter-fringe+ gh-md fuzzy font-lock+ flycheck-rtags flycheck-pos-tip flycheck-haskell flx-ido fill-column-indicator fancy-battery eyebrowse expand-region evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-org evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-magit evil-lisp-state evil-lion evil-indent-plus evil-iedit-state evil-goggles evil-exchange evil-escape evil-ediff evil-cleverparens evil-args evil-anzu engine-mode elisp-slime-nav editorconfig dumb-jump dotenv-mode doom-modeline disaster diminish diff-hl define-word counsel-projectile company-statistics company-rtags company-ghci company-cabal company-c-headers column-enforce-mode color-identifiers-mode cmm-mode clojure-snippets clean-aindent-mode clang-format cider-eval-sexp-fu cider centered-cursor-mode browse-at-remote auto-yasnippet auto-highlight-symbol auto-compile aggressive-indent ace-window ace-link ace-jump-helm-line ac-ispell 2048-game)))
- '(pdf-view-midnight-colors (quote ("#b2b2b2" . "#292b2e"))))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )
-)
+  (custom-set-variables
+   ;; custom-set-variables was added by Custom.
+   ;; If you edit it by hand, you could mess it up, so be careful.
+   ;; Your init file should contain only one such instance.
+   ;; If there is more than one, they won't work right.
+   '(ansi-color-names-vector
+     ["#0a0814" "#f2241f" "#67b11d" "#b1951d" "#4f97d7" "#a31db1" "#28def0" "#b2b2b2"])
+   '(evil-want-Y-yank-to-eol nil)
+;;   '(hl-todo-keyword-faces
+;;     (quote
+;;      (("TODO" . "#dc752f")
+;;       ("NEXT" . "#dc752f")
+;;       ("THEN" . "#2d9574")
+;;       ("PROGRESS" . "#4f97d7")
+;;       ("OKAY" . "#4f97d7")
+;;       ("DONT" . "#f2241f")
+;;       ("FAIL" . "#f2241f")
+;;       ("DONE" . "#86dc2f")
+;;       ("NOTE" . "#b1951d")
+;;       ("KLUDGE" . "#b1951d")
+;;       ("HACK" . "#b1951d")
+;;       ("TEMP" . "#b1951d")
+;;       ("FIXME" . "#dc752f")
+;;       ("XXX" . "#dc752f")
+;;       ("XXXX" . "#dc752f"))))
+   '(org-agenda-files (quote ("d:/linux_home/CanftIn-GTD/todo.org")))
+   '(package-selected-packages
+     (quote
+      (mvn meghanada maven-test-mode groovy-mode groovy-imports pcache gradle-mode yapfify stickyfunc-enhance pytest pyenv-mode py-isort pippel pipenv pyvenv pip-requirements live-py-mode importmagic epc ctable concurrent helm-pydoc helm-gtags helm-cscope xcscope ggtags cython-mode counsel-gtags company-anaconda anaconda-mode pythonic ox-twbs ox-gfm material-theme emojify ht emoji-cheat-sheet-plus company-emoji all-the-icons-dired yasnippet-snippets ws-butler writeroom-mode winum which-key volatile-highlights vi-tilde-fringe uuidgen use-package unfill toc-org symon string-inflection spaceline-all-the-icons sound-wav smeargle restart-emacs rainbow-mode rainbow-identifiers rainbow-delimiters prodigy popwin persp-mode pcre2el password-generator paradox overseer orgit org-tree-slide org-projectile org-present org-pomodoro org-mime org-download org-bullets org-brain open-junk-file neotree nameless mwim move-text mmm-mode markdown-toc magit-svn magit-gitflow macrostep lorem-ipsum linum-relative link-hint indent-guide hungry-delete htmlize hlint-refactor hl-todo hindent highlight-parentheses highlight-numbers highlight-indentation helm-xref helm-themes helm-swoop helm-rtags helm-purpose helm-projectile helm-org-rifle helm-mode-manager helm-make helm-hoogle helm-gitignore helm-git-grep helm-flx helm-descbinds helm-company helm-c-yasnippet helm-ag haskell-snippets graphviz-dot-mode google-translate google-c-style golden-ratio gnuplot gitignore-templates gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link git-gutter-fringe git-gutter-fringe+ gh-md fuzzy font-lock+ flycheck-rtags flycheck-pos-tip flycheck-haskell flx-ido fill-column-indicator fancy-battery eyebrowse expand-region evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-org evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-magit evil-lisp-state evil-lion evil-indent-plus evil-iedit-state evil-goggles evil-exchange evil-escape evil-ediff evil-cleverparens evil-args evil-anzu engine-mode elisp-slime-nav editorconfig dumb-jump dotenv-mode doom-modeline disaster diminish diff-hl define-word counsel-projectile company-statistics company-rtags company-ghci company-cabal company-c-headers column-enforce-mode color-identifiers-mode cmm-mode clojure-snippets clean-aindent-mode clang-format cider-eval-sexp-fu cider centered-cursor-mode browse-at-remote auto-yasnippet auto-highlight-symbol auto-compile aggressive-indent ace-window ace-link ace-jump-helm-line ac-ispell 2048-game)))
+   '(pdf-view-midnight-colors (quote ("#b2b2b2" . "#292b2e"))))
+  (custom-set-faces
+   ;; custom-set-faces was added by Custom.
+   ;; If you edit it by hand, you could mess it up, so be careful.
+   ;; Your init file should contain only one such instance.
+   ;; If there is more than one, they won't work right.
+   )
+  )
