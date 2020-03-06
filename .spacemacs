@@ -252,7 +252,8 @@ It should only modify the values of Spacemacs settings."
    ;; Press `SPC T n' to cycle to the next theme in the list (works great
    ;; with 2 themes variants, one dark and one light)
    dotspacemacs-themes '(
-                         farmhouse-dark
+                         (my-dracula :location local)
+                         ;;farmhouse-dark
                          ;;material
                          ;;material-light
                          ;; majapahit-dark
@@ -284,7 +285,7 @@ It should only modify the values of Spacemacs settings."
    ;; Default font, or prioritized list of fonts. `powerline-scale' allows to
    ;; quickly tweak the mode-line size to make separators look not too crappy.
    dotspacemacs-default-font '(
-                               ("FiraCode Nerd Font Mono"
+                               ("iosevka" ;;"FiraCode Nerd Font Mono"
                                 :size 16
                                 :weight medium
                                 :width normal
@@ -555,6 +556,7 @@ If you are unsure, try setting them in `dotspacemacs/user-config' first."
       (set-face-background 'default "unspecified-bg" (selected-frame))))
   (add-hook 'window-setup-hook 'on-after-init)
 
+  (add-to-list 'custom-theme-load-path "~/.emacs.d/private/CanftIn-theming")
 
   )
 
@@ -1060,6 +1062,7 @@ before packages are loaded."
   ;; ---- Some theme Settings ----
   ;; Add personal script path, so that "require" works for personal scripts.
   (push "~/.spacemacs.d/config/" load-path)
+  ;;(add-to-list 'load-path "~/.emacs.d/private/CanftIn-theming")
   (spacemacs/toggle-highlight-current-line-globally-off)
   ;; Modify imenu-list so that the window position is centered after each jump.
   ;; (add-hook 'imenu-after-jump-hook (lambda () (recenter 10)))
