@@ -1,0 +1,44 @@
+#+title: daily todo list 
+#+description: daily todo list
+
+* this is a timestamp <2020-03-06 Fri 09:00>
+
+* DONE new task
+  CLOSED: [2020-03-06 Fri 00:23]
+  :LOGBOOK:
+  - State "DONE"       from "TODO"       [2020-03-06 Fri 00:15]
+  CLOCK: [2020-03-06 Fri 00:10]--[2020-03-06 Fri 00:15] =>  0:05
+  :END:
+
+* TODO [#A] 学习Emacs 
+  SCHEDULED: <2020-03-07 Sat 00:00 .+1d>
+  :PROPERTIES:
+  :LAST_REPEAT: [2020-03-06 Fri 00:32]
+  :END:
+  
+  - State "DONE"       from "TODO"       [2020-03-06 Fri 00:32]
+* TODO 学习英语
+  SCHEDULED: <2020-03-05 Thu 23:00-23:30> DEADLINE: <2020-03-07 Sat 23:00-23:30>
+  :LOGBOOK:
+  CLOCK: [2020-03-05 Thu 23:10]--[2020-03-05 Thu 23:12] =>  0:02
+  :END:
+
+* TODO 学习框架
+  SCHEDULED: <2020-03-06 Fri>
+
+* TODO test
+SCHEDULED: <2020-03-07 Sat 00:10 .+1d> DEADLINE: <2020-03-07 Sat 05:10 .+1d>
+:PROPERTIES:
+:LAST_REPEAT: [2020-03-06 Fri 00:25]
+:END:
+- State "DONE"       from "TODO"       [2020-03-06 Fri 00:25]
+- State "DONE"       from "TODO"       [2020-03-06 Fri 00:05]
+:LOGBOOK:
+- State "DONE"       from "TODO"       [2020-03-06 Thu 01:14]
+:END:
+
+*  this is a new unuseful task
+- [ ] task 1
+- [-] task 2
+- [X] task 3
+- [ ] task 4

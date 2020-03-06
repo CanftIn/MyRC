@@ -1,6 +1,0 @@
-      * Work
-      :CATEGORY: Work
-      ** Meeting with Bob
-      <2013-06-12 Wed 13:00-14:00>
-        ** Call with Sally
-        <2013-06-14 Fri 3:30pm> 
