@@ -285,7 +285,7 @@ It should only modify the values of Spacemacs settings."
    ;; Default font, or prioritized list of fonts. `powerline-scale' allows to
    ;; quickly tweak the mode-line size to make separators look not too crappy.
    dotspacemacs-default-font '(
-                               ("iosevka" ;;"FiraCode Nerd Font Mono"
+                               ("iosevka Nerd Font" ;;"FiraCode Nerd Font Mono"
                                 :size 16
                                 :weight medium
                                 :width normal
@@ -606,7 +606,25 @@ before packages are loaded."
   (evil-leader/set-key "o p" 'paste-from-clipboard)
 
 
-  ;; ---- ligature font ----
+  ;; ---- ligature font && prettify symbols ----
+
+
+  (add-hook 'org-mode-hook (lambda ()
+                             (setq prettify-symbols-alist
+                                   (prettify-utils-generate
+                                    ("[ ]" "☐")
+                                    ("[X]" "☑")
+                                    ("[-]" "❍")))
+                             (prettify-symbols-mode)))
+  (add-hook 'prog-mode-hook (lambda ()
+                              (setq prettify-symbols-alist
+                                    (prettify-utils-generate
+                                     ("delta" "Δ")
+                                     ("gamma" "Γ")
+                                     ("phi" "φ")
+                                     ("psi" "ψ")))
+                              (prettify-symbols-mode)))
+
   ;;  (add-hook 'prog-mode-hook (lambda ()
   ;;                              (setq prettify-symbols-alist
   ;;                                    (prettify-utils-generate
@@ -646,6 +664,7 @@ before packages are loaded."
   ;;                             (prettify-symbols-mode)))
 
 
+  ;; ---- clojure setting ----
   ;; clojure ',-g-g' command for java source code
   (setq cider-jdk-src-paths '("C:/Program Files/Java/jdk1.8.0_171/src"))
 
@@ -724,7 +743,7 @@ before packages are loaded."
 
   (spacemacs/set-leader-keys "of" 'my-org-helm-find-file)
 
-  ;;
+  ;; org capture
   (setq org-capture-templates '(("t" "Todo [inbox]"
                                  entry
                                  (file "~/org/inbox.org")
