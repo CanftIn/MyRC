@@ -7,6 +7,7 @@
                                           :repo "Ilazki/prettify-utils.el")) 
         ;; Personal display-related packages
         (pretty-code     :location local)
+        (pretty-eshell   :location local)
         ;;(pretty-fonts    :location local)
         ))
 ;;;; Pretty-mode
@@ -50,6 +51,61 @@
                                                     (:or "or")
                                                     (:not-in "not-in")
                                                     )))))
+
+
+;;;; Pretty-eshell
+
+(defun display/init-pretty-eshell ()
+  (use-package pretty-eshell
+    :init
+    (progn
+      ;; Change default banner message
+      (setq eshell-banner-message (s-concat (s-repeat 20 "---") "\n\n"))
+
+      ;; More prompt styling
+      (setq pretty-eshell-header "\n︳")
+      (setq pretty-eshell-prompt-string " "))
+
+    :config
+    (progn
+      ;; Directory
+      (pretty-eshell-section
+       esh-dir
+       "\xf07c"  ; 
+       (abbreviate-file-name (eshell/pwd))
+       '(:foreground "#268bd2" :bold bold :underline t))
+
+      ;; Git Branch
+      (pretty-eshell-section
+       esh-git
+       "\xe907"  ; 
+       (magit-get-current-branch)
+       '(:foreground "#8D6B94"))
+
+      ;; Python Virtual Environment
+      (pretty-eshell-section
+       esh-python
+       "\xe928"  ; 
+       pyvenv-virtual-env-name)
+
+      ;; Time
+      (pretty-eshell-section
+       esh-clock
+       "\xf017"  ; 
+       (format-time-string "%H:%M" (current-time))
+       '(:foreground "forest green"))
+
+      ;; Prompt Number
+      (pretty-eshell-section
+       esh-num
+       "\xf0c9"  ; 
+       (number-to-string pretty-eshell-prompt-num)
+       '(:foreground "brown"))
+
+      (setq pretty-eshell-funcs
+            (list esh-dir esh-git esh-python esh-clock esh-num)))))
+
+
 
 ;;;; Pretty-fonts
 
