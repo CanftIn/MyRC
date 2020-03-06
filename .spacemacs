@@ -71,6 +71,7 @@ This function should only modify configuration layer settings."
      ;; prodigy
      emoji
      search-engine
+     (chrome :variables chrome-exec-path "C:/Program Files (x86)/Google/Chrome/Application/chrome.exe")
      (auto-completion :variables
                       auto-completion-return-key-behavior 'complete
                       auto-completion-tab-key-behavior 'cycle
@@ -128,6 +129,7 @@ This function should only modify configuration layer settings."
      nodejs-repl
      org-rich-yank
      unicode-fonts
+     keyfreq
      )
 
    ;; A list of packages that cannot be updated.
@@ -1055,9 +1057,8 @@ before packages are loaded."
 
 
 
-
+  ;; ---- Other Settings ----
   ;;https://github.com/off99555/.spacemacs.d
-  ;; Other Settings
   (setq-default evil-escape-key-sequence "fd")
   (setq-default evil-escape-unordered-key-sequence t)
   (setq-default scroll-margin 5
@@ -1068,6 +1069,8 @@ before packages are loaded."
                 google-translate-default-target-language "th")
   ;; useless, go spacemacs/init() for setting
   ;;(setq powerline-default-separator 'arrow)
+  (keyfreq-mode 1)
+  (keyfreq-autosave-mode 1)
 
 
   ;; ---- Keybindings ----
@@ -1121,9 +1124,12 @@ This function is called at the very end of Spacemacs initialization."
    ;; If you edit it by hand, you could mess it up, so be careful.
    ;; Your init file should contain only one such instance.
    ;; If there is more than one, they won't work right.
+
    '(ansi-color-names-vector
      ["#0a0814" "#f2241f" "#67b11d" "#b1951d" "#4f97d7" "#a31db1" "#28def0" "#b2b2b2"])
    '(evil-want-Y-yank-to-eol nil)
+
+   ;; ---- org todo keyword ----
    ;;   '(hl-todo-keyword-faces
    ;;     (quote
    ;;      (("TODO" . "#dc752f")
@@ -1141,15 +1147,27 @@ This function is called at the very end of Spacemacs initialization."
    ;;       ("FIXME" . "#dc752f")
    ;;       ("XXX" . "#dc752f")
    ;;       ("XXXX" . "#dc752f"))))
+
+   ;; ---- org mode ----
    '(org-agenda-files (quote ("d:/linux_home/CanftIn-GTD/todo.org")))
+
    '(package-selected-packages
      (quote
       (mvn meghanada maven-test-mode groovy-mode groovy-imports pcache gradle-mode yapfify stickyfunc-enhance pytest pyenv-mode py-isort pippel pipenv pyvenv pip-requirements live-py-mode importmagic epc ctable concurrent helm-pydoc helm-gtags helm-cscope xcscope ggtags cython-mode counsel-gtags company-anaconda anaconda-mode pythonic ox-twbs ox-gfm material-theme emojify ht emoji-cheat-sheet-plus company-emoji all-the-icons-dired yasnippet-snippets ws-butler writeroom-mode winum which-key volatile-highlights vi-tilde-fringe uuidgen use-package unfill toc-org symon string-inflection spaceline-all-the-icons sound-wav smeargle restart-emacs rainbow-mode rainbow-identifiers rainbow-delimiters prodigy popwin persp-mode pcre2el password-generator paradox overseer orgit org-tree-slide org-projectile org-present org-pomodoro org-mime org-download org-bullets org-brain open-junk-file neotree nameless mwim move-text mmm-mode markdown-toc magit-svn magit-gitflow macrostep lorem-ipsum linum-relative link-hint indent-guide hungry-delete htmlize hlint-refactor hl-todo hindent highlight-parentheses highlight-numbers highlight-indentation helm-xref helm-themes helm-swoop helm-rtags helm-purpose helm-projectile helm-org-rifle helm-mode-manager helm-make helm-hoogle helm-gitignore helm-git-grep helm-flx helm-descbinds helm-company helm-c-yasnippet helm-ag haskell-snippets graphviz-dot-mode google-translate google-c-style golden-ratio gnuplot gitignore-templates gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link git-gutter-fringe git-gutter-fringe+ gh-md fuzzy font-lock+ flycheck-rtags flycheck-pos-tip flycheck-haskell flx-ido fill-column-indicator fancy-battery eyebrowse expand-region evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-org evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-magit evil-lisp-state evil-lion evil-indent-plus evil-iedit-state evil-goggles evil-exchange evil-escape evil-ediff evil-cleverparens evil-args evil-anzu engine-mode elisp-slime-nav editorconfig dumb-jump dotenv-mode doom-modeline disaster diminish diff-hl define-word counsel-projectile company-statistics company-rtags company-ghci company-cabal company-c-headers column-enforce-mode color-identifiers-mode cmm-mode clojure-snippets clean-aindent-mode clang-format cider-eval-sexp-fu cider centered-cursor-mode browse-at-remote auto-yasnippet auto-highlight-symbol auto-compile aggressive-indent ace-window ace-link ace-jump-helm-line ac-ispell 2048-game)))
    '(pdf-view-midnight-colors (quote ("#b2b2b2" . "#292b2e"))))
+
+
   (custom-set-faces
    ;; custom-set-faces was added by Custom.
    ;; If you edit it by hand, you could mess it up, so be careful.
    ;; Your init file should contain only one such instance.
    ;; If there is more than one, they won't work right.
+
+   '(markup-title-0-face ((t (:inherit markup-gen-face :height 1.6))))
+   '(markup-title-1-face ((t (:inherit markup-gen-face :height 1.5))))
+   '(markup-title-2-face ((t (:inherit markup-gen-face :height 1.4))))
+   '(markup-title-3-face ((t (:inherit markup-gen-face :weight bold :height 1.3))))
+   '(markup-title-5-face ((t (:inherit markup-gen-face :underline t :height 1.1))))
+
    )
   )
