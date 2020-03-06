@@ -81,7 +81,6 @@ This function should only modify configuration layer settings."
                       auto-completion-enable-sort-by-usage t)
      better-defaults
      git
-     github
      pdf
      multiple-cursors
      ;; treemacs
@@ -122,12 +121,6 @@ This function should only modify configuration layer settings."
      mode-icons
      prettier-js
      projectile
-     org-super-agenda
-     ;;git-auto-commit-mode
-     olivetti
-     nodejs-repl
-     org-rich-yank
-     unicode-fonts
      )
 
    ;; A list of packages that cannot be updated.
@@ -652,248 +645,21 @@ before packages are loaded."
   ;; ---- Org mode ----
   (setq org-folder "~/org")
 
-  ;; == Org Agenda ==
-  (setq org-agenda-log-mode-items '(closed clock state))
-  (setq org-agenda-files '("~/CanftIn-GTD/todo.org"))
+  ;;Org Agenda
+  (setq org-agenda-files '("~/CanftIn-GTD"))
   (setq org-agenda-file-regexp "\\`[^.].*\\.org\\(_archive\\)?\\'") ;;archive事项也纳入agenda显示
   (setq org-agenda-include-diary t)       ;;将diary的事项也纳入agenda中显示
-  ;;  (setq org-todo-keywords
-  ;;        '(
-  ;;          (sequence "TODO" "STARTED" "PROGRESS" "|" "DELEGATED" "POSTPONED" "DONE(d)" "CANCELED")
-  ;;          ))
-  ;;
-  ;;  (setq org-todo-keyword-faces
-  ;;        '(("TODO" . (:foreground "#ff39a3" :weight bold))
-  ;;          ("PROGRESS" . "#4f97d7")
-  ;;          ("STARTED" . "#E35DBF")
-  ;;          ("CANCELED" . (:foreground "white" :background "#4d4d4d" :weight bold))
-  ;;          ("DELEGATED" . "pink")
-  ;;          ("POSTPONED" . "#008080")))
-  
-  ;;https://emacs.christianbaeuerlein.com/my-org-config.html
-  (defun my-org-config/after-org-mode-load ()
-    (visual-line-mode)
-    (vi-tilde-fringe-mode -1)
+  (setq org-todo-keywords
+        '(
+          (sequence "TODO" "STARTED" "|" "DELEGATED" "POSTPONED" "DONE" "CANCELED")
+          ))
 
-    (require 'org-indent)
-    (org-indent-mode)
-    (set-face-attribute 'org-indent nil :inherit '(org-hide fixed-pitch))
-
-    (variable-pitch-mode 1)
-
-    ;; (turn-on-olivetti-mode)
-    ;; (with-eval-after-load 'olivetti
-    ;;   (olivetti-set-width 81)
-    ;;   (olivetti-mode 1))
-    )
-
-  (add-hook 'org-mode-hook 'my-org-config/after-org-mode-load)
-
-  ;;Quick access to my most important org functions is given by opening the menu SPC o
-  (spacemacs/declare-prefix "o" "org mode")
-  ;;You can view my daily agenda with SPC o d
-  (defun my-org-daily-agenda ()
-    (interactive)
-    (org-agenda nil "d")
-    )
-
-  (spacemacs/set-leader-keys "od" 'my-org-daily-agenda)
-  
-  ;;Add a new todo with preselected template with SPC o t
-  (defun my-org-add-todo ()
-    (interactive)
-    (org-capture nil "t")
-    )
-  (spacemacs/set-leader-keys "ot" 'my-org-add-todo)
-
-  (spacemacs/set-leader-keys "oc" 'org-capture)
-
-  (spacemacs/set-leader-keys "oa" 'org-agenda)
-
-  (spacemacs/set-leader-keys "ol" 'org-store-link)
-
-  (defun my-org-helm-find-file ()
-    (interactive)
-    (helm-browse-project-find-files '(
-                                      "~/CanftIn-GTD"
-                                      "~/org"
-                                      ))
-    )
-
-  (spacemacs/set-leader-keys "of" 'my-org-helm-find-file)
-
-  ;;
-  (setq org-capture-templates '(("t" "Todo [inbox]"
-                                 entry
-                                 (file "~/org/inbox.org")
-                                 "* TODO %?\n:PROPERTIES:\n:CREATED: %U\n:END:\n  %i\n")
-                                ("d" "Todo w/date [inbox]"
-                                 entry
-                                 (file "~/org/inbox.org")
-                                 "* TODO %? %<%Y-%m-%d>\n:PROPERTIES:\n:CREATED: %U\n:END:\n  %i\n")
-                                ("l" "Link currently stored [inbox]"
-                                 entry
-                                 (file "~/org/inbox.org")
-                                 "* TODO %i%?\n:PROPERTIES:\n:CREATED: %U\n:END:\n\%A\n%i\n")
-                                ("m" "Meeting [inbox]"
-                                 entry
-                                 (file "~/org/inbox.org")
-                                 "* Meeting %<%Y-%m-%d>: %^{prompt}\n:PROPERTIES:\n:CREATED: %U\n:END:\n- [ ] %?\n\n")))
-
-  ;; super agenda
-  (org-super-agenda-mode)
-  (setq org-super-agenda-header-map nil)
-  (setq org-deadline-warning-days 7)
-  (setq org-agenda-block-separator 9472)
-  (setq org-agenda-skip-scheduled-if-done t)
-  (setq org-agenda-start-on-weekday nil)
-
-  (setq org-agenda-custom-commands '(
-                                     ("h" "IOKI DASHBOARD"
-                                      ((agenda "" (
-                                                   (org-agenda-overriding-header "THIS WEEK")
-                                                   (org-agenda-span 'day)
-                                                   (org-agenda-scheduled-leaders '("   " "%2dx"))
-                                                   ))
-                                       (tags "+inbox"
-                                             ((org-agenda-overriding-header "INBOX: Entries to refile")))
-                                       (todo "VERIFY"
-                                             ((org-agenda-overriding-header "FINAL VERIFICATION PENDING")))
-                                       )
-                                      )
-                                     ("w" "WEEKLY REVIEW"
-                                      (
-                                       (todo "DONE"
-                                             (
-                                              (org-agenda-overriding-header "DONE!")
-                                              ))
-                                       (todo "CANCELLED"
-                                             ((org-agenda-overriding-header "CANCELLED")))
-                                       (todo "TODO"
-                                             ((org-agenda-overriding-header "TODO Items (without time attached)")
-                                              (org-agenda-skip-function '(org-agenda-skip-entry-if 'deadline 'scheduled 'timestamp))))
-                                       (todo "WAIT"
-                                             ((org-agenda-overriding-header "WAIT: Items on hold (without time attached)")
-                                              (org-agenda-skip-function '(org-agenda-skip-entry-if 'deadline 'scheduled 'timestamp))))
-                                       )
-                                      )
-                                     ("d" "DAILY"
-                                      ((agenda "" ((org-agenda-span 'day)
-                                                   (org-agenda-compact-blocks t)
-                                                   ;; (org-agenda-deadline-leaders)
-                                                   ;; (org-agenda-scheduled-leaders)
-                                                   (org-agenda-prefix-format '(
-                                                                               (agenda . "  %?-12t")
-                                                                               ))
-                                                   (org-super-agenda-groups
-                                                    '(
-                                                      (:name "⏰ Calendar" :time-grid t)
-                                                      (:name "Optional" :priority "C" :order 90)
-
-                                                      (:name "⚠ Overdue!" :deadline past)
-                                                      (:name "⚠ Overdue!" :scheduled past)
-
-                                                      ;; Discard full-day events from agenda
-                                                      (:discard (:category "Cal"))
-
-                                                      (:name "⭐ Next" :todo "NEXT")
-                                                      (:name "⭐ Important" :priority "A")
-                                                      (:name "📌 Routines" :category "Routines")
-
-                                                      (:auto-category t)
-                                                      ))
-                                                   ))
-                                       (alltodo "" ((org-agenda-overriding-header "")
-                                                    (org-agenda-prefix-format '(
-                                                                                (todo . "  ")
-                                                                                ))
-                                                    (org-super-agenda-groups
-                                                     '(
-                                                       (:name "Inbox" :tag "inbox")
-                                                       (:name "Verify" :todo "VERIFY")
-                                                       (:discard (:anything t))
-                                                       )
-                                                     ))))
-                                      )
-                                     ))
-
-
-  (setq org-refile-use-outline-path 'file)
-  (setq org-outline-path-complete-in-steps nil)
-  (setq header-line-format " ")
-  ;;(setq org-ellipsis "")
-  (setq org-hide-emphasis-markers t)
-  (setq org-fontify-whole-heading-line t)
-  (setq org-fontify-whole-heading-line t)
-  (setq org-fontify-done-headline t)
-  (setq org-fontify-quote-and-verse-blocks t)
-  (setq org-bullets-bullet-list '("⬢" "◆" "▲" "■"))
-  (setq org-tags-column 0)
-
-  (let* (
-         (comment      "#6272a4")
-         (warning      "#ffb86c")
-         (rainbow-1    "#f8f8f2")
-         (rainbow-2    "#8be9fd")
-         (rainbow-3    "#bd93f9")
-         (rainbow-4    "#ff79c6")
-         (rainbow-5    "#ffb86c")
-         (rainbow-6    "#50fa7b")
-         (rainbow-7    "#f1fa8c")
-         (rainbow-8    "#0189cc")
-         (rainbow-9    "#ff5555")
-         (rainbow-10   "#a0522d")
-
-         (variable-pitch-font `(:family "Iosevka Nerd Font" ))
-         (fixed-pitch-font    `(:family "FiraCode Nerd Font" ))
-         (fixed-pitch-font-alt `(:family "Hack Nerd Font" )))
-
-    (setq org-todo-keyword-faces (list
-                                  `("TODO"
-                                    ,@fixed-pitch-font
-                                    :foreground ,comment
-                                    :weight bold
-                                    )
-                                  `("NEXT"
-                                    ,@fixed-pitch-font
-                                    :foreground ,warning
-                                    :weight bold)
-                                  `("WAIT"
-                                    ,@fixed-pitch-font
-                                    :foreground ,rainbow-2
-                                    :weight bold)
-                                  `("VERIFY"
-                                    ,@fixed-pitch-font
-                                    :foreground ,rainbow-7
-                                    :weight bold)
-                                  `("LOWPRIO"
-                                    ,@fixed-pitch-font
-                                    :foreground ,comment
-                                    :weight bold)
-                                  `("DONE"
-                                    ,@fixed-pitch-font
-                                    :foreground ,rainbow-6
-                                    :weight bold)
-                                  `("CANCELLED"
-                                    ,@fixed-pitch-font
-                                    :foreground ,rainbow-9
-                                    :weight bold)
-                                  ))
-    )
-
-  (setq org-src-fontify-natively t)
-  (setq org-edit-src-content-indentation 0)
-  (setq org-src-tab-acts-natively t)
-  (setq org-src-preserve-indentation t)
-  (setq org-confirm-babel-evaluate nil)
-  (org-babel-do-load-languages 'org-babel-load-languages
-                               '((sql . t)
-                                 (shell . t)
-                                 (dot . t)
-                                 (emacs-lisp . t)
-                                 (ruby . t)
-                                 (js . t)))
-
+  (setq org-todo-keyword-faces
+        '(("TODO" . (:foreground "#ff39a3" :weight bold))
+          ("STARTED" . "#E35DBF")
+          ("CANCELED" . (:foreground "white" :background "#4d4d4d" :weight bold))
+          ("DELEGATED" . "pink")
+          ("POSTPONED" . "#008080")))
 
 
 
@@ -1090,23 +856,23 @@ This function is called at the very end of Spacemacs initialization."
    '(ansi-color-names-vector
      ["#0a0814" "#f2241f" "#67b11d" "#b1951d" "#4f97d7" "#a31db1" "#28def0" "#b2b2b2"])
    '(evil-want-Y-yank-to-eol nil)
-   ;;   '(hl-todo-keyword-faces
-   ;;     (quote
-   ;;      (("TODO" . "#dc752f")
-   ;;       ("NEXT" . "#dc752f")
-   ;;       ("THEN" . "#2d9574")
-   ;;       ("PROGRESS" . "#4f97d7")
-   ;;       ("OKAY" . "#4f97d7")
-   ;;       ("DONT" . "#f2241f")
-   ;;       ("FAIL" . "#f2241f")
-   ;;       ("DONE" . "#86dc2f")
-   ;;       ("NOTE" . "#b1951d")
-   ;;       ("KLUDGE" . "#b1951d")
-   ;;       ("HACK" . "#b1951d")
-   ;;       ("TEMP" . "#b1951d")
-   ;;       ("FIXME" . "#dc752f")
-   ;;       ("XXX" . "#dc752f")
-   ;;       ("XXXX" . "#dc752f"))))
+;;   '(hl-todo-keyword-faces
+;;     (quote
+;;      (("TODO" . "#dc752f")
+;;       ("NEXT" . "#dc752f")
+;;       ("THEN" . "#2d9574")
+;;       ("PROGRESS" . "#4f97d7")
+;;       ("OKAY" . "#4f97d7")
+;;       ("DONT" . "#f2241f")
+;;       ("FAIL" . "#f2241f")
+;;       ("DONE" . "#86dc2f")
+;;       ("NOTE" . "#b1951d")
+;;       ("KLUDGE" . "#b1951d")
+;;       ("HACK" . "#b1951d")
+;;       ("TEMP" . "#b1951d")
+;;       ("FIXME" . "#dc752f")
+;;       ("XXX" . "#dc752f")
+;;       ("XXXX" . "#dc752f"))))
    '(org-agenda-files (quote ("d:/linux_home/CanftIn-GTD/todo.org")))
    '(package-selected-packages
      (quote
