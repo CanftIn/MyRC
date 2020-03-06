@@ -664,6 +664,16 @@ before packages are loaded."
   ;;                             (prettify-symbols-mode)))
 
 
+  ;; ---- Setting Chinese Font ----
+  (when (and (spacemacs/system-is-mswindows) window-system)
+    (setq ispell-program-name "aspell")
+    (setq w32-pass-alt-to-system nil)
+    (setq w32-apps-modifier 'super)
+    (dolist (charset '(kana han symbol cjk-misc bopomofo))
+      (set-fontset-font (frame-parameter nil 'font)
+                        charset
+                        (font-spec :family "Microsoft Yahei" :size 16))))
+
   ;; ---- clojure setting ----
   ;; clojure ',-g-g' command for java source code
   (setq cider-jdk-src-paths '("C:/Program Files/Java/jdk1.8.0_171/src"))
@@ -678,19 +688,8 @@ before packages are loaded."
   (setq org-agenda-files '("~/CanftIn-GTD/todo.org"))
   (setq org-agenda-file-regexp "\\`[^.].*\\.org\\(_archive\\)?\\'") ;;archive事项也纳入agenda显示
   (setq org-agenda-include-diary t)       ;;将diary的事项也纳入agenda中显示
-  ;;  (setq org-todo-keywords
-  ;;        '(
-  ;;          (sequence "TODO" "STARTED" "PROGRESS" "|" "DELEGATED" "POSTPONED" "DONE(d)" "CANCELED")
-  ;;          ))
-  ;;
-  ;;  (setq org-todo-keyword-faces
-  ;;        '(("TODO" . (:foreground "#ff39a3" :weight bold))
-  ;;          ("PROGRESS" . "#4f97d7")
-  ;;          ("STARTED" . "#E35DBF")
-  ;;          ("CANCELED" . (:foreground "white" :background "#4d4d4d" :weight bold))
-  ;;          ("DELEGATED" . "pink")
-  ;;          ("POSTPONED" . "#008080")))
-  
+
+
   ;;https://emacs.christianbaeuerlein.com/my-org-config.html
   (defun my-org-config/after-org-mode-load ()
     (visual-line-mode)
@@ -865,9 +864,9 @@ before packages are loaded."
          (rainbow-9    "#ff5555")
          (rainbow-10   "#a0522d")
 
-         (variable-pitch-font `(:family "Iosevka Nerd Font" ))
+         (variable-pitch-font `(:family "iA Writer Quattro S" ))
          (fixed-pitch-font    `(:family "FiraCode Nerd Font" ))
-         (fixed-pitch-font-alt `(:family "Hack Nerd Font" )))
+         (fixed-pitch-font-alt `(:family "iA Writer Mono S" )))
 
     (setq org-todo-keyword-faces (list
                                   `("TODO"
@@ -901,6 +900,19 @@ before packages are loaded."
                                     :weight bold)
                                   ))
     )
+  (setq org-todo-keywords
+        '(
+          (sequence "TODO" "NEXT" "WAIT" "|" "VERIFY" "LOWPRIO" "DONE(d)" "CANCELED")
+          ))
+  ;;
+  ;;  (setq org-todo-keyword-faces
+  ;;        '(("TODO" . (:foreground "#ff39a3" :weight bold))
+  ;;          ("PROGRESS" . "#4f97d7")
+  ;;          ("STARTED" . "#E35DBF")
+  ;;          ("CANCELED" . (:foreground "white" :background "#4d4d4d" :weight bold))
+  ;;          ("DELEGATED" . "pink")
+  ;;          ("POSTPONED" . "#008080")))
+
 
   (setq org-src-fontify-natively t)
   (setq org-edit-src-content-indentation 0)
@@ -1007,16 +1019,16 @@ before packages are loaded."
   ;; https://www.rockyourcode.com/fira-code-font-ligatures-in-emacs-spacemacs-on-arch-linux
   (defun my-correct-symbol-bounds (pretty-alist)
     "Prepend a TAB character to each symbol in this alist,
-  this way compose-region called by prettify-symbols-mode
-  will use the correct width of the symbols
-  instead of the width measured by char-width."
+          this way compose-region called by prettify-symbols-mode
+          will use the correct width of the symbols
+          instead of the width measured by char-width."
     (mapcar (lambda (el)
               (setcdr el (string ?\t (cdr el)))
               el)
             pretty-alist))
   (defun my-ligature-list (ligatures codepoint-start)
     "Create an alist of strings to replace with
-  codepoints starting from codepoint-start."
+          codepoints starting from codepoint-start."
     (let ((codepoints (-iterate '1+ codepoint-start (length ligatures))))
       (-zip-pair ligatures codepoints)))
   (setq my-fira-code-ligatures
