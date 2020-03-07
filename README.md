@@ -9,8 +9,10 @@ From 2020 ==> this repo is not only aiming at ArchLinux, but also working well o
 
 ![screenshot](./screenshots/screenshot.png)
 
-`spacemacs` private configuations include `font ligature` `org mode` `language format` `prettify eshell` `prettify code` `CanftIn-theming` customizations and so on.
+`spacemacs` private configuations include `font ligature` `org mode` `language format` `prettify eshell` `prettify code` `yasnippets` `CanftIn-theming` customizations and so on.
 
+The dracula theme needs `iA Writer Quattro S` `FiraCode Nerd Font` `iA Writer Mono S` fonts defaultly.
+Change the theme fonts in the file if you need.
 
 
 tmux config from [gpakosz/.tmux](https://github.com/gpakosz/.tmux)
@@ -34,8 +36,10 @@ $ xinput set-prop "SynPS/2 Synaptics TouchPad"  "libinput Tapping Enabled" 1
 ```
 
 **About vimrc:**
+
 *The past：*
 vimrc mainly refers to [humiaozuzu/dot-vimrc](https://github.com/humiaozuzu/dot-vimrc) &&[yangyangwithgnu/use_vim_as_ide](https://github.com/yangyangwithgnu/use_vim_as_ide/blob/master/.vimrc)
+
 *Now:*
 The vimrc learn from more others configuations, thanks for community. And it still on improving.
 
