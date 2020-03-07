@@ -1,7 +1,17 @@
 # MyRC
-my archlinux setting resouce files, the `wsl` fold is about windows subsystem linux environment setting.
+My ArchLinux setting resouce files, the `private` fold is about my private configuations for platfroms like: 
+`WSL` => Windows subsystem linux environment configuations,
+`termux` => Anroid termux environment configuations,
+`arch` => ArchLinux environment configuations,
+and so on.
+
+From 2020 ==> this repo is not only aiming at ArchLinux, but also working well on Windows such as `spacemacs` and `vimrc` dotfiles. 
 
 ![screenshot](./screenshots/screenshot.png)
+
+`spacemacs` private configuations include `font ligature` `org mode` `language format` `prettify eshell` `prettify code` `CanftIn-theming` customizations and so on.
+
+
 
 tmux config from [gpakosz/.tmux](https://github.com/gpakosz/.tmux)
 
@@ -23,11 +33,15 @@ $ xinput list-props "SynPS/2 Synaptics TouchPad"
 $ xinput set-prop "SynPS/2 Synaptics TouchPad"  "libinput Tapping Enabled" 1
 ```
 
+**About vimrc:**
+*The past：*
 vimrc mainly refers to [humiaozuzu/dot-vimrc](https://github.com/humiaozuzu/dot-vimrc) &&[yangyangwithgnu/use_vim_as_ide](https://github.com/yangyangwithgnu/use_vim_as_ide/blob/master/.vimrc)
+*Now:*
+The vimrc learn from more others configuations, thanks for community. And it still on improving.
 
  
 
-**how to use:**
+### how to use:
 ```bash
 git clone https://github.com/CanftIn/MyRC.git
 cd MyRC
