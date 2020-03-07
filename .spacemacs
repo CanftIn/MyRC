@@ -61,7 +61,16 @@ This function should only modify configuration layer settings."
      (markdown :variables markdown-live-preview-engine 'vmd)
      asciidoc
      graphviz
-     ;;lsp
+     (plantuml :variables org-plantuml-jar-path "~/.emacs.d/private/third-party/plantuml.jar")
+     lsp
+     (go :variables
+        go-use-golangci-lint t
+        go-linter 'golangci-lint
+        godoc-at-point-function 'godoc-gogetdoc
+        go-format-before-save t
+        gofmt-command "goimports"
+        go-backend 'lsp
+        go-tab-width 2)
      ;; ----------------   languages   ----------------
 
 
@@ -137,6 +146,8 @@ This function should only modify configuration layer settings."
      org-rich-yank
      unicode-fonts
      keyfreq
+     go-playground
+     gotest
      )
 
    ;; A list of packages that cannot be updated.
@@ -569,6 +580,12 @@ If you are unsure, try setting them in `dotspacemacs/user-config' first."
 
   (add-to-list 'custom-theme-load-path "~/.emacs.d/private/CanftIn-theming")
 
+  (eval-after-load 'flycheck
+    '(add-hook 'flycheck-mode-hook #'flycheck-golangci-lint-setup))
+  (add-hook 'web-mode-hook #'(lambda ()
+                               (enable-minor-mode
+                                '("\\.jsx?\\'" . prettier-js-mode))))
+
   )
 
 (defun dotspacemacs/user-load ()
@@ -858,7 +875,7 @@ before packages are loaded."
     (dolist (charset '(kana han symbol cjk-misc bopomofo))
       (set-fontset-font (frame-parameter nil 'font)
                         charset
-                        (font-spec :family "Microsoft Yahei" :size 16))))
+                        (font-spec :family "Microsoft Yahei" :size 17))))
 
   ;; ---------------- Setting Chinese Font ----------------
 
