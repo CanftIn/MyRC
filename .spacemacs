@@ -82,7 +82,9 @@ This function should only modify configuration layer settings."
                       auto-completion-complete-with-key-sequence-delay 0.1
                       auto-completion-enable-snippets-in-popup t
                       auto-completion-enable-help-tooltip nil
-                      auto-completion-enable-sort-by-usage t)
+                      auto-completion-enable-sort-by-usage t
+                      auto-completion-private-snippets-directory "~/.emacs.d/private/yasnippets"
+                      )
      better-defaults
      git
      github
