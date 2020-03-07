@@ -1,5 +1,5 @@
 # MyRC
-![](https://img.shields.io/badge/MyRC-v1.2-519dd9.svg)   ![](https://img.shields.io/badge/platform-Windows%20%7C%20ArchLinux%20%7C%20termux%20%7C%20Ubuntu-brightgreen.svg)  ![](https://img.shields.io/badge/language-Elisp%20%7C%20Vimscript%20%7C%20YASnippets-orange.svg)
+![](https://img.shields.io/badge/MyRC-v1.2-519dd9.svg)   ![](https://img.shields.io/badge/platform-Windows%20%7C%20ArchLinux%20%7C%20termux%20%7C%20Ubuntu%20%7C%20WSL-brightgreen.svg)  ![](https://img.shields.io/badge/language-Elisp%20%7C%20Vimscript%20%7C%20YASnippets%20%7C%20bash-orange.svg)
 
 <a href="https://github.com/CanftIn/MyRC/issues/new"><img alt="Support me" src="https://img.shields.io/badge/Support%20Me-%F0%9F%92%97-ff69b4.svg"></a>
 
