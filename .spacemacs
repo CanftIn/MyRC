@@ -61,16 +61,19 @@ This function should only modify configuration layer settings."
      (markdown :variables markdown-live-preview-engine 'vmd)
      asciidoc
      graphviz
-     (plantuml :variables org-plantuml-jar-path "~/.emacs.d/private/third-party/plantuml.jar")
+     (plantuml :variables
+               plantuml-jar-path "~/.emacs.d/private/third-party/plantuml.jar"
+               org-plantuml-jar-path "~/.emacs.d/private/third-party/plantuml.jar"
+               )
      lsp
      (go :variables
-        go-use-golangci-lint t
-        go-linter 'golangci-lint
-        godoc-at-point-function 'godoc-gogetdoc
-        go-format-before-save t
-        gofmt-command "goimports"
-        go-backend 'lsp
-        go-tab-width 2)
+         go-use-golangci-lint t
+         go-linter 'golangci-lint
+         godoc-at-point-function 'godoc-gogetdoc
+         go-format-before-save t
+         gofmt-command "goimports"
+         go-backend 'lsp
+         go-tab-width 2)
      ;; ----------------   languages   ----------------
 
 
@@ -1195,6 +1198,7 @@ before packages are loaded."
   ;;(setq powerline-default-separator 'arrow)
   (keyfreq-mode 1)
   (keyfreq-autosave-mode 1)
+  (setq plantuml-default-exec-mode 'jar)
 
   ;; ---------------- Others ----------------
 
