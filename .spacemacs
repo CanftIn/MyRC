@@ -33,17 +33,18 @@ This function should only modify configuration layer settings."
 
    ;; List of configuration layers to load.
    dotspacemacs-configuration-layers
-   '(python
+   '(
      ;; ----------------------------------------------------------------
      ;; Example of useful layers you may want to use right away.
      ;; Uncomment some layer names and press `SPC f e R' (Vim style) or
      ;; `M-m f e R' (Emacs style) to install them.
      ;; ----------------------------------------------------------------
 
-     ;; ---- languages ----
+     ;; ----------------   languages   ----------------
      ;; ocaml
-     clojure
      ;; sml
+     clojure
+     python
      emacs-lisp
      javascript
      typescript
@@ -60,9 +61,11 @@ This function should only modify configuration layer settings."
      (markdown :variables markdown-live-preview-engine 'vmd)
      asciidoc
      graphviz
-     lsp
+     ;;lsp
+     ;; ----------------   languages   ----------------
 
-     ;; ---- tools ----
+
+     ;; ----------------     tools     ----------------
      helm
      (colors :variables
              colors-colorize-identifiers 'variables ;; set to 'all or 'variables
@@ -96,11 +99,13 @@ This function should only modify configuration layer settings."
      spell-checking
      syntax-checking
      version-control
+     ;; ----------------     tools     ----------------
 
-     ;; ---- my own layers ----
+     ;; ---------------- my own layers ----------------
      CanftIn
      (display :location local)
      ;;cc-c++
+     ;; ---------------- my own layers ----------------
      )
 
    ;; List of additional packages that will be installed without being
@@ -287,16 +292,18 @@ It should only modify the values of Spacemacs settings."
    ;; Default font, or prioritized list of fonts. `powerline-scale' allows to
    ;; quickly tweak the mode-line size to make separators look not too crappy.
    dotspacemacs-default-font '(
-                               ("iosevka Nerd Font" ;;"FiraCode Nerd Font Mono"
+                               ("Iosevka Nerd Font" ;;"FiraCode Nerd Font Mono"
                                 :size 16
                                 :weight medium
                                 :width normal
-                                :powerline-scale 1)
+                                :powerline-scale 1
+                                )
                                ("Fira Code Symbol"
                                 :size 16
                                 :weight normal
                                 :width normal
-                                :powerline-scale 1)
+                                :powerline-scale 1
+                                )
 
                                ;;("iosevka" ;;"Source Code Pro"
                                ;; :size 16
@@ -575,7 +582,8 @@ This function is called at the very end of Spacemacs startup, after layer
 configuration.
 Put your configuration code here, except for variables that should be set
 before packages are loaded."
-  ;; ---- copy && paste ----
+
+  ;; ---------------- copy && paste ----------------
   ;;https://github.com/syl20bnr/spacemacs/issues/2222
   (defun copy-to-clipboard ()
     "Copies selection to x-clipboard."
@@ -606,11 +614,11 @@ before packages are loaded."
     )
   (evil-leader/set-key "o y" 'copy-to-clipboard)
   (evil-leader/set-key "o p" 'paste-from-clipboard)
+  ;; ---------------- copy && paste ----------------
 
+  ;; ---------------- ligature font && prettify symbols ----------------
 
-  ;; ---- ligature font && prettify symbols ----
-
-
+  ;; ============ Using prettify-symbols ============
   (add-hook 'org-mode-hook (lambda ()
                              (setq prettify-symbols-alist
                                    (prettify-utils-generate
@@ -656,17 +664,191 @@ before packages are loaded."
   ;;                                     ("9." "⑨")
   ;;                                     ("=>" "⇒")))
   ;;                              (prettify-symbols-mode)))
-  ;;
-  ;;  (add-hook 'org-mode-hook (lambda ()
-  ;;                             (setq prettify-symbols-alist
-  ;;                                   (prettify-utils-generate
-  ;;                                    ("[ ]" "☐")
-  ;;                                    ("[X]" "☑")
-  ;;                                    ("[-]" "❍")))
-  ;;                             (prettify-symbols-mode)))
 
 
-  ;; ---- Setting Chinese Font ----
+  ;;  ;; Fira Code Font Ligatures in Emacs/Spacemacs on (Arch) Linux thanks to:
+  ;;  ;; https://www.rockyourcode.com/fira-code-font-ligatures-in-emacs-spacemacs-on-arch-linux
+  ;;  (defun my-correct-symbol-bounds (pretty-alist)
+  ;;    "Prepend a TAB character to each symbol in this alist,
+  ;;    this way compose-region called by prettify-symbols-mode
+  ;;    will use the correct width of the symbols
+  ;;    instead of the width measured by char-width."
+  ;;    (mapcar (lambda (el)
+  ;;              (setcdr el (string ?\t (cdr el)))
+  ;;              el)
+  ;;            pretty-alist))
+  ;;  (defun my-ligature-list (ligatures codepoint-start)
+  ;;    "Create an alist of strings to replace with
+  ;;    codepoints starting from codepoint-start."
+  ;;    (let ((codepoints (-iterate '1+ codepoint-start (length ligatures))))
+  ;;      (-zip-pair ligatures codepoints)))
+  ;;  (setq my-fira-code-ligatures
+  ;;        (let* ((ligs '("www" "**" "***" "**/" "*>" "*/" "\\\\" "\\\\\\"
+  ;;                       "{-" "[]" "::" ":::" ":=" "!!" "!=" "!==" "-}"
+  ;;                       "--" "---" "-->" "->" "->>" "-<" "-<<" "-~"
+  ;;                       "#{" "#[" "##" "###" "####" "#(" "#?" "#_" "#_("
+  ;;                       ".-" ".=" ".." "..<" "..." "?=" "??" ";;" "/*"
+  ;;                       "/**" "/=" "/==" "/>" "//" "///" "&&" "||" "||="
+  ;;                       "|=" "|>" "^=" "$>" "++" "+++" "+>" "=:=" "=="
+  ;;                       "===" "==>" "=>" "=>>" "<=" "=<<" "=/=" ">-" ">="
+  ;;                       ">=>" ">>" ">>-" ">>=" ">>>" "<*" "<*>" "<|" "<|>"
+  ;;                       "<$" "<$>" "<!--" "<-" "<--" "<->" "<+" "<+>" "<="
+  ;;                       "<==" "<=>" "<=<" "<>" "<<" "<<-" "<<=" "<<<" "<~"
+  ;;                       "<~~" "</" "</>" "~@" "~-" "~=" "~>" "~~" "~~>";; Fira code
+  ;;                       "x" ":" "+" "+" "*")))
+  ;;          (my-correct-symbol-bounds (my-ligature-list ligs #Xe100))))
+  ;;  (defun my-set-fira-code-ligatures ()
+  ;;    "Add fira code ligatures for use with prettify-symbols-mode."
+  ;;    (setq prettify-symbols-alist
+  ;;          (append my-fira-code-ligatures prettify-symbols-alist))
+  ;;    (prettify-symbols-mode))
+  ;;  ;;(add-hook 'prog-mode-hook 'my-set-fira-code-ligatures)
+
+  ;; ============ Using prettify-symbols ============
+
+  ;; ============ Using font-lock keywords ============
+  ;; https://gist.github.com/Althorion/9848043ce1b0dd9fe04a4b923aa46298
+  ;; Fira code
+  ;; This works when using emacs --daemon + emacsclient
+  (add-hook 'after-make-frame-functions (lambda (frame) (set-fontset-font t '(#Xe100 . #Xe16f) "Fira Code Symbol")))
+  ;; This works when using emacs without server/client
+  (set-fontset-font t '(#Xe100 . #Xe16f) "Fira Code Symbol")
+  ;; I haven't found one statement that makes both of the above situations work, so I use both for now
+
+  (defconst fira-code-font-lock-keywords-alist
+    (mapcar (lambda (regex-char-pair)
+              `(,(car regex-char-pair)
+                (0 (prog1 ()
+                     (compose-region (match-beginning 1)
+                                     (match-end 1)
+                                     ;; The first argument to concat is a string containing a literal tab
+                                     ,(concat "	" (list (decode-char 'ucs (cadr regex-char-pair)))))))))
+            '(("\\(www\\)"                   #Xe100)
+              ("[^/]\\(\\*\\*\\)[^/]"        #Xe101)
+              ("\\(\\*\\*\\*\\)"             #Xe102)
+              ("\\(\\*\\*/\\)"               #Xe103)
+              ("\\(\\*>\\)"                  #Xe104)
+              ("[^*]\\(\\*/\\)"              #Xe105)
+              ("\\(\\\\\\\\\\)"              #Xe106)
+              ("\\(\\\\\\\\\\\\\\)"          #Xe107)
+              ("\\({-\\)"                    #Xe108)
+              ("\\(\\[\\]\\)"                #Xe109)
+              ("\\(::\\)"                    #Xe10a)
+              ("\\(:::\\)"                   #Xe10b)
+              ("[^=]\\(:=\\)"                #Xe10c)
+              ("\\(!!\\)"                    #Xe10d)
+              ("\\(!=\\)"                    #Xe10e)
+              ("\\(!==\\)"                   #Xe10f)
+              ("\\(-}\\)"                    #Xe110)
+              ("\\(--\\)"                    #Xe111)
+              ("\\(---\\)"                   #Xe112)
+              ("\\(-->\\)"                   #Xe113)
+              ("[^-]\\(->\\)"                #Xe114)
+              ("\\(->>\\)"                   #Xe115)
+              ("\\(-<\\)"                    #Xe116)
+              ("\\(-<<\\)"                   #Xe117)
+              ("\\(-~\\)"                    #Xe118)
+              ("\\(#{\\)"                    #Xe119)
+              ("\\(#\\[\\)"                  #Xe11a)
+              ("\\(##\\)"                    #Xe11b)
+              ("\\(###\\)"                   #Xe11c)
+              ("\\(####\\)"                  #Xe11d)
+              ("\\(#(\\)"                    #Xe11e)
+              ("\\(#\\?\\)"                  #Xe11f)
+              ("\\(#_\\)"                    #Xe120)
+              ("\\(#_(\\)"                   #Xe121)
+              ("\\(\\.-\\)"                  #Xe122)
+              ("\\(\\.=\\)"                  #Xe123)
+              ("\\(\\.\\.\\)"                #Xe124)
+              ("\\(\\.\\.<\\)"               #Xe125)
+              ("\\(\\.\\.\\.\\)"             #Xe126)
+              ("\\(\\?=\\)"                  #Xe127)
+              ("\\(\\?\\?\\)"                #Xe128)
+              ;;            ("\\(;;\\)"                    #Xe892)
+              ("\\(;;\\)"                    #Xe129)
+              ("\\(/\\*\\)"                  #Xe12a)
+              ("\\(/\\*\\*\\)"               #Xe12b)
+              ("\\(/=\\)"                    #Xe12c)
+              ("\\(/==\\)"                   #Xe12d)
+              ("\\(/>\\)"                    #Xe12e)
+              ("\\(//\\)"                    #Xe12f)
+              ("\\(///\\)"                   #Xe130)
+              ("\\(&&\\)"                    #Xe131)
+              ("\\(||\\)"                    #Xe132)
+              ("\\(||=\\)"                   #Xe133)
+              ("[^|]\\(|=\\)"                #Xe134)
+              ("\\(|>\\)"                    #Xe135)
+              ("\\(\\^=\\)"                  #Xe136)
+              ("\\(\\$>\\)"                  #Xe137)
+              ("\\(\\+\\+\\)"                #Xe138)
+              ("\\(\\+\\+\\+\\)"             #Xe139)
+              ("\\(\\+>\\)"                  #Xe13a)
+              ("\\(=:=\\)"                   #Xe13b)
+              ("[^!/]\\(==\\)[^>]"           #Xe13c)
+              ("\\(===\\)"                   #Xe13d)
+              ("\\(==>\\)"                   #Xe13e)
+              ("[^=]\\(=>\\)"                #Xe13f)
+              ("\\(=>>\\)"                   #Xe140)
+              ("\\(<=\\)"                    #Xe141)
+              ("\\(=<<\\)"                   #Xe142)
+              ("\\(=/=\\)"                   #Xe143)
+              ("\\(>-\\)"                    #Xe144)
+              ("\\(>=\\)"                    #Xe145)
+              ("\\(>=>\\)"                   #Xe146)
+              ("[^-=]\\(>>\\)"               #Xe147)
+              ("\\(>>-\\)"                   #Xe148)
+              ("\\(>>=\\)"                   #Xe149)
+              ("\\(>>>\\)"                   #Xe14a)
+              ("\\(<\\*\\)"                  #Xe14b)
+              ("\\(<\\*>\\)"                 #Xe14c)
+              ("\\(<|\\)"                    #Xe14d)
+              ("\\(<|>\\)"                   #Xe14e)
+              ("\\(<\\$\\)"                  #Xe14f)
+              ("\\(<\\$>\\)"                 #Xe150)
+              ("\\(<!--\\)"                  #Xe151)
+              ("\\(<-\\)"                    #Xe152)
+              ("\\(<--\\)"                   #Xe153)
+              ("\\(<->\\)"                   #Xe154)
+              ("\\(<\\+\\)"                  #Xe155)
+              ("\\(<\\+>\\)"                 #Xe156)
+              ("\\(<=\\)"                    #Xe157)
+              ("\\(<==\\)"                   #Xe158)
+              ("\\(<=>\\)"                   #Xe159)
+              ("\\(<=<\\)"                   #Xe15a)
+              ("\\(<>\\)"                    #Xe15b)
+              ("[^-=]\\(<<\\)"               #Xe15c)
+              ("\\(<<-\\)"                   #Xe15d)
+              ("\\(<<=\\)"                   #Xe15e)
+              ("\\(<<<\\)"                   #Xe15f)
+              ("\\(<~\\)"                    #Xe160)
+              ("\\(<~~\\)"                   #Xe161)
+              ("\\(</\\)"                    #Xe162)
+              ("\\(</>\\)"                   #Xe163)
+              ("\\(~@\\)"                    #Xe164)
+              ("\\(~-\\)"                    #Xe165)
+              ("\\(~=\\)"                    #Xe166)
+              ("\\(~>\\)"                    #Xe167)
+              ("[^<]\\(~~\\)"                #Xe168)
+              ("\\(~~>\\)"                   #Xe169)
+              ("\\(%%\\)"                    #Xe16a)
+              ;; ("\\(x\\)"                   #Xe16b) This ended up being hard to do properly so i'm leaving it out.
+              ("[^:=]\\(:\\)[^:=]"           #Xe16c)
+              ("[^\\+<>]\\(\\+\\)[^\\+<>]"   #Xe16d)
+              ("[^\\*/<>]\\(\\*\\)[^\\*/<>]" #Xe16f))))
+
+  (defun add-fira-code-symbol-keywords ()
+    (font-lock-add-keywords nil fira-code-font-lock-keywords-alist))
+
+  (add-hook 'prog-mode-hook
+            #'add-fira-code-symbol-keywords)
+
+  ;; ============ Using font-lock keywords ============
+
+  ;; ---------------- ligature font && prettify symbols ----------------
+
+
+  ;; ---------------- Setting Chinese Font ----------------
+
   (when (and (spacemacs/system-is-mswindows) window-system)
     (setq ispell-program-name "aspell")
     (setq w32-pass-alt-to-system nil)
@@ -676,21 +858,46 @@ before packages are loaded."
                         charset
                         (font-spec :family "Microsoft Yahei" :size 16))))
 
-  ;; ---- clojure setting ----
+  ;; ---------------- Setting Chinese Font ----------------
+
+
+
+  ;; ---------------- language settings ----------------
+
+  ;; ============ clojure setting ============
   ;; clojure ',-g-g' command for java source code
   (setq cider-jdk-src-paths '("C:/Program Files/Java/jdk1.8.0_171/src"))
+  ;; ============ clojure setting ============
+
+  ;; ============ python setting ============
+  (setq exec-path (append exec-path '("C:/Program Files/Python37")))
+  (setq python-shell-interpreter "c:/Program Files/Python37/python.exe")
+  ;; ============ python setting ============
+
+  ;; ============ scheme setting ============
+  ;;https://zhuanlan.zhihu.com/p/32772065 
+  ;;(setq scheme-program-name "racket")
+  ;;(setq geiser-chez-binary "racket")
+  ;;(setq geiser-active-implementations '(racket))
+  (setq scheme-program-name "chicken-csi")
+  (setq geiser-chez-binary "chicken-csi")
+  (setq geiser-active-implementations '(chicken-csi))
+  ;; ============ scheme setting ============
+
+  ;; ---------------- language settings ----------------
 
 
 
-  ;; ---- Org mode ----
+  ;; ---------------- Org mode ----------------
+
   (setq org-folder "~/org")
 
-  ;; == Org Agenda ==
+  ;; ============ Org Agenda ============
   (setq org-agenda-log-mode-items '(closed clock state))
   (setq org-agenda-files '("~/CanftIn-GTD/todo.org"))
   (setq org-agenda-file-regexp "\\`[^.].*\\.org\\(_archive\\)?\\'") ;;archive事项也纳入agenda显示
   (setq org-agenda-include-diary t)       ;;将diary的事项也纳入agenda中显示
-
+  ;; ============ Org Agenda ============
 
   ;;https://emacs.christianbaeuerlein.com/my-org-config.html
   (defun my-org-config/after-org-mode-load ()
@@ -744,7 +951,7 @@ before packages are loaded."
 
   (spacemacs/set-leader-keys "of" 'my-org-helm-find-file)
 
-  ;; org capture
+  ;; ============ org capture ============
   (setq org-capture-templates '(("t" "Todo [inbox]"
                                  entry
                                  (file "~/org/inbox.org")
@@ -761,8 +968,10 @@ before packages are loaded."
                                  entry
                                  (file "~/org/inbox.org")
                                  "* Meeting %<%Y-%m-%d>: %^{prompt}\n:PROPERTIES:\n:CREATED: %U\n:END:\n- [ ] %?\n\n")))
+  ;; ============ org capture ============
 
-  ;; super agenda
+  ;; ============ super agenda ============
+
   (org-super-agenda-mode)
   (setq org-super-agenda-header-map nil)
   (setq org-deadline-warning-days 7)
@@ -838,7 +1047,7 @@ before packages are loaded."
                                                      ))))
                                       )
                                      ))
-
+  ;; ============ super agenda ============
 
   (setq org-refile-use-outline-path 'file)
   (setq org-outline-path-complete-in-steps nil)
@@ -851,6 +1060,9 @@ before packages are loaded."
   (setq org-fontify-quote-and-verse-blocks t)
   (setq org-bullets-bullet-list '("⬢" "◆" "▲" "■"))
   (setq org-tags-column 0)
+
+
+  ;; ============ org todo keywords ============
 
   (let* (
          (comment      "#6272a4")
@@ -915,6 +1127,7 @@ before packages are loaded."
   ;;          ("DELEGATED" . "pink")
   ;;          ("POSTPONED" . "#008080")))
 
+  ;; ============ org todo keywords ============
 
   (setq org-src-fontify-natively t)
   (setq org-edit-src-content-indentation 0)
@@ -929,22 +1142,11 @@ before packages are loaded."
                                  (ruby . t)
                                  (js . t)))
 
+  ;; ---------------- Org mode ----------------
 
 
+  ;; ---------------- Others ----------------
 
-  ;; ---- Language settings ----
-  ;; == scheme setting ==
-  ;;https://zhuanlan.zhihu.com/p/32772065 
-  ;;(setq scheme-program-name "racket")
-  ;;(setq geiser-chez-binary "racket")
-  ;;(setq geiser-active-implementations '(racket))
-  (setq scheme-program-name "chicken-csi")
-  (setq geiser-chez-binary "chicken-csi")
-  (setq geiser-active-implementations '(chicken-csi))
-
-
-
-  ;; ---- Others ----
   (add-to-list 'exec-path "/usr/bin")
   ;;emacs25 supported emacs26 unsupported https://github.com/syl20bnr/spacemacs/issues/10853 
   ;;(linum-relative-global-mode t)
@@ -961,9 +1163,26 @@ before packages are loaded."
   ;;https://github.com/magit/magit/issues/2492 
   (setq-default with-editor-emacsclient-executable "emacsclient")
 
+  ;;https://github.com/off99555/.spacemacs.d
+  (setq-default evil-escape-key-sequence "fd")
+  (setq-default evil-escape-unordered-key-sequence t)
+  (setq-default scroll-margin 5
+                ;; scroll-conservatively 9999
+                ;; scroll-step 1
+                )
+  (setq-default google-translate-default-source-language "en"
+                google-translate-default-target-language "th")
+  ;; useless, go spacemacs/init() for setting
+  ;;(setq powerline-default-separator 'arrow)
+  (keyfreq-mode 1)
+  (keyfreq-autosave-mode 1)
 
-  ;; ---- New config ----
+  ;; ---------------- Others ----------------
 
+
+  ;; ---------------- New config ----------------
+
+  ;; https://github.com/da-edra/dotfiles/blob/master/spacemacs
   ;; Activate column indicator in prog-mode and text-mode
   ;;(add-hook 'prog-mode-hook 'turn-on-fci-mode)
   ;;(add-hook 'text-mode-hook 'turn-on-fci-mode)
@@ -1016,64 +1235,11 @@ before packages are loaded."
   ;; Add a new line to all visited and saved files
   (setq require-final-newline 'visit-save)
 
-
-  ;; Fira Code Font Ligatures in Emacs/Spacemacs on (Arch) Linux thanks to:
-  ;; https://www.rockyourcode.com/fira-code-font-ligatures-in-emacs-spacemacs-on-arch-linux
-  (defun my-correct-symbol-bounds (pretty-alist)
-    "Prepend a TAB character to each symbol in this alist,
-          this way compose-region called by prettify-symbols-mode
-          will use the correct width of the symbols
-          instead of the width measured by char-width."
-    (mapcar (lambda (el)
-              (setcdr el (string ?\t (cdr el)))
-              el)
-            pretty-alist))
-  (defun my-ligature-list (ligatures codepoint-start)
-    "Create an alist of strings to replace with
-          codepoints starting from codepoint-start."
-    (let ((codepoints (-iterate '1+ codepoint-start (length ligatures))))
-      (-zip-pair ligatures codepoints)))
-  (setq my-fira-code-ligatures
-        (let* ((ligs '("www" "**" "***" "**/" "*>" "*/" "\\\\" "\\\\\\"
-                       "{-" "[]" "::" ":::" ":=" "!!" "!=" "!==" "-}"
-                       "--" "---" "-->" "->" "->>" "-<" "-<<" "-~"
-                       "#{" "#[" "##" "###" "####" "#(" "#?" "#_" "#_("
-                       ".-" ".=" ".." "..<" "..." "?=" "??" ";;" "/*"
-                       "/**" "/=" "/==" "/>" "//" "///" "&&" "||" "||="
-                       "|=" "|>" "^=" "$>" "++" "+++" "+>" "=:=" "=="
-                       "===" "==>" "=>" "=>>" "<=" "=<<" "=/=" ">-" ">="
-                       ">=>" ">>" ">>-" ">>=" ">>>" "<*" "<*>" "<|" "<|>"
-                       "<$" "<$>" "<!--" "<-" "<--" "<->" "<+" "<+>" "<="
-                       "<==" "<=>" "<=<" "<>" "<<" "<<-" "<<=" "<<<" "<~"
-                       "<~~" "</" "</>" "~@" "~-" "~=" "~>" "~~" "~~>" "%%"
-                       "x" ":" "+" "+" "*")))
-          (my-correct-symbol-bounds (my-ligature-list ligs #Xe100))))
-  (defun my-set-fira-code-ligatures ()
-    "Add fira code ligatures for use with prettify-symbols-mode."
-    (setq prettify-symbols-alist
-          (append my-fira-code-ligatures prettify-symbols-alist))
-    (prettify-symbols-mode))
-  (add-hook 'prog-mode-hook 'my-set-fira-code-ligatures)
+  ;; ---------------- New config ----------------
 
 
+  ;; ---------------- Keybindings ----------------
 
-  ;; ---- Other Settings ----
-  ;;https://github.com/off99555/.spacemacs.d
-  (setq-default evil-escape-key-sequence "fd")
-  (setq-default evil-escape-unordered-key-sequence t)
-  (setq-default scroll-margin 5
-                ;; scroll-conservatively 9999
-                ;; scroll-step 1
-                )
-  (setq-default google-translate-default-source-language "en"
-                google-translate-default-target-language "th")
-  ;; useless, go spacemacs/init() for setting
-  ;;(setq powerline-default-separator 'arrow)
-  (keyfreq-mode 1)
-  (keyfreq-autosave-mode 1)
-
-
-  ;; ---- Keybindings ----
   ;; mapping j to gj or k to gk will prohibit you from using dj or dk to delete 2 lines
   ;; (define-key evil-normal-state-map (kbd "j") 'evil-next-visual-line)
   ;; (define-key evil-normal-state-map (kbd "k") 'evil-previous-visual-line)
@@ -1084,7 +1250,7 @@ before packages are loaded."
   (define-key global-map (kbd "C-+") 'text-scale-increase)
   (define-key global-map (kbd "C-=") 'text-scale-increase)
   (define-key global-map (kbd "C--") 'text-scale-decrease)
-  (global-set-key [f1] 'shell)
+  (global-set-key [f1] 'eshell)
   (with-eval-after-load 'helm
     (define-key helm-map (kbd "C-u") 'evil-delete-whole-line))
   ;; if you want to activate transient state, try `SPC n =' instead
@@ -1092,8 +1258,10 @@ before packages are loaded."
   (define-key evil-insert-state-map (kbd "C-f") 'comint-dynamic-complete-filename)
   (evil-define-key 'insert global-map (kbd "C-v") 'evil-paste-after)
 
+  ;; ---------------- Keybindings ----------------
 
-  ;; ---- Some theme Settings ----
+  ;; ---------------- Some theme Settings ----------------
+
   ;; Add personal script path, so that "require" works for personal scripts.
   (push "~/.spacemacs.d/config/" load-path)
   ;;(add-to-list 'load-path "~/.emacs.d/private/CanftIn-theming")
@@ -1110,6 +1278,8 @@ before packages are loaded."
   (setq neo-theme (if (display-graphic-p) 'icons 'ascii))
   (add-hook 'dired-mode-hook 'all-the-icons-dired-mode)
   (add-hook 'magit-mode-hook 'emoji-cheat-sheet-plus-display-mode)
+
+  ;; ---------------- Some theme Settings ----------------
 
   )
 
@@ -1129,7 +1299,7 @@ This function is called at the very end of Spacemacs initialization."
      ["#0a0814" "#f2241f" "#67b11d" "#b1951d" "#4f97d7" "#a31db1" "#28def0" "#b2b2b2"])
    '(evil-want-Y-yank-to-eol nil)
 
-   ;; ---- org todo keyword ----
+   ;; ---------------- org todo keyword colors ----------------
    ;;   '(hl-todo-keyword-faces
    ;;     (quote
    ;;      (("TODO" . "#dc752f")
@@ -1147,14 +1317,18 @@ This function is called at the very end of Spacemacs initialization."
    ;;       ("FIXME" . "#dc752f")
    ;;       ("XXX" . "#dc752f")
    ;;       ("XXXX" . "#dc752f"))))
+   ;; ---------------- org todo keyword colors ----------------
 
-   ;; ---- org mode ----
+   ;; ---------------- org agenda file ----------------
    '(org-agenda-files (quote ("d:/linux_home/CanftIn-GTD/todo.org")))
+   ;; ---------------- org agenda file ----------------
 
    '(package-selected-packages
      (quote
       (mvn meghanada maven-test-mode groovy-mode groovy-imports pcache gradle-mode yapfify stickyfunc-enhance pytest pyenv-mode py-isort pippel pipenv pyvenv pip-requirements live-py-mode importmagic epc ctable concurrent helm-pydoc helm-gtags helm-cscope xcscope ggtags cython-mode counsel-gtags company-anaconda anaconda-mode pythonic ox-twbs ox-gfm material-theme emojify ht emoji-cheat-sheet-plus company-emoji all-the-icons-dired yasnippet-snippets ws-butler writeroom-mode winum which-key volatile-highlights vi-tilde-fringe uuidgen use-package unfill toc-org symon string-inflection spaceline-all-the-icons sound-wav smeargle restart-emacs rainbow-mode rainbow-identifiers rainbow-delimiters prodigy popwin persp-mode pcre2el password-generator paradox overseer orgit org-tree-slide org-projectile org-present org-pomodoro org-mime org-download org-bullets org-brain open-junk-file neotree nameless mwim move-text mmm-mode markdown-toc magit-svn magit-gitflow macrostep lorem-ipsum linum-relative link-hint indent-guide hungry-delete htmlize hlint-refactor hl-todo hindent highlight-parentheses highlight-numbers highlight-indentation helm-xref helm-themes helm-swoop helm-rtags helm-purpose helm-projectile helm-org-rifle helm-mode-manager helm-make helm-hoogle helm-gitignore helm-git-grep helm-flx helm-descbinds helm-company helm-c-yasnippet helm-ag haskell-snippets graphviz-dot-mode google-translate google-c-style golden-ratio gnuplot gitignore-templates gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link git-gutter-fringe git-gutter-fringe+ gh-md fuzzy font-lock+ flycheck-rtags flycheck-pos-tip flycheck-haskell flx-ido fill-column-indicator fancy-battery eyebrowse expand-region evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-org evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-magit evil-lisp-state evil-lion evil-indent-plus evil-iedit-state evil-goggles evil-exchange evil-escape evil-ediff evil-cleverparens evil-args evil-anzu engine-mode elisp-slime-nav editorconfig dumb-jump dotenv-mode doom-modeline disaster diminish diff-hl define-word counsel-projectile company-statistics company-rtags company-ghci company-cabal company-c-headers column-enforce-mode color-identifiers-mode cmm-mode clojure-snippets clean-aindent-mode clang-format cider-eval-sexp-fu cider centered-cursor-mode browse-at-remote auto-yasnippet auto-highlight-symbol auto-compile aggressive-indent ace-window ace-link ace-jump-helm-line ac-ispell 2048-game)))
-   '(pdf-view-midnight-colors (quote ("#b2b2b2" . "#292b2e"))))
+   '(pdf-view-midnight-colors (quote ("#b2b2b2" . "#292b2e")))
+   
+   )
 
 
   (custom-set-faces
@@ -1163,11 +1337,12 @@ This function is called at the very end of Spacemacs initialization."
    ;; Your init file should contain only one such instance.
    ;; If there is more than one, they won't work right.
 
+   ;; ---------------- markdown ----------------
    '(markup-title-0-face ((t (:inherit markup-gen-face :height 1.6))))
    '(markup-title-1-face ((t (:inherit markup-gen-face :height 1.5))))
    '(markup-title-2-face ((t (:inherit markup-gen-face :height 1.4))))
    '(markup-title-3-face ((t (:inherit markup-gen-face :weight bold :height 1.3))))
    '(markup-title-5-face ((t (:inherit markup-gen-face :underline t :height 1.1))))
-
+   ;; ---------------- markdown ----------------
    )
   )
