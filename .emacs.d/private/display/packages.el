@@ -64,7 +64,7 @@
 
       ;; More prompt styling
       (setq pretty-eshell-header "\n︳")
-      (setq pretty-eshell-prompt-string " "))
+      (setq pretty-eshell-prompt-string "λ> "))
 
     :config
     (progn
@@ -78,7 +78,7 @@
       ;; Git Branch
       (pretty-eshell-section
        esh-git
-       "\xe907"  ; 
+       "\xe92d"  ; 
        (magit-get-current-branch)
        '(:foreground "#8D6B94"))
 
@@ -98,7 +98,7 @@
       ;; Prompt Number
       (pretty-eshell-section
        esh-num
-       "\xf0c9"  ; 
+       "\x2630" ;;"\xf0c9"  ; 
        (number-to-string pretty-eshell-prompt-num)
        '(:foreground "brown"))
 
