@@ -41,23 +41,33 @@ This function should only modify configuration layer settings."
      ;; ----------------------------------------------------------------
 
      ;; ----------------   languages   ----------------
-     ;; ocaml
-     ;; sml
-     clojure
-     python
-     emacs-lisp
      javascript
      typescript
      json
      yaml
-     haskell
-     scheme
-     racket
-     c-c++
-     java
      html
      sql
+     (haskell :variables haskell-completion-backend 'ghci)
+     c-c++
+     java
      python
+     scheme
+     racket
+     clojure
+     common-lisp
+     emacs-lisp
+     ocaml
+     sml
+     asm
+     (scala :variables scala-backend 'scala-metals)
+     (elixir :variables elixir-backend 'alchemist)
+     erlang
+     (rust :variables rust-backend 'racer)
+     fsharp
+     ;; julia
+     ;; kotlin
+     ;; idris
+     ;; elm
      (markdown :variables markdown-live-preview-engine 'vmd)
      asciidoc
      graphviz
@@ -157,7 +167,10 @@ This function should only modify configuration layer settings."
    dotspacemacs-frozen-packages '()
 
    ;; A list of packages that will not be installed and loaded.
-   dotspacemacs-excluded-packages '()
+   dotspacemacs-excluded-packages
+   '(
+     ensime
+     )
 
    ;; Defines the behaviour of Spacemacs when installing packages.
    ;; Possible values are `used-only', `used-but-keep-unused' and `all'.
@@ -310,7 +323,7 @@ It should only modify the values of Spacemacs settings."
    dotspacemacs-default-font '(
                                ("Iosevka Nerd Font" ;;"FiraCode Nerd Font Mono"
                                 :size 16
-                                :weight medium
+                                :weight normal ;;medium
                                 :width normal
                                 :powerline-scale 1
                                 )
@@ -754,7 +767,7 @@ before packages are loaded."
               ("\\(\\\\\\\\\\)"              #Xe106)
               ("\\(\\\\\\\\\\\\\\)"          #Xe107)
               ("\\({-\\)"                    #Xe108)
-              ("\\(\\[\\]\\)"                #Xe109)
+              ;; ("\\(\\[\\]\\)"                #Xe109)
               ("\\(::\\)"                    #Xe10a)
               ("\\(:::\\)"                   #Xe10b)
               ("[^=]\\(:=\\)"                #Xe10c)
@@ -1198,6 +1211,8 @@ before packages are loaded."
   ;;(setq powerline-default-separator 'arrow)
   (keyfreq-mode 1)
   (keyfreq-autosave-mode 1)
+
+  ;; plantuml
   (setq plantuml-default-exec-mode 'jar)
 
   ;; ---------------- Others ----------------
@@ -1288,7 +1303,7 @@ before packages are loaded."
   ;; Add personal script path, so that "require" works for personal scripts.
   (push "~/.spacemacs.d/config/" load-path)
   ;;(add-to-list 'load-path "~/.emacs.d/private/CanftIn-theming")
-  (spacemacs/toggle-highlight-current-line-globally-off)
+  ;;(spacemacs/toggle-highlight-current-line-globally-off)
   ;; Modify imenu-list so that the window position is centered after each jump.
   ;; (add-hook 'imenu-after-jump-hook (lambda () (recenter 10)))
   (colors/add-theme-sat&light 'material '(70 75))
@@ -1317,55 +1332,22 @@ This function is called at the very end of Spacemacs initialization."
    ;; If you edit it by hand, you could mess it up, so be careful.
    ;; Your init file should contain only one such instance.
    ;; If there is more than one, they won't work right.
-
    '(ansi-color-names-vector
      ["#0a0814" "#f2241f" "#67b11d" "#b1951d" "#4f97d7" "#a31db1" "#28def0" "#b2b2b2"])
    '(evil-want-Y-yank-to-eol nil)
-
-   ;; ---------------- org todo keyword colors ----------------
-   ;;   '(hl-todo-keyword-faces
-   ;;     (quote
-   ;;      (("TODO" . "#dc752f")
-   ;;       ("NEXT" . "#dc752f")
-   ;;       ("THEN" . "#2d9574")
-   ;;       ("PROGRESS" . "#4f97d7")
-   ;;       ("OKAY" . "#4f97d7")
-   ;;       ("DONT" . "#f2241f")
-   ;;       ("FAIL" . "#f2241f")
-   ;;       ("DONE" . "#86dc2f")
-   ;;       ("NOTE" . "#b1951d")
-   ;;       ("KLUDGE" . "#b1951d")
-   ;;       ("HACK" . "#b1951d")
-   ;;       ("TEMP" . "#b1951d")
-   ;;       ("FIXME" . "#dc752f")
-   ;;       ("XXX" . "#dc752f")
-   ;;       ("XXXX" . "#dc752f"))))
-   ;; ---------------- org todo keyword colors ----------------
-
-   ;; ---------------- org agenda file ----------------
    '(org-agenda-files (quote ("d:/linux_home/CanftIn-GTD/todo.org")))
-   ;; ---------------- org agenda file ----------------
-
    '(package-selected-packages
      (quote
-      (mvn meghanada maven-test-mode groovy-mode groovy-imports pcache gradle-mode yapfify stickyfunc-enhance pytest pyenv-mode py-isort pippel pipenv pyvenv pip-requirements live-py-mode importmagic epc ctable concurrent helm-pydoc helm-gtags helm-cscope xcscope ggtags cython-mode counsel-gtags company-anaconda anaconda-mode pythonic ox-twbs ox-gfm material-theme emojify ht emoji-cheat-sheet-plus company-emoji all-the-icons-dired yasnippet-snippets ws-butler writeroom-mode winum which-key volatile-highlights vi-tilde-fringe uuidgen use-package unfill toc-org symon string-inflection spaceline-all-the-icons sound-wav smeargle restart-emacs rainbow-mode rainbow-identifiers rainbow-delimiters prodigy popwin persp-mode pcre2el password-generator paradox overseer orgit org-tree-slide org-projectile org-present org-pomodoro org-mime org-download org-bullets org-brain open-junk-file neotree nameless mwim move-text mmm-mode markdown-toc magit-svn magit-gitflow macrostep lorem-ipsum linum-relative link-hint indent-guide hungry-delete htmlize hlint-refactor hl-todo hindent highlight-parentheses highlight-numbers highlight-indentation helm-xref helm-themes helm-swoop helm-rtags helm-purpose helm-projectile helm-org-rifle helm-mode-manager helm-make helm-hoogle helm-gitignore helm-git-grep helm-flx helm-descbinds helm-company helm-c-yasnippet helm-ag haskell-snippets graphviz-dot-mode google-translate google-c-style golden-ratio gnuplot gitignore-templates gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link git-gutter-fringe git-gutter-fringe+ gh-md fuzzy font-lock+ flycheck-rtags flycheck-pos-tip flycheck-haskell flx-ido fill-column-indicator fancy-battery eyebrowse expand-region evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-org evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-magit evil-lisp-state evil-lion evil-indent-plus evil-iedit-state evil-goggles evil-exchange evil-escape evil-ediff evil-cleverparens evil-args evil-anzu engine-mode elisp-slime-nav editorconfig dumb-jump dotenv-mode doom-modeline disaster diminish diff-hl define-word counsel-projectile company-statistics company-rtags company-ghci company-cabal company-c-headers column-enforce-mode color-identifiers-mode cmm-mode clojure-snippets clean-aindent-mode clang-format cider-eval-sexp-fu cider centered-cursor-mode browse-at-remote auto-yasnippet auto-highlight-symbol auto-compile aggressive-indent ace-window ace-link ace-jump-helm-line ac-ispell 2048-game)))
-   '(pdf-view-midnight-colors (quote ("#b2b2b2" . "#292b2e")))
-   
-   )
-
-
+      (utop tuareg caml seeing-is-believing rvm ruby-tools ruby-test-mode ruby-refactor ruby-hash-syntax rubocopfmt rubocop rspec-mode robe rbenv rake ocp-indent ob-elixir minitest flycheck-ocaml merlin flycheck-mix flycheck-credo dune chruby bundler inf-ruby alchemist elixir-mode mvn meghanada maven-test-mode groovy-mode groovy-imports pcache gradle-mode yapfify stickyfunc-enhance pytest pyenv-mode py-isort pippel pipenv pyvenv pip-requirements live-py-mode importmagic epc ctable concurrent helm-pydoc helm-gtags helm-cscope xcscope ggtags cython-mode counsel-gtags company-anaconda anaconda-mode pythonic ox-twbs ox-gfm material-theme emojify ht emoji-cheat-sheet-plus company-emoji all-the-icons-dired yasnippet-snippets ws-butler writeroom-mode winum which-key volatile-highlights vi-tilde-fringe uuidgen use-package unfill toc-org symon string-inflection spaceline-all-the-icons sound-wav smeargle restart-emacs rainbow-mode rainbow-identifiers rainbow-delimiters prodigy popwin persp-mode pcre2el password-generator paradox overseer orgit org-tree-slide org-projectile org-present org-pomodoro org-mime org-download org-bullets org-brain open-junk-file neotree nameless mwim move-text mmm-mode markdown-toc magit-svn magit-gitflow macrostep lorem-ipsum linum-relative link-hint indent-guide hungry-delete htmlize hlint-refactor hl-todo hindent highlight-parentheses highlight-numbers highlight-indentation helm-xref helm-themes helm-swoop helm-rtags helm-purpose helm-projectile helm-org-rifle helm-mode-manager helm-make helm-hoogle helm-gitignore helm-git-grep helm-flx helm-descbinds helm-company helm-c-yasnippet helm-ag haskell-snippets graphviz-dot-mode google-translate google-c-style golden-ratio gnuplot gitignore-templates gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link git-gutter-fringe git-gutter-fringe+ gh-md fuzzy font-lock+ flycheck-rtags flycheck-pos-tip flycheck-haskell flx-ido fill-column-indicator fancy-battery eyebrowse expand-region evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-org evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-magit evil-lisp-state evil-lion evil-indent-plus evil-iedit-state evil-goggles evil-exchange evil-escape evil-ediff evil-cleverparens evil-args evil-anzu engine-mode elisp-slime-nav editorconfig dumb-jump dotenv-mode doom-modeline disaster diminish diff-hl define-word counsel-projectile company-statistics company-rtags company-ghci company-cabal company-c-headers column-enforce-mode color-identifiers-mode cmm-mode clojure-snippets clean-aindent-mode clang-format cider-eval-sexp-fu cider centered-cursor-mode browse-at-remote auto-yasnippet auto-highlight-symbol auto-compile aggressive-indent ace-window ace-link ace-jump-helm-line ac-ispell 2048-game)))
+   '(pdf-view-midnight-colors (quote ("#b2b2b2" . "#292b2e"))))
   (custom-set-faces
    ;; custom-set-faces was added by Custom.
    ;; If you edit it by hand, you could mess it up, so be careful.
    ;; Your init file should contain only one such instance.
    ;; If there is more than one, they won't work right.
-
-   ;; ---------------- markdown ----------------
    '(markup-title-0-face ((t (:inherit markup-gen-face :height 1.6))))
    '(markup-title-1-face ((t (:inherit markup-gen-face :height 1.5))))
    '(markup-title-2-face ((t (:inherit markup-gen-face :height 1.4))))
    '(markup-title-3-face ((t (:inherit markup-gen-face :weight bold :height 1.3))))
-   '(markup-title-5-face ((t (:inherit markup-gen-face :underline t :height 1.1))))
-   ;; ---------------- markdown ----------------
-   )
+   '(markup-title-5-face ((t (:inherit markup-gen-face :underline t :height 1.1)))))
   )
