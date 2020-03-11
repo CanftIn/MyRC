@@ -59,9 +59,13 @@
     ;; lisp
     (:parameter   "𝓟")
     (:var   "𝓥")
-    (:macro   "𝓜")
+    (:macro   "𝕄")
     (:when   "𝓦")
     (:loop   "𝓛")
+    (:funcall   "ℂ")
+    (:struct   "𝓢")
+    (:class   "𝓒")
+    (:method   "𝓜")
 
     ;; Misc
     (:return "⟼") (:yield "⟻") (:some "∃") (:composition "∘") (:tuple "⨂"))
