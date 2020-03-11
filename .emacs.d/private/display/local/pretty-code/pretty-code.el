@@ -56,6 +56,13 @@
     (:tuple       "⨂")
     (:pipe        "")
 
+    ;; lisp
+    (:parameter   "𝓟")
+    (:var   "𝓥")
+    (:macro   "𝓜")
+    (:when   "𝓦")
+    (:loop   "𝓛")
+
     ;; Misc
     (:return "⟼") (:yield "⟻") (:some "∃") (:composition "∘") (:tuple "⨂"))
   "kwd and composition-str alist.")

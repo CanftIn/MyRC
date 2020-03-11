@@ -40,6 +40,13 @@
     (progn
       (pretty-code-add-hook 'scheme-mode-hook '((:def "defun")
                                                 (:lambda "lambda")))
+      (pretty-code-add-hook 'lisp-mode-hook '((:def "defun")
+                                              (:lambda "lambda")
+                                              (:parameter "defparameter")
+                                              (:macro "defmacro")
+                                              (:var "defvar")
+                                              (:when "when")
+                                              (:loop "loop")))
       (pretty-code-add-hook 'emacs-lisp-mode-hook '((:def "defun")
                                                     (:lambda "lambda")))
       (pretty-code-add-hook 'hy-mode-hook         '((:def "defn")
