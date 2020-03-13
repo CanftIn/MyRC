@@ -17,6 +17,7 @@
 (require 'cl-lib)
 (deftheme my-dracula "The famous dracula themes, customized to my liking.")
 
+
 (let* (
        ;; include color palette
        (colors '((fg1          "#f8f8f2")      ; Assigment form: VARIABLE COLOR [TTY-COLOR]
@@ -53,6 +54,67 @@
                  (rainbow-11   "#EE5583")
                  (eph-verbatim "#f1fa8c")
                  (eph-code     "#ff79c6")
+
+        (act1            "#222226")
+        (act2            "#5d4d7a")
+        (base            "#b2b2b2")
+        (base-dim        "#686868")
+        (bg1             "#292b2e")
+        (bg2             "#212026")
+        (bg3             "#100a14")
+        (bg4             "#0a0814")
+        (border          "#5d4d7a")
+        (cblk            "#cbc1d5")
+        (cblk-bg         "#2f2b33")
+        (cblk-ln         "#827591")
+        (cblk-ln-bg      "#373040")
+        (cursor          "#e3dedd")
+        (const           "#a45bad")
+        ;; (comment         "#2aa1ae")
+        (comp            "#c56ec3")
+        (err             "#e0211d")
+        (func            "#bc6ec5")
+        (head1           "#4f97d7")
+        (head1-bg        "#293239")
+        (head2           "#2d9574")
+        (head2-bg        "#293235")
+        (head3           "#67b11d")
+        (head3-bg        "#293235")
+        (head4           "#b1951d")
+        (head4-bg        "#32322c")
+        (highlight       "#444155")
+        (highlight-dim   "#3b314d")
+        (keyword         "#4f97d7")
+        (lnum            "#44505c")
+        (mat             "#86dc2f")
+        (meta            "#9f8766")
+        (str             "#2d9574")
+        (suc             "#86dc2f")
+        (ttip            "#9a9aba")
+        (ttip-sl         "#5e5079")
+        (ttip-bg         "#34323e")
+        (type            "#ce537a")
+        ;;(var             "#7590db")
+        (war             "#dc752f")
+
+        ;; colors
+        (aqua            "#2d9574")
+        (aqua-bg         "#293235")
+        (green           "#67b11d")
+        (green-bg        "#293235")
+        (green-bg-s      "#29422d")
+        (cyan            "#28def0")
+        (red             "#f2241f")
+        (red-bg          "#3c2a2c")
+        (red-bg-s        "#512e31")
+        (blue            "#4f97d7")
+        (blue-bg         "#293239")
+        (blue-bg-s       "#2d4252")
+        (magenta         "#a31db1")
+        (yellow          "#b1951d")
+        (yellow-bg       "#32322c")
+
+
                  ))
       (variable-pitch-font '(:family "iA Writer Quattro S" ))
       (fixed-pitch-font    '(:family "Iosevka Nerd Font" ))
@@ -391,72 +453,123 @@
                (icicle-common-match-highlight-Completions :foreground ,type)
                (icicle-candidate-part :foreground ,var)
                (icicle-annotation :foreground ,fg4)
-               ;; include org mode faces
-               ;; org-agenda
-               (org-agenda-date :foreground ,fg1)
-               (org-agenda-date-today :foreground ,fg1)
-               (org-agenda-date-weekend :foreground ,fg3 :weight normal)
-               (org-agenda-dimmed-todo-face :foreground ,comment)
-               (org-agenda-done :foreground ,rainbow-6)
-               (org-agenda-structure :foreground  ,fg3 :background ,bg2 :weight bold)
-               
-               ;; important fix for variable pitch mode
-               ;; otherwise indents like within tables won't work well
-               ;; see https://lepisma.github.io/2017/10/28/ricing-org-mode/
-               (org-indent
-               (:inherit org-hide)
-               (:inherit (org-hide fixed-pitch)))
-               
-               ;; everything related to (code) blocks
-               (org-block :inherit fixed-pitch :foreground ,rainbow-5)
-               (org-block-begin-line :inherit fixed-pitch :foreground ,bg4)
-               (org-block-end-line :inherit fixed-pitch :foreground ,bg4)
-               
-               (org-checkbox :inherit fixed-pitch :weight bold)
-               (org-code :foreground ,rainbow-7)
-               (org-date :foreground ,rainbow-2 :underline t)
-               
-               (org-column :background ,bg4)
-               (org-column-title :inherit org-column :weight bold :underline t)
-               
-               (org-document-info :foreground ,rainbow-8)
-               (org-document-info-keyword :inherit fixed-pitch :foreground ,bg4)
-               (org-special-keyword :inherit fixed-pitch :foreground ,bg4)
-               (org-meta-line :inherit fixed-pitch :foreground ,bg4)
-               (org-property-value :inherit fixed-pitch :foreground ,bg4)
-               
-               
-               (org-todo :inherit fixed-pitch :foreground ,rainbow-5 :bold t :background ,bg2)
-               (org-done :inherit fixed-pitch :foreground ,rainbow-6)
-               (org-headline-done :foreground ,comment :bold nil :strike-through t)
-               
-               (org-ellipsis :foreground ,comment)
-               (org-footnote :foreground ,rainbow-8)
-               (org-formula :foreground ,rainbow-4)
-               (org-hide :foreground ,bg1 :background ,bg1)
-               
-               (org-document-title :foreground ,rainbow-11 :inherit bold :height 300)
-               (org-level-1 :foreground ,rainbow-11 :inherit bold :height 1.25)
-               (org-level-2 :foreground ,rainbow-11 :inherit bold :height 1.25)
-               (org-level-3 :foreground ,rainbow-11 :inherit bold :height 1.0)
-               (org-level-4 :foreground ,rainbow-11 :inherit bold)
-               (org-level-5 :foreground ,rainbow-11 :inherit bold)
-               (org-level-6 :foreground ,rainbow-11 :inherit bold)
-               (org-level-7 :foreground ,rainbow-11 :inherit bold)
-               (org-level-8 :foreground ,rainbow-11 :inherit bold)
-               
-               (org-link :foreground ,rainbow-2 :underline t)
-               (org-priority :foreground ,rainbow-2)
-               (org-scheduled :foreground ,fg4)
-               (org-scheduled-previously :foreground ,rainbow-7)
-               (org-scheduled-today :foreground ,fg1)
-               (org-sexp-date :foreground ,fg4)
-               (org-table :inherit fixed-pitch :foreground ,rainbow-3)
-               
-               
-               (org-tag :inherit fixed-pitch :foreground ,bg4 :bold t :background ,bg2)
-               (org-upcoming-deadline :foreground ,rainbow-7)
-               (org-warning :weight bold :foreground ,rainbow-4)
+               ;; ;; include org mode faces
+               ;; ;; org-agenda
+               ;; (org-agenda-date :foreground ,fg1)
+               ;; (org-agenda-date-today :foreground ,fg1)
+               ;; (org-agenda-date-weekend :foreground ,fg3 :weight normal)
+               ;; (org-agenda-dimmed-todo-face :foreground ,comment)
+               ;; (org-agenda-done :foreground ,rainbow-6)
+               ;; (org-agenda-structure :foreground  ,fg3 :background ,bg2 :weight bold)
+               ;; 
+               ;; ;; important fix for variable pitch mode
+               ;; ;; otherwise indents like within tables won't work well
+               ;; ;; see https://lepisma.github.io/2017/10/28/ricing-org-mode/
+               ;; (org-indent
+               ;; (:inherit org-hide)
+               ;; (:inherit (org-hide fixed-pitch)))
+               ;; 
+               ;; ;; everything related to (code) blocks
+               ;; (org-block :inherit fixed-pitch :foreground ,rainbow-5)
+               ;; (org-block-begin-line :inherit fixed-pitch :foreground ,bg4)
+               ;; (org-block-end-line :inherit fixed-pitch :foreground ,bg4)
+               ;; 
+               ;; (org-checkbox :inherit fixed-pitch :weight bold)
+               ;; (org-code :foreground ,rainbow-7)
+               ;; (org-date :foreground ,rainbow-2 :underline t)
+               ;; 
+               ;; (org-column :background ,bg4)
+               ;; (org-column-title :inherit org-column :weight bold :underline t)
+               ;; 
+               ;; (org-document-info :foreground ,rainbow-8)
+               ;; (org-document-info-keyword :inherit fixed-pitch :foreground ,bg4)
+               ;; (org-special-keyword :inherit fixed-pitch :foreground ,bg4)
+               ;; (org-meta-line :inherit fixed-pitch :foreground ,bg4)
+               ;; (org-property-value :inherit fixed-pitch :foreground ,bg4)
+               ;; 
+               ;; 
+               ;; (org-todo :inherit fixed-pitch :foreground ,rainbow-5 :bold t :background ,bg2)
+               ;; (org-done :inherit fixed-pitch :foreground ,rainbow-6)
+               ;; (org-headline-done :foreground ,comment :bold nil :strike-through t)
+               ;; 
+               ;; (org-ellipsis :foreground ,comment)
+               ;; (org-footnote :foreground ,rainbow-8)
+               ;; (org-formula :foreground ,rainbow-4)
+               ;; (org-hide :foreground ,bg1 :background ,bg1)
+               ;; 
+               ;; (org-document-title :foreground ,rainbow-11 :inherit bold :height 300)
+               ;; (org-level-1 :foreground ,rainbow-11 :inherit bold :height 1.25)
+               ;; (org-level-2 :foreground ,rainbow-11 :inherit bold :height 1.25)
+               ;; (org-level-3 :foreground ,rainbow-11 :inherit bold :height 1.0)
+               ;; (org-level-4 :foreground ,rainbow-11 :inherit bold)
+               ;; (org-level-5 :foreground ,rainbow-11 :inherit bold)
+               ;; (org-level-6 :foreground ,rainbow-11 :inherit bold)
+               ;; (org-level-7 :foreground ,rainbow-11 :inherit bold)
+               ;; (org-level-8 :foreground ,rainbow-11 :inherit bold)
+               ;; 
+               ;; (org-link :foreground ,rainbow-2 :underline t)
+               ;; (org-priority :foreground ,rainbow-2)
+               ;; (org-scheduled :foreground ,fg4)
+               ;; (org-scheduled-previously :foreground ,rainbow-7)
+               ;; (org-scheduled-today :foreground ,fg1)
+               ;; (org-sexp-date :foreground ,fg4)
+               ;; (org-table :inherit fixed-pitch :foreground ,rainbow-3)
+               ;; 
+               ;; 
+               ;; (org-tag :inherit fixed-pitch :foreground ,bg4 :bold t :background ,bg2)
+               ;; (org-upcoming-deadline :foreground ,rainbow-7)
+               ;; (org-warning :weight bold :foreground ,rainbow-4)
+
+      ;;;;; CanftIn org
+      (org-agenda-clocking :background ,highlight :foreground ,comp)
+      (org-agenda-date :foreground "#7590db" :height 1.1)
+      (org-agenda-date-today :foreground ,keyword :inherit bold :height 1.3)
+      (org-agenda-date-weekend :inherit bold :foreground "#7590db")
+      (org-agenda-done :foreground ,suc :height 1.2)
+      (org-agenda-structure :inherit bold :foreground ,comp)
+      (org-block :background ,cblk-bg :foreground ,cblk :extend t)
+      (org-block-begin-line :background ,cblk-ln-bg :foreground ,cblk-ln :extend t)
+      (org-block-end-line :background ,cblk-ln-bg :foreground ,cblk-ln :extend t)
+      (org-clock-overlay :foreground ,comp)
+      (org-code :foreground ,cyan)
+      (org-column :background ,highlight)
+      (org-column-title :background ,highlight)
+      (org-date :underline t :foreground ,var)
+      (org-date-selected :background ,func :foreground ,bg1)
+      (org-document-info-keyword :foreground ,meta)
+      (org-document-title :foreground ,func :inherit bold :height 1.4 :underline t)
+      (org-done :foreground ,suc :inherit bold :background ,green-bg)
+      (org-ellipsis :foreground ,keyword)
+      (org-footnote  :underline t :foreground ,base)
+      (org-hide :foreground ,base)
+      (org-kbd :inherit region :foreground ,base :box (:line-width 1 :style released-button))
+      (org-level-1 :inherit bold :bold 'unspecified :foreground ,head1 :height 1.3) ;; :background ,head1-bg)
+      (org-level-2 :inherit bold :bold 'unspecified :foreground ,head2 :height 1.2) ;; :background ,head2-bg)
+      (org-level-3 :bold nil :foreground ,head3 :height 1.1) ;; :background ,head3-bg)
+      (org-level-4 :bold nil :foreground ,head4) ;; :background ,head4-bg)
+      (org-level-5 :bold nil :foreground ,head1)
+      (org-level-6 :bold nil :foreground ,head2)
+      (org-level-7 :bold nil :foreground ,head3)
+      (org-level-8 :bold nil :foreground ,head4)
+      (org-link :foreground ,rainbow-2 :underline t)
+      (org-meta-line :foreground ,meta)
+      (org-mode-line-clock-overrun :foreground ,err)
+      (org-priority :foreground ,war :inherit bold :bold 'unspecified )
+      (org-quote :inherit org-block :slant italic)
+      (org-scheduled :foreground ,comp)
+      (org-scheduled-today :foreground ,func :height 1.2)
+      (org-scheduled-previously :foreground ,base :slant italic)
+      (org-sexp-date :foreground ,base)
+      (org-special-keyword :foreground ,func)
+      (org-table :foreground ,base :background ,head1-bg)
+      (org-tag :foreground ,meta)
+      (org-time-grid :foreground ,str)
+      (org-todo :foreground ,war :inherit bold :background ,yellow-bg)
+      (org-upcoming-deadline :foreground ,war :inherit org-priority)
+      (org-upcoming-distant-deadline :foreground ,suc :inherit org-priority)
+      (org-verbatim :foreground ,keyword)
+      (org-verse :inherit org-block :slant italic)
+      (org-warning :foreground ,err :inherit org-priority)
                )))
 
   (apply #'custom-theme-set-faces
