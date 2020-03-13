@@ -1118,7 +1118,7 @@ before packages are loaded."
   (setq org-fontify-whole-heading-line t)
   (setq org-fontify-done-headline t)
   (setq org-fontify-quote-and-verse-blocks t)
-  (setq org-bullets-bullet-list '("⬢" "◆" "▲" "■"))
+  ;;(setq org-bullets-bullet-list '("⬢" "◆" "▲" "■"))
   (setq org-tags-column 0)
 
 
@@ -1138,9 +1138,11 @@ before packages are loaded."
          (rainbow-9    "#ff5555")
          (rainbow-10   "#a0522d")
 
-         (variable-pitch-font `(:family "iA Writer Quattro S" ))
-         (fixed-pitch-font    `(:family "FiraCode Nerd Font" ))
-         (fixed-pitch-font-alt `(:family "iA Writer Mono S" )))
+         (variable-pitch-font `(:family "Iosevka" ;;"iA Writer Quattro S"
+                                        ))
+         (fixed-pitch-font    `(:family "Iosevka Nerd Font" ))
+         (fixed-pitch-font-alt `(:family "Iosevka" ;; "iA Writer Mono S"
+                                         )))
 
     (setq org-todo-keyword-faces (list
                                   `("TODO"
@@ -1176,7 +1178,7 @@ before packages are loaded."
     )
   (setq org-todo-keywords
         '(
-          (sequence "TODO" "NEXT" "WAIT" "|" "VERIFY" "LOWPRIO" "DONE(d)" "CANCELED")
+          (sequence "TODO" "NEXT" "WAIT" "|" "DONE(d)" "CANCELED")
           ))
   ;;
   ;;  (setq org-todo-keyword-faces
