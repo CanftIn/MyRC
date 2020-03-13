@@ -47,7 +47,10 @@ This function should only modify configuration layer settings."
      yaml
      html
      sql
-     (haskell :variables haskell-completion-backend 'ghci)
+     (haskell :variables
+              haskell-completion-backend 'lsp ;;'ghci 'dante
+              haskell-enable-hindent t
+              haskell-enable-hindent-style "johan-tibell")
      c-c++
      java
      python
@@ -919,6 +922,28 @@ before packages are loaded."
   (setq geiser-active-implementations '(chicken-csi))
   ;; ============ scheme setting ============
 
+  ;; ============ haskell setting ============
+  ;; Indentation doesn't reset when pressing return after an empty line
+  ;; https://develop.spacemacs.org/layers/+lang/haskell/README.html#indentation-doesnt-reset-when-pressing-return-after-an-empty-line
+  (defun haskell-indentation-advice ()
+    (when (and (< 1 (line-number-at-pos))
+               (save-excursion
+                 (forward-line -1)
+                 (string= "" (s-trim (buffer-substring (line-beginning-position) (line-end-position))))))
+      (delete-region (line-beginning-position) (point))))
+
+  (advice-add 'haskell-indentation-newline-and-indent
+              :after 'haskell-indentation-advice)
+
+
+  (setq lsp-haskell-process-args-hie '("exec" "ghcide" "--" "--lsp")
+        lsp-haskell-process-path-hie "stack"
+        lsp-haskell-process-wrapper-function (lambda (argv) (cons (car argv) (cddr argv)))
+        )
+  (add-hook 'haskell-mode-hook
+            #'lsp)
+  ;; ============ haskell setting ============
+
   ;; ---------------- language settings ----------------
 
 
@@ -1336,6 +1361,7 @@ This function is called at the very end of Spacemacs initialization."
      ["#0a0814" "#f2241f" "#67b11d" "#b1951d" "#4f97d7" "#a31db1" "#28def0" "#b2b2b2"])
    '(evil-want-Y-yank-to-eol nil)
    '(org-agenda-files (quote ("d:/linux_home/CanftIn-GTD/todo.org")))
+   '(haskell-stylish-on-save t)
    '(package-selected-packages
      (quote
       (utop tuareg caml seeing-is-believing rvm ruby-tools ruby-test-mode ruby-refactor ruby-hash-syntax rubocopfmt rubocop rspec-mode robe rbenv rake ocp-indent ob-elixir minitest flycheck-ocaml merlin flycheck-mix flycheck-credo dune chruby bundler inf-ruby alchemist elixir-mode mvn meghanada maven-test-mode groovy-mode groovy-imports pcache gradle-mode yapfify stickyfunc-enhance pytest pyenv-mode py-isort pippel pipenv pyvenv pip-requirements live-py-mode importmagic epc ctable concurrent helm-pydoc helm-gtags helm-cscope xcscope ggtags cython-mode counsel-gtags company-anaconda anaconda-mode pythonic ox-twbs ox-gfm material-theme emojify ht emoji-cheat-sheet-plus company-emoji all-the-icons-dired yasnippet-snippets ws-butler writeroom-mode winum which-key volatile-highlights vi-tilde-fringe uuidgen use-package unfill toc-org symon string-inflection spaceline-all-the-icons sound-wav smeargle restart-emacs rainbow-mode rainbow-identifiers rainbow-delimiters prodigy popwin persp-mode pcre2el password-generator paradox overseer orgit org-tree-slide org-projectile org-present org-pomodoro org-mime org-download org-bullets org-brain open-junk-file neotree nameless mwim move-text mmm-mode markdown-toc magit-svn magit-gitflow macrostep lorem-ipsum linum-relative link-hint indent-guide hungry-delete htmlize hlint-refactor hl-todo hindent highlight-parentheses highlight-numbers highlight-indentation helm-xref helm-themes helm-swoop helm-rtags helm-purpose helm-projectile helm-org-rifle helm-mode-manager helm-make helm-hoogle helm-gitignore helm-git-grep helm-flx helm-descbinds helm-company helm-c-yasnippet helm-ag haskell-snippets graphviz-dot-mode google-translate google-c-style golden-ratio gnuplot gitignore-templates gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link git-gutter-fringe git-gutter-fringe+ gh-md fuzzy font-lock+ flycheck-rtags flycheck-pos-tip flycheck-haskell flx-ido fill-column-indicator fancy-battery eyebrowse expand-region evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-org evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-magit evil-lisp-state evil-lion evil-indent-plus evil-iedit-state evil-goggles evil-exchange evil-escape evil-ediff evil-cleverparens evil-args evil-anzu engine-mode elisp-slime-nav editorconfig dumb-jump dotenv-mode doom-modeline disaster diminish diff-hl define-word counsel-projectile company-statistics company-rtags company-ghci company-cabal company-c-headers column-enforce-mode color-identifiers-mode cmm-mode clojure-snippets clean-aindent-mode clang-format cider-eval-sexp-fu cider centered-cursor-mode browse-at-remote auto-yasnippet auto-highlight-symbol auto-compile aggressive-indent ace-window ace-link ace-jump-helm-line ac-ispell 2048-game)))
