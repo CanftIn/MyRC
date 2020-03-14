@@ -61,10 +61,10 @@
                  (act2            "#5d4d7a")
                  (base            "#b2b2b2")
                  (base-dim        "#686868")
-                 (bg1             "#292b2e")
-                 (bg2             "#212026")
-                 (bg3             "#100a14")
-                 (bg4             "#0a0814")
+                 ;;(bg1             "#292b2e")
+                 ;;(bg2             "#212026")
+                 ;;(bg3             "#100a14")
+                 ;;(bg4             "#0a0814")
                  (border          "#5d4d7a")
                  (cblk            "#cbc1d5")
                  (cblk-bg         "#2f2b33")
@@ -75,7 +75,7 @@
                  ;; (comment         "#2aa1ae")
                  (comp            "#c56ec3")
                  (err             "#e0211d")
-                 (func            "#bc6ec5")
+                 ;;(func            "#bc6ec5")
                  (head1           "#4f97d7")
                  (head1-bg        "#293239")
                  (head2           "#2d9574")
@@ -1087,14 +1087,14 @@
                 (web-mode-warning-face :inherit ,font-lock-warning-face)
 
 ;;;;; which-key
-                (which-key-command-description-face :foreground ,base)
-                (which-key-group-description-face :foreground ,keyword)
-                (which-key-key-face :foreground ,func :inherit bold)
-                (which-key-separator-face :background nil :foreground ,str)
-                (which-key-special-key-face :background ,func :foreground ,bg1)
+                ;;(which-key-command-description-face :foreground ,base)
+                ;;(which-key-group-description-face :foreground ,keyword)
+                ;;(which-key-key-face :foreground ,func :inherit bold)
+                ;;(which-key-separator-face :background nil :foreground ,str)
+                ;;(which-key-special-key-face :background ,func :foreground ,bg1)
 
 ;;;;; which-function-mode
-                (which-func :foreground ,func)
+                ;;(which-func :foreground ,func)
 
 ;;;;; whitespace-mode
                 (whitespace-empty :background nil :foreground ,yellow)
