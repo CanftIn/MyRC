@@ -111,26 +111,42 @@ This function should only modify configuration layer settings."
                       auto-completion-private-snippets-directory "~/.emacs.d/private/yasnippets"
                       )
      better-defaults
+     helpful
      git
      github
      pdf
+     epub
+     command-log
+     dap
+     pandoc
      multiple-cursors
      ;; treemacs
      neotree
+     deft
+     (ranger :variables
+             ranger-show-preview t
+             ranger-show-hidden t
+             ranger-cleanup-eagerly t
+             ranger-cleanup-on-disable t
+             ranger-ignored-extensions '("mkv" "flv" "iso" "mp4"))
      (org :variables
           org-enable-github-support t
           org-enable-bootstrap-support t)
-     ;; (shell :variables
-     ;;        shell-default-height 30
-     ;;        shell-default-position 'bottom)
+     (shell :variables
+            shell-default-shell 'eshell
+            shell-default-height 30
+            shell-default-position 'bottom)
      spell-checking
      syntax-checking
-     version-control
+     (version-control :variables
+                      version-control-diff-tool 'diff-hl
+                      version-control-global-margin t)
      ;; ----------------     tools     ----------------
 
      ;; ---------------- my own layers ----------------
      CanftIn
      (display :location local)
+     ;; (google-calendar :location local)
      ;;cc-c++
      ;; ---------------- my own layers ----------------
      )
@@ -164,6 +180,7 @@ This function should only modify configuration layer settings."
      keyfreq
      go-playground
      gotest
+     centaur-tabs
      )
 
    ;; A list of packages that cannot be updated.
@@ -291,7 +308,7 @@ It should only modify the values of Spacemacs settings."
    ;; Press `SPC T n' to cycle to the next theme in the list (works great
    ;; with 2 themes variants, one dark and one light)
    dotspacemacs-themes '(
-                         (my-dracula :location local)
+                         (CanftIn-dracula :location local)
                          ;;farmhouse-dark
                          ;;material
                          ;;material-light
@@ -581,15 +598,15 @@ It is mostly for variables that should be set before packages are loaded.
 If you are unsure, try setting them in `dotspacemacs/user-config' first."
   ;; spacemacs terminal background transparency setting
   (setq spacemacs-theme-comment-bg nil)
-  (setq-default configuration-layer-elpa-archives
-                '(("melpa-cn" . "http://elpa.emacs-china.org/melpa/")
-                  ("org-cn"   . "http://elpa.emacs-china.org/org/")
-                  ("gnu-cn"   . "http://elpa.emacs-china.org/gnu/")))
+  ;; (setq-default configuration-layer-elpa-archives
+  ;;               '(("melpa-cn" . "http://elpa.emacs-china.org/melpa/")
+  ;;                 ("org-cn"   . "http://elpa.emacs-china.org/org/")
+  ;;                 ("gnu-cn"   . "http://elpa.emacs-china.org/gnu/")))
   ;; change elpa source
- ;; (setq configuration-layer-elpa-archives
- ;;       '(("melpa-cn" . "http://mirrors.tuna.tsinghua.edu.cn/elpa/melpa/")
- ;;         ("org-cn"   . "http://mirrors.tuna.tsinghua.edu.cn/elpa/org/")
- ;;         ("gnu-cn"   . "http://mirrors.tuna.tsinghua.edu.cn/elpa/gnu/")))
+  (setq configuration-layer-elpa-archives
+        '(("melpa-cn" . "http://mirrors.tuna.tsinghua.edu.cn/elpa/melpa/")
+          ("org-cn"   . "http://mirrors.tuna.tsinghua.edu.cn/elpa/org/")
+          ("gnu-cn"   . "http://mirrors.tuna.tsinghua.edu.cn/elpa/gnu/")))
 
 
   (defun on-after-init ()
