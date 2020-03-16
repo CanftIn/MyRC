@@ -1,12 +1,30 @@
+
+## **WARNING**
+Due to my mistake that added the binary files in this repo in the past time. This repo became bigger than the normal. Almost 200 MB. So **It not be suggested to clone this repo.**
+
+If you want to clone this repo, you can try
+```
+git clone -b develop https://github.com/CanftIn/MyRC.git --depth 1
+```
+this will clone only 1 depth for 17 MB size fold.
+
+Or you can try to clone the new [CanftIn/dotfiles](https://github.com/CanftIn/dotfiles) repo for small and stable version.
+
+---
+
 # MyRC
 ![](https://img.shields.io/badge/MyRC-v1.2-519dd9.svg)   ![](https://img.shields.io/badge/platform-Windows%20%7C%20ArchLinux%20%7C%20termux%20%7C%20Ubuntu%20%7C%20WSL-brightgreen.svg)  ![](https://img.shields.io/badge/language-Elisp%20%7C%20Vimscript%20%7C%20YASnippets%20%7C%20bash-orange.svg)
 
 <a href="https://github.com/CanftIn/MyRC/issues/new"><img alt="Support me" src="https://img.shields.io/badge/Support%20Me-%F0%9F%92%97-ff69b4.svg"></a>
 
 My ArchLinux setting resouce files, the `private` fold is about my private configuations for platfroms like: 
+
 `WSL` => Windows subsystem linux environment configuations,
+
 `termux` => Anroid termux environment configuations,
+
 `arch` => ArchLinux environment configuations,
+
 and so on.
 
 From 2020 ==> this repo is not only aiming at ArchLinux, but also working well on Windows such as `spacemacs` and `vimrc` dotfiles. 
