@@ -8,7 +8,7 @@ git clone -b develop https://github.com/CanftIn/MyRC.git --depth 1
 ```
 this will clone only 1 depth for 17 MB size fold.
 
-Or you can try to clone the new [CanftIn/dotfiles](https://github.com/CanftIn/dotfiles) repo for small and stable version.
+Or you can try to clone the new [CanftIn/dotfiles](https://github.com/CanftIn/dotfiles) repo for small and unstable version.
 
 ---
 
